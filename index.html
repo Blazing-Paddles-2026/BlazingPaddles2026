@@ -1,22 +1,386 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Blazing Paddles 2026 Dashboard — Round Rock Fire Foundation</title>
-    <meta name="description" content="Dashboard for the 2026 Blazing Paddles Pickleball Tournament — sponsor playbook, raffle strategy, outreach scripts, planning timeline, and day-of checklist for the Round Rock Fire Foundation." />
-    <meta name="theme-color" content="#1a1614" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1614'/%3E%3Cpath d='M16 7c2 3 4 5 4 8a4 4 0 11-8 0c0-2 1-3 2-4-1 2 0 3 1 3 0-3 1-5 1-7z' fill='%23e5571a'/%3E%3Cpath d='M16 11c1 1.5 2 2.5 2 4a2 2 0 11-4 0c0-1 .5-1.5 1-2 0 1 .5 1 1 1 0-1 0-2 0-3z' fill='%23ffd166'/%3E%3C/svg%3E" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Architects+Daughter&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Oxanium:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <script type="module" crossorigin src="./assets/index-7QKgLI7a.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B4XmZATq.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blazing Paddles 2026 Dashboard — Round Rock Fire Foundation</title>
+  <meta name="description" content="Committee command center for the 2026 Blazing Paddles Pickleball Tournament — sponsor playbook, raffle strategy, outreach scripts, planning timeline, and day-of run-of-show for the Round Rock Fire Foundation." />
+  <meta name="theme-color" content="#0a0907" />
+
+  <link rel="icon" type="image/jpeg" href="assets/images/blazing-paddles-icon-official-2026.jpg" />
+
+  <!-- Fonts: Khand (display) + Satoshi (body) — matches pickleball site -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="app">
+
+    <!-- ============== SIDEBAR ============== -->
+    <aside class="sidebar" aria-label="Command center navigation">
+      <a class="sidebar-brand" href="#top" aria-label="Blazing Paddles 2026 Command Center">
+        <img class="brand-mark-img" src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="Blazing Paddles 2026 logo" width="44" height="44" />
+        <span class="brand-text">
+          <span class="brand-line-1">Blazing Paddles</span>
+          <span class="brand-line-2">2026 · Command Center</span>
+        </span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Primary">
+        <p class="nav-kicker">Playbook</p>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#sponsors">Sponsor Playbook</a>
+        <a href="#targets">Sponsor Targets</a>
+        <a href="#raffle">Raffle Strategy</a>
+        <a href="#outreach">Outreach Scripts</a>
+        <p class="nav-kicker">Operations</p>
+        <a href="#timeline">Planning Timeline</a>
+        <a href="#donations">Donation Tracker</a>
+        <a href="#operations">Event Operations</a>
+        <a href="#checklist">Day-of Checklist</a>
+        <p class="nav-kicker">Closeout</p>
+        <a href="#recognition">Recognition Plan</a>
+        <a href="#kpis">KPIs</a>
+      </nav>
+
+      <div class="sidebar-venue">
+        <span class="venue-label">Tournament Day</span>
+        <span class="venue-value">Sat · Oct 10, 2026</span>
+        <a class="venue-link" href="https://maps.google.com/?q=Tejas+Pickleball+Club+Georgetown+TX+78626" target="_blank" rel="noopener noreferrer">
+          Tejas Pickleball Club <span aria-hidden="true">↗</span>
+        </a>
+        <p class="venue-fine">All proceeds benefit the Round Rock Fire Foundation — crisis relief, family support, and wellness for Round Rock firefighters and families.</p>
+      </div>
+    </aside>
+
+    <!-- ============== MAIN ============== -->
+    <main id="main" class="main">
+
+      <!-- Top status bar -->
+      <header class="topbar" id="top">
+        <div class="topbar-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-text">Committee Dashboard · Live</span>
+          <span class="status-meta">T-19 weeks · Updated May 27, 2026</span>
+        </div>
+        <div class="topbar-actions">
+          <a class="btn-link" href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener noreferrer">View public site ↗</a>
+          <a class="btn-link" href="mailto:info@roundrockfirefoundation.org" aria-label="Email RRFF">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@roundrockfirefoundation.org
+          </a>
+          <a class="btn-link" href="tel:+15129671007" aria-label="Call RRFF">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            (512) 967-1007
+          </a>
+        </div>
+      </header>
+
+      <!-- HERO CARD -->
+      <section class="hero" id="dashboard">
+        <div class="hero-bg" aria-hidden="true">
+          <div class="hero-glow"></div>
+          <div class="hero-grid"></div>
+        </div>
+
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="dot"></span>
+              Operations · October 10, 2026
+            </p>
+            <h1 class="hero-title">
+              Round Rock<br/>Fire Foundation<br/>
+              <span class="hero-title-sub">Blazing Paddles</span>
+            </h1>
+            <p class="hero-lede">
+              A working dashboard for the committee — sponsor playbook, raffle strategy, outreach scripts, planning timeline, and day-of run-of-show in one place. All proceeds fund crisis relief, family support programs, and wellness for Round Rock firefighters.
+            </p>
+
+            <ul class="hero-meta">
+              <li>
+                <span class="meta-label">Date</span>
+                <span class="meta-value">Saturday<br/>Oct 10, 2026</span>
+              </li>
+              <li>
+                <span class="meta-label">Venue</span>
+                <span class="meta-value">Tejas Pickleball Club<br/>Georgetown, TX</span>
+              </li>
+              <li>
+                <span class="meta-label">Format</span>
+                <span class="meta-value">Doubles · Singles<br/>First Responders</span>
+              </li>
+              <li>
+                <span class="meta-label">Goal</span>
+                <span class="meta-value">$32,000<br/>Net Raised</span>
+              </li>
+            </ul>
+
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#sponsors">Open sponsor playbook →</a>
+              <a class="btn btn-ghost" href="#outreach">Outreach scripts</a>
+            </div>
+          </div>
+
+          <figure class="hero-art">
+            <img src="assets/images/blazing-paddles-logo-official-2026.jpg" alt="Round Rock Fire Foundation's Blazing Paddles Pickleball Tournament 2026 logo." width="1080" height="1080" />
+          </figure>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <section class="strip" aria-label="Event highlights">
+        <div class="strip-track">
+          <span>T-19 Weeks</span><span aria-hidden="true">●</span>
+          <span>Sponsor Outreach</span><span aria-hidden="true">●</span>
+          <span>Raffle Procurement</span><span aria-hidden="true">●</span>
+          <span>Registration Open</span><span aria-hidden="true">●</span>
+          <span>October 10, 2026</span><span aria-hidden="true">●</span>
+          <span>Tejas Pickleball Club</span><span aria-hidden="true">●</span>
+          <span>Round Rock Fire Foundation</span><span aria-hidden="true">●</span>
+          <span>T-19 Weeks</span><span aria-hidden="true">●</span>
+          <span>Sponsor Outreach</span><span aria-hidden="true">●</span>
+          <span>Raffle Procurement</span><span aria-hidden="true">●</span>
+          <span>Registration Open</span><span aria-hidden="true">●</span>
+          <span>October 10, 2026</span><span aria-hidden="true">●</span>
+          <span>Tejas Pickleball Club</span><span aria-hidden="true">●</span>
+          <span>Round Rock Fire Foundation</span><span aria-hidden="true">●</span>
+        </div>
+      </section>
+
+      <!-- KPI GRID -->
+      <section class="section" id="kpis">
+        <header class="section-head">
+          <p class="kicker">At a Glance</p>
+          <h2 class="section-title">The numbers that matter this week.</h2>
+          <p class="section-lede">Live committee KPIs. Update each Sunday during the standup.</p>
+        </header>
+
+        <div class="grid kpi-grid">
+          <article class="kpi-card">
+            <span class="kpi-label">Funding Goal</span>
+            <span class="kpi-value">$32,000</span>
+            <span class="kpi-sub">$8,500 committed · demo</span>
+            <div class="kpi-bar" aria-hidden="true"><span style="width: 26%;"></span></div>
+          </article>
+
+          <article class="kpi-card">
+            <span class="kpi-label">Sponsor Slots</span>
+            <span class="kpi-value">19</span>
+            <span class="kpi-sub">1 Chief · 6 Lieutenant · 12 Firefighter</span>
+          </article>
+
+          <article class="kpi-card">
+            <span class="kpi-label">Target List</span>
+            <span class="kpi-value">50</span>
+            <span class="kpi-sub">Local &amp; regional prospects</span>
+          </article>
+
+          <article class="kpi-card">
+            <span class="kpi-label">Raffle Prize Ideas</span>
+            <span class="kpi-value">32</span>
+            <span class="kpi-sub">Across 12 categories</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- THIS WEEK'S FOCUS + COMPLIANCE -->
+      <section class="section section-alt" id="focus">
+        <div class="two-col">
+
+          <div>
+            <p class="kicker">This Week · T-8 Weeks Urgency</p>
+            <h2 class="section-title">Lock the Chief presenting sponsor.</h2>
+            <p class="section-lede">
+              Public launch hinges on a confirmed presenting sponsor by T-8. Pursue Dell Technologies, Baylor Scott &amp; White Round Rock, Round Rock Express, Kalahari Round Rock, or H-E-B in parallel — first commit wins exclusivity.
+            </p>
+
+            <ul class="focus-list">
+              <li>
+                <span class="focus-icon" aria-hidden="true">🔥</span>
+                <div>
+                  <h3>Send 5 Chief-tier asks</h3>
+                  <p>Parallel, not sequential. Personalized cover letter + sponsorship deck.</p>
+                </div>
+              </li>
+              <li>
+                <span class="focus-icon" aria-hidden="true">📄</span>
+                <div>
+                  <h3>Confirm 501(c)(3) determination letter</h3>
+                  <p>Required attachment for all sponsor packets going out this week.</p>
+                </div>
+              </li>
+              <li>
+                <span class="focus-icon" aria-hidden="true">✉️</span>
+                <div>
+                  <h3>Send 15 Lieutenant cold/warm emails</h3>
+                  <p>Use the Lieutenant outreach script. Track in the donation tracker.</p>
+                </div>
+              </li>
+              <li>
+                <span class="focus-icon" aria-hidden="true">🎁</span>
+                <div>
+                  <h3>Open raffle prize asks to top 10 targets</h3>
+                  <p>Focus on hospitality and restaurant targets. Prizes must be in hand before tickets sell.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <aside class="aside-card compliance" id="compliance">
+            <p class="kicker">Compliance Reminders</p>
+            <h3>Read this every week.</h3>
+            <ul class="bullet-list">
+              <li><strong>Texas Charitable Raffle Enabling Act:</strong> max 4 raffles per year, prize cap $75,000, no cash, no alcohol, no firearms — and prizes must be in hand <em>before</em> tickets sell.</li>
+              <li><strong>IRS rules:</strong> raffle ticket purchases are <em>not</em> tax deductible. Sponsorships and direct donations to a 501(c)(3) generally are — always defer to the treasurer for receipt language.</li>
+              <li><strong>Form W-2G + 25% withholding</strong> may apply when net winnings exceed $600 and 300× ticket cost. Coordinate with treasurer.</li>
+            </ul>
+            <a class="btn btn-ghost" href="https://www.statutes.legis.state.tx.us/Docs/OC/htm/OC.2002.htm" target="_blank" rel="noopener noreferrer">Texas raffle statute ↗</a>
+          </aside>
+
+        </div>
+      </section>
+
+      <!-- PLAYBOOK PANELS -->
+      <section class="section" id="sponsors">
+        <header class="section-head">
+          <p class="kicker">Playbook</p>
+          <h2 class="section-title">Sponsor outreach, donations &amp; day-of ops.</h2>
+          <p class="section-lede">Open any panel below to jump into the relevant playbook. Owners coordinate weekly with the committee.</p>
+        </header>
+
+        <div class="grid panel-grid">
+          <a class="panel-card" href="#sponsors">
+            <span class="panel-tier">Sponsorship</span>
+            <h3>Sponsor Playbook</h3>
+            <p>Sponsorship tiers, asks, deck, and the email + voicemail scripts that convert. Updated weekly.</p>
+            <span class="panel-cta">Open playbook →</span>
+          </a>
+
+          <a class="panel-card" href="#targets">
+            <span class="panel-tier">Sponsorship</span>
+            <h3>Sponsor Targets</h3>
+            <p>The live 50-name target list, color-coded by tier with owner and last-touch dates.</p>
+            <span class="panel-cta">Open list →</span>
+          </a>
+
+          <a class="panel-card" href="#raffle">
+            <span class="panel-tier">Fundraising</span>
+            <h3>Raffle Strategy</h3>
+            <p>Prize categories, procurement scripts, Texas raffle compliance, and ticket logistics.</p>
+            <span class="panel-cta">Open strategy →</span>
+          </a>
+
+          <a class="panel-card panel-card-feature" href="#outreach">
+            <span class="panel-tier panel-tier-flame">Outreach</span>
+            <h3>Outreach Scripts</h3>
+            <p>Email, text, voicemail, follow-up, and thank-you scripts for every tier and use case.</p>
+            <span class="panel-cta">Open scripts →</span>
+          </a>
+
+          <a class="panel-card" href="#timeline">
+            <span class="panel-tier">Operations</span>
+            <h3>Planning Timeline</h3>
+            <p>T-minus countdown from today to tournament day, with weekly milestones and owners.</p>
+            <span class="panel-cta">Open timeline →</span>
+          </a>
+
+          <a class="panel-card" href="#donations">
+            <span class="panel-tier">Operations</span>
+            <h3>Donation Tracker</h3>
+            <p>Committed dollars, in-kind donations, pledges, and follow-up tasks rolled to the funding goal.</p>
+            <span class="panel-cta">Open tracker →</span>
+          </a>
+
+          <a class="panel-card" href="#operations">
+            <span class="panel-tier">Operations</span>
+            <h3>Event Operations</h3>
+            <p>Vendors, volunteers, court layouts, food trucks, music, signage, and run-of-show.</p>
+            <span class="panel-cta">Open ops →</span>
+          </a>
+
+          <a class="panel-card panel-card-feature" href="#checklist">
+            <span class="panel-tier panel-tier-flame">Day-Of</span>
+            <h3>Day-of Checklist</h3>
+            <p>Hour-by-hour run-of-show, check-in tables, raffle table, awards, and tear-down.</p>
+            <span class="panel-cta">Open checklist →</span>
+          </a>
+
+          <a class="panel-card" href="#recognition">
+            <span class="panel-tier">Closeout</span>
+            <h3>Recognition Plan</h3>
+            <p>Thank-yous, social posts, press, sponsor recognition, and donor stewardship plan.</p>
+            <span class="panel-cta">Open plan →</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- EVENT INFO QUICK FACTS -->
+      <section class="section section-alt" id="event-info">
+        <header class="section-head">
+          <p class="kicker">Event Info</p>
+          <h2 class="section-title">Tournament essentials.</h2>
+          <p class="section-lede">Working values for the committee. Confirm with the foundation before any external publishing.</p>
+        </header>
+
+        <div class="quick-facts">
+          <div class="fact">
+            <span class="fact-label">Date</span>
+            <span class="fact-value">Saturday, October 10, 2026</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Venue</span>
+            <span class="fact-value">Tejas Pickleball Club</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Address</span>
+            <span class="fact-value">4701 FM 3405<br/>Georgetown, TX 78633</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Email</span>
+            <span class="fact-value"><a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a></span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Phone</span>
+            <span class="fact-value"><a href="tel:+15129671007">(512) 967-1007</a></span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Public site</span>
+            <span class="fact-value"><a href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener noreferrer">pickleball.roundrockfirefoundation.org ↗</a></span>
+          </div>
+        </div>
+
+        <p class="fine-print">Placeholder · Confirm exact start/end times, registration link, and final logistics with RRFF before publishing externally.</p>
+      </section>
+
+      <!-- CONTACT CTA -->
+      <section class="section" id="contact">
+        <div class="contact-cta">
+          <div>
+            <p class="kicker">Need help routing an ask?</p>
+            <h2 class="section-title">Forward warm leads to the foundation.</h2>
+            <p class="section-lede">We'll match the lead to the right committee member and circle back with next steps within 48 hours.</p>
+          </div>
+          <div class="cta-row cta-row-stack">
+            <a class="btn btn-primary" href="mailto:info@roundrockfirefoundation.org?subject=Blazing%20Paddles%202026%20Lead">Email info@roundrockfirefoundation.org</a>
+            <a class="btn btn-ghost" href="tel:+15129671007">Call (512) 967-1007</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <p>© <span id="year">2026</span> Round Rock Fire Foundation · Blazing Paddles Committee Command Center</p>
+        <p class="muted small">All proceeds benefit the Round Rock Fire Foundation — crisis relief, family support, and wellness for Round Rock firefighters and families.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
 </html>
