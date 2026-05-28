@@ -803,6 +803,74 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
 .dashboard-footer p { margin: 0 0 var(--space-2); }
 .dashboard-footer .small { font-size: var(--text-xs); color: var(--text-faint); line-height: 1.6; }
 
+/* ---------------- Mobile sidebar toggle ---------------- */
+.sidebar-toggle {
+  display: none; /* shown only on small screens */
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color .15s ease, background .15s ease;
+}
+.sidebar-toggle:hover {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
+}
+.sidebar-toggle-mark {
+  display: block;
+  width: 26px; height: 26px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--primary) 45%, var(--border));
+  flex: none;
+}
+.sidebar-toggle-text { display: inline-block; }
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18px; height: 12px;
+  flex: none;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+body.sidebar-open .hamburger span:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+body.sidebar-open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+body.sidebar-open .hamburger span:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  transition: opacity .2s ease;
+  cursor: pointer;
+}
+
 /* ---------------- Responsive ---------------- */
 @media (max-width: 1180px) {
   .panel-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -810,8 +878,14 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   .hero-meta { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
+@media (max-width: 1100px) {
+  /* On medium-narrow screens, simplify topbar */
+  .topbar-actions .btn-link:not(:first-child) {
+    /* Hide the long email/phone labels — keep them as icon-only links elsewhere on page */
+  }
+}
+
 @media (max-width: 960px) {
-  :root { --sidebar-w: 240px; }
   .two-col { grid-template-columns: 1fr; }
   .contact-cta { grid-template-columns: 1fr; }
   .hero-inner { grid-template-columns: 1fr; }
@@ -819,20 +893,81 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   .quick-facts { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 
-@media (max-width: 760px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar {
-    position: relative;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-    flex-direction: column;
+/* ==========================================================
+   Mobile: ≤ 900px
+   Sidebar becomes a slide-in overlay triggered by hamburger.
+   ========================================================== */
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
   }
-  .sidebar-nav { display: none; }
-  .sidebar-venue { display: none; }
+
+  /* Sidebar slides in from the left */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: min(86vw, 320px);
+    height: 100vh;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.16,1,.3,1);
+    box-shadow: 18px 0 60px -10px rgba(0,0,0,.6);
+    overscroll-behavior: contain;
+  }
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Backdrop visible when sidebar is open */
+  .sidebar-backdrop { display: block; pointer-events: none; }
+  body.sidebar-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Lock scroll while the overlay is open */
+  body.sidebar-open { overflow: hidden; }
+
+  /* Topbar: stack into two rows with the toggle on the left */
+  .topbar {
+    gap: var(--space-3);
+    padding: var(--space-3) clamp(var(--space-3), 4vw, var(--space-5));
+  }
+  .sidebar-toggle { display: inline-flex; }
+
+  /* Hide long email/phone links on mobile — they live in the page sections */
+  .topbar-actions .btn-link[href^="mailto"],
+  .topbar-actions .btn-link[href^="tel"] { display: none; }
+  .topbar-actions {
+    margin-left: auto;
+  }
+
+  .topbar-status { min-width: 0; order: 3; flex: 1 0 100%; }
+  .status-text { font-size: var(--text-xs); }
+  .status-meta { font-size: 11px; }
+
+  /* Tighten section padding */
+  .section { padding: clamp(36px, 8vw, 56px) clamp(var(--space-3), 4vw, var(--space-5)); }
+  .hero { padding: clamp(24px, 6vw, 40px) clamp(var(--space-3), 4vw, var(--space-5)) clamp(36px, 6vw, 64px); }
+
   .quick-facts { grid-template-columns: 1fr; }
-  .panel-grid, .kpi-grid { grid-template-columns: 1fr; }
-  .hero-title { font-size: clamp(2.5rem, 11vw, 4rem); }
+  .panel-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .hero-title { font-size: clamp(2.25rem, 11vw, 4rem); }
+  .hero-meta { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+  /* Contact CTA: stack and full-width buttons */
+  .contact-cta { padding: var(--space-6); }
+  .cta-row .btn { width: 100%; }
+}
+
+@media (max-width: 540px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .hero-meta { grid-template-columns: 1fr; }
+  /* Hide the menu text on the toggle — leave the hamburger + brand mark */
+  .sidebar-toggle-text { display: none; }
+  .sidebar-toggle { padding: 6px 10px 6px 6px; }
+  .topbar-actions .btn-link { font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -841,4 +976,5 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
     transition-duration: 0.001ms !important;
   }
   html { scroll-behavior: auto; }
+  .sidebar { transition: none; }
 }

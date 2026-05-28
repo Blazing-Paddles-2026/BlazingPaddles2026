@@ -23,6 +23,9 @@
 
   <div class="app">
 
+    <!-- Mobile sidebar backdrop (only visible when sidebar is open on small screens) -->
+    <div class="sidebar-backdrop" data-sidebar-backdrop aria-hidden="true"></div>
+
     <!-- ============== SIDEBAR ============== -->
     <aside class="sidebar" aria-label="Command center navigation">
       <a class="sidebar-brand" href="#top" aria-label="Blazing Paddles 2026 Command Center">
@@ -33,7 +36,7 @@
         </span>
       </a>
 
-      <nav class="sidebar-nav" aria-label="Primary">
+      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary">
         <p class="nav-kicker">Playbook</p>
         <a href="#dashboard">Dashboard</a>
         <a href="#sponsors">Sponsor Playbook</a>
@@ -65,10 +68,17 @@
 
       <!-- Top status bar -->
       <header class="topbar" id="top">
+        <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="sidebar-nav" aria-expanded="false" aria-label="Open menu">
+          <span class="hamburger" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" class="sidebar-toggle-mark" />
+          <span class="sidebar-toggle-text">Menu</span>
+        </button>
         <div class="topbar-status">
           <span class="status-dot" aria-hidden="true"></span>
           <span class="status-text">Committee Dashboard · Live</span>
-          <span class="status-meta">T-19 weeks · Updated May 27, 2026</span>
+          <span class="status-meta" data-status-meta>T-19 weeks · Updated May 27, 2026</span>
         </div>
         <div class="topbar-actions">
           <a class="btn-link" href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener noreferrer">View public site ↗</a>
