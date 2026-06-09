@@ -789,6 +789,11 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   font-size: var(--text-sm);
   line-height: 1.6;
 }
+.site-audio {
+  width: 100%;
+  margin-top: var(--space-5);
+  border-radius: 999px;
+}
 .script-stack {
   display: grid;
   gap: var(--space-5);
