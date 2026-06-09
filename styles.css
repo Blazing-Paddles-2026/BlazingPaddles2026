@@ -608,7 +608,7 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   border-radius: 999px;
 }
 
-/* ---------------- Focus + Compliance two-col ---------------- */
+/* ---------------- Focus + right-column card ---------------- */
 .two-col {
   display: grid;
   grid-template-columns: 1.2fr 0.9fr;
@@ -675,11 +675,6 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   margin: 0 0 var(--space-4);
   color: var(--text);
 }
-.aside-card.compliance {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 6%, var(--surface)), var(--surface));
-  border-color: color-mix(in oklab, var(--primary) 25%, var(--border));
-}
-
 .bullet-list {
   list-style: none; padding: 0; margin: 0 0 var(--space-6);
   display: flex; flex-direction: column; gap: var(--space-3);
@@ -801,6 +796,50 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
 .script-card p + p {
   margin-top: var(--space-3);
   color: var(--text);
+}
+.raffle-table-wrap {
+  margin: var(--space-8) 0;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+.raffle-table {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+}
+.raffle-table th,
+.raffle-table td {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.raffle-table th {
+  color: var(--text);
+  background: color-mix(in oklab, var(--primary) 12%, var(--surface));
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.raffle-table td {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.raffle-table td:first-child {
+  color: var(--text);
+  font-weight: 800;
+}
+.raffle-table tr:last-child td {
+  border-bottom: 0;
+}
+.raffle-table a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ---------------- Quick facts ---------------- */
