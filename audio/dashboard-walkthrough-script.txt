@@ -1,6 +1,6 @@
 Welcome to the Blazing Paddles 2026 Dashboard.
 
-This site is for committee members and volunteers. It is the working place for planning, sponsor outreach, raffle donations, flyers, event operations, owner assignments, and follow-up.
+This site is for committee members and volunteers. It is the working place for planning, sponsor outreach, raffle donations, flyers, event operations, and follow-up.
 
 Start on the dashboard home page. Each card opens a different working area. If you are not sure where to go, start there.
 
@@ -18,8 +18,6 @@ The Donation Tracker is the most important working tool on the site. There are t
 
 Use one row per business or donor. Keep the status current. Add the next follow-up date. If something is received, mark it received. If the thank-you has been sent, mark it thanked.
 
-Use the Contacts and Owners page when you are not sure who should handle a question. It has role slots for the event lead, sponsor lead, raffle lead, tracker lead, flyers and website lead, volunteer lead, operations lead, recognition lead, and finance or payment lead.
-
 Use the Planning Timeline to see what needs to happen between now and tournament day.
 
 Use Event Operations and the Day-of Checklist as the event gets closer. Those pages cover setup, volunteer stations, check-in, raffle table, signage, court flow, awards, and cleanup.
@@ -28,4 +26,4 @@ Use the Recognition Plan to make sure sponsors and donors are thanked properly a
 
 Use KPIs during committee check-ins to see where things stand.
 
-The dashboard only works if everyone uses the same system. Check the tracker before reaching out, keep your rows updated, use the owner page when you need direction, and send any missing information to the web lead so the dashboard stays current.
+The dashboard only works if everyone uses the same system. Check the tracker before reaching out, keep your rows updated, and send any missing information to the web lead so the dashboard stays current.
