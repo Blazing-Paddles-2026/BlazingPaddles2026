@@ -43,6 +43,28 @@
   }
 
   /* -------------------------------------------------------------
+   * 1b) Reliable internal hash navigation
+   * ------------------------------------------------------------- */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    var target = document.getElementById(hash.slice(1));
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, '', hash);
+    } else {
+      window.location.hash = hash;
+    }
+  });
+
+  /* -------------------------------------------------------------
    * 2) Footer year
    * ------------------------------------------------------------- */
   var yearEl = document.getElementById('year');
