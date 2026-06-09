@@ -842,6 +842,50 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   text-underline-offset: 3px;
 }
 
+/* ---------------- Flyer assets ---------------- */
+.flyer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.flyer-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+.flyer-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  border-bottom: 1px solid var(--border);
+}
+.flyer-card-body {
+  padding: var(--space-5);
+}
+.flyer-card h3 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.flyer-card p {
+  margin: 0 0 var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.flyer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 /* ---------------- Quick facts ---------------- */
 .quick-facts {
   display: grid;
@@ -976,6 +1020,7 @@ body.sidebar-open .hamburger span:nth-child(3) {
 @media (max-width: 1180px) {
   .panel-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .detail-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .flyer-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .hero-meta { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
@@ -1055,6 +1100,7 @@ body.sidebar-open .hamburger span:nth-child(3) {
   .quick-facts { grid-template-columns: 1fr; }
   .panel-grid { grid-template-columns: 1fr; }
   .detail-grid { grid-template-columns: 1fr; }
+  .flyer-grid { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .hero-title { font-size: clamp(2.25rem, 11vw, 4rem); }
   .hero-meta { grid-template-columns: repeat(2, minmax(0,1fr)); }
