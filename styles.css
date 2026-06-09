@@ -70,6 +70,10 @@
 /* ---------------- Reset & base ---------------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+section,
+.panel-card {
+  scroll-margin-top: var(--space-8);
+}
 body {
   margin: 0;
   font-family: var(--font-body);
