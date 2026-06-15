@@ -1,59 +1,9 @@
-/* Blazing Paddles Command Center — page styles
-   Built on top of styles.css; replaces the side-nav layout
-   with a horizontal top-nav layout matching the Kimi app. */
-
-.cc-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  margin: 0;
-  min-height: 100vh;
-}
-
-/* Top bar */
-.cc-topbar {
-  position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-6);
-  padding: var(--space-4) var(--space-6);
-  background: rgba(6,9,26,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.cc-brand {
-  display: flex; align-items: center; gap: 12px;
-  color: var(--text); text-decoration: none;
-  font-family: var(--font-display); font-weight: 700;
-  letter-spacing: 0.04em;
-}
-.cc-brand img { border-radius: 8px; }
-.cc-brand small { color: var(--text-muted); font-weight: 500; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
-
-.cc-nav { display: flex; flex-wrap: wrap; gap: 4px; }
-.cc-nav a {
-  padding: 8px 14px;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  transition: color .15s, background .15s;
-}
-.cc-nav a:hover { color: var(--text); background: var(--surface); }
-.cc-nav a.active {
-  color: var(--gold-400);
-  background: rgba(245,197,24,0.08);
-}
-
-/* Main container */
-.cc-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: var(--space-8) var(--space-6) var(--space-16);
-}
+/* Blazing Paddles Command Center — page-specific styles.
+   Used INSIDE the original sidebar layout (.app > .main > .section).
+   Original styles.css handles the sidebar, topbar, and base look.
+   This file adds: KPIs, action cards, tile grids, forms, tables, tabs,
+   workflow steps, business categories, and the rest of the new content.
+*/
 
 /* Hero */
 .cc-hero {
