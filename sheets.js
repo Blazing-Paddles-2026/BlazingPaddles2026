@@ -2,32 +2,28 @@
  * Blazing Paddles 2026 — Google Sheets read/write helper
  * ============================================================
  *
- * Reads use the public CSV export endpoint (no auth needed,
- * works while the sheet is set to "Anyone with the link can view").
+ * Both reads and writes go through the committee's Apps Script
+ * web app, which runs as Diedra and has full access to the Sheet.
+ * The Sheet itself can stay private.
  *
- * Writes use a Google Apps Script web app deployed by Diedra
- * with execute-as-me + anyone access. See SETUP-APPSSCRIPT.md
- * in this repo for the install steps.
+ * If the sheet is ever set to "Anyone with the link can view",
+ * reads can also work directly via the CSV export (fallback).
  *
- * If APPS_SCRIPT_URL is left empty, writes are queued in a
- * local in-memory buffer and a friendly message tells the user
- * to set up the webhook. Reads still work either way.
+ * One-time install: see SETUP-APPSSCRIPT.md.
  */
 (function () {
   'use strict';
 
   // ── Configuration ─────────────────────────────────────────
   const SHEET_ID = '1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00';
-  // Apps Script web app URL — replace with your deployment URL.
-  // See SETUP-APPSSCRIPT.md for the 5-minute install.
+  // Apps Script web app URL — empty until Diedra deploys + pastes.
   let APPS_SCRIPT_URL = '';
   try {
     const stored = window.localStorage && localStorage.getItem('bp_apps_script_url');
     if (stored) APPS_SCRIPT_URL = stored;
   } catch (e) { /* ignore */ }
 
-  // GIDs (sheet IDs) for each tab — used by the CSV export URL.
-  // Update these if you ever delete/recreate a tab.
+  // GIDs for each tab — used only by the CSV public-fallback path.
   const GIDS = {
     'Donation Tracker': '508954391',
     'Raffle Inventory': '154523109',
@@ -70,28 +66,51 @@
       });
   }
 
-  // ── Public API ────────────────────────────────────────────
-  async function readSheet(sheetName) {
+  // ── Read via webhook (preferred) ──────────────────────────
+  async function readViaWebhook(sheetName) {
+    if (!APPS_SCRIPT_URL) throw new Error('NO_WEBHOOK');
+    const url = APPS_SCRIPT_URL + '?action=read&sheet=' + encodeURIComponent(sheetName) + '&t=' + Date.now();
+    const resp = await fetch(url, { method: 'GET', mode: 'cors' });
+    if (!resp.ok) throw new Error('Webhook read failed: HTTP ' + resp.status);
+    const j = await resp.json();
+    if (j.error) throw new Error(j.error);
+    return j.rows || [];
+  }
+
+  // ── Read via public CSV (fallback when sheet is public) ──
+  async function readViaCSV(sheetName) {
     const gid = GIDS[sheetName];
     if (!gid) throw new Error('Unknown sheet: ' + sheetName);
     const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID +
                 '/export?format=csv&gid=' + gid + '&t=' + Date.now();
     const resp = await fetch(url, { credentials: 'omit' });
-    if (!resp.ok) throw new Error('Failed to load ' + sheetName + ': HTTP ' + resp.status);
+    if (!resp.ok) throw new Error('CSV read failed: HTTP ' + resp.status);
     const text = await resp.text();
+    if (text.indexOf('<!DOCTYPE') === 0) throw new Error('Sheet is private — open Settings to configure the webhook.');
     return rowsToObjects(parseCSV(text));
   }
 
+  async function readSheet(sheetName) {
+    // Try webhook first if configured
+    if (APPS_SCRIPT_URL) {
+      try { return await readViaWebhook(sheetName); }
+      catch (e) {
+        // Fall through to CSV attempt
+      }
+    }
+    return readViaCSV(sheetName);
+  }
+
+  // ── Writes ────────────────────────────────────────────────
   async function appendRow(sheetName, row) {
     if (!APPS_SCRIPT_URL) {
-      const msg = 'Writes are not configured yet. Open the dashboard Settings page and paste your Apps Script Web App URL. Your row was not saved.';
-      throw new Error(msg);
+      throw new Error('Writes are not configured yet. Open Settings and paste your Apps Script Web App URL.');
     }
     const resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'cors',
-      // Apps Script web apps that allow "Anyone" expect text/plain to avoid
-      // a CORS preflight, then parse JSON server-side.
+      // Use text/plain so Apps Script "Anyone" web apps avoid the CORS
+      // preflight; Apps Script parses the JSON body server-side.
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ action: 'append', sheet: sheetName, row: row }),
     });

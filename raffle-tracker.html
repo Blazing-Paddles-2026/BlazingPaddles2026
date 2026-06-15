@@ -221,7 +221,15 @@
         team.map(function (t) { return '<option>' + escapeHtml(t['Name']) + '</option>'; }).join('');
       render();
     }).catch(function (err) {
-      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load: ' + escapeHtml(err.message) + '</td></tr>';
+      var msg = err && err.message || String(err);
+      if (/private|webhook|NO_WEBHOOK/i.test(msg) || !BPSheets.getWebhookUrl()) {
+        tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">' +
+          'Backend webhook not configured yet. ' +
+          '<a href="settings.html" style="color:var(--gold-400)">Open Settings</a> to paste the Apps Script URL (one-time, ~5 minutes).' +
+          '</td></tr>';
+      } else {
+        tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load: ' + escapeHtml(msg) + '</td></tr>';
+      }
     });
   }
 

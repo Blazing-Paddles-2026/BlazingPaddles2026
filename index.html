@@ -34,6 +34,12 @@
 
 <main class="cc-main">
 
+  <div id="first-run-banner" style="display:none;background:rgba(245,197,24,0.10);border:1px solid var(--gold-500);border-radius:var(--r-md);padding:var(--space-4);margin-bottom:var(--space-6);color:var(--text);font-size:14px;line-height:1.6">
+    <strong style="color:var(--gold-400);text-transform:uppercase;letter-spacing:.1em;font-size:12px">First-Run Setup</strong><br>
+    The dashboard needs a one-time 5-minute setup before live data appears. 
+    <a href="settings.html" style="color:var(--gold-400);font-weight:700">Open Settings</a> to connect the backend webhook.
+  </div>
+
   <section class="cc-hero">
     <p class="cc-eyebrow">Round Rock Fire Foundation · Internal Committee Tool</p>
     <h1>Blazing<br>Paddles<br>2026</h1>
@@ -119,6 +125,11 @@
     return 'Tournament day was ' + (-days) + ' days ago';
   }
   document.getElementById('cc-tminus').textContent = tminus();
+
+  // First-run banner if no webhook configured
+  if (!BPSheets.getWebhookUrl()) {
+    document.getElementById('first-run-banner').style.display = 'block';
+  }
 
   // KPIs from live sheet
   Promise.all([
