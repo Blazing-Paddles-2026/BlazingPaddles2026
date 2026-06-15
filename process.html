@@ -48,10 +48,51 @@
   <section class="cc-steps">
     <div class="cc-step"><span class="cc-step-num">1</span><h4>Pick a Lane</h4><p>Pick 5 businesses from one of the 13 target categories below. Don't try to do all 13.</p></div>
     <div class="cc-step"><span class="cc-step-num">2</span><h4>Use the Script</h4><p>Copy the right script (cold call, walk-in, voicemail, email). Don't improvise the opener.</p></div>
-    <div class="cc-step"><span class="cc-step-num">3</span><h4>Log the Ask</h4><p>Add the sponsor to the <a href="sponsor-tracker.html" style="color:var(--gold-400)">tracker</a> with owner, tier, status, next step.</p></div>
-    <div class="cc-step"><span class="cc-step-num">4</span><h4>Run the Follow-Up</h4><p>The 7-day sequence below. Move to "next year" list if no response by Day 14.</p></div>
-    <div class="cc-step"><span class="cc-step-num">5</span><h4>Close & Thank</h4><p>Confirm paperwork, payment, logo. Send the post-event thank-you with photos and totals.</p></div>
+    <div class="cc-step"><span class="cc-step-num">3</span><h4>Attach the Flyer</h4><p>Every email goes out with the <a href="#attach" style="color:var(--flame-400)">Sponsor Flyer</a> attached. Use the buttons below to grab it.</p></div>
+    <div class="cc-step"><span class="cc-step-num">4</span><h4>Log the Ask</h4><p>Add the sponsor to the <a href="sponsor-tracker.html" style="color:var(--flame-400)">tracker</a> with owner, tier, status, next step.</p></div>
+    <div class="cc-step"><span class="cc-step-num">5</span><h4>Run the Follow-Up</h4><p>The 7-day sequence below. Move to "next year" list if no response by Day 14.</p></div>
+    <div class="cc-step"><span class="cc-step-num">6</span><h4>Close & Thank</h4><p>Confirm paperwork, payment, logo. Send the post-event thank-you with photos and totals.</p></div>
   </section>
+
+  <!-- Attach the flyers helper -->
+  <h3 class="cc-section-title" id="attach">Attach The Flyers</h3>
+  <div class="cc-card">
+    <p style="margin:0 0 var(--space-4);color:var(--text-muted);font-size:14px;line-height:1.6">
+      Every cold email and follow-up should include the <strong style="color:var(--cream)">Sponsor Flyer</strong>. Click <strong style="color:var(--cream)">Download</strong> to save the file to your computer, then attach it to the email in Gmail/Outlook. Click <strong style="color:var(--cream)">Email with Flyer</strong> to open a new email pre-filled with the script — then attach the file you just downloaded.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-3);margin-bottom:var(--space-4)">
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/sponsor-flyer-2026.jpg" alt="Sponsor flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Sponsor Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">For cold emails &amp; follow-ups</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/sponsor-flyer-2026.jpg" download="BlazingPaddles2026_Sponsor_Flyer.jpg">Download</a>
+      </div>
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/play-flyer-2026.jpg" alt="Play flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Player Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">If they ask about playing too</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/play-flyer-2026.jpg" download="BlazingPaddles2026_Player_Flyer.jpg">Download</a>
+      </div>
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/volunteer-flyer-2026.jpg" alt="Volunteer flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Volunteer Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">For team-volunteer sponsors</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/volunteer-flyer-2026.jpg" download="BlazingPaddles2026_Volunteer_Flyer.jpg">Download</a>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(255,107,26,0.08);border:1px dashed var(--flame-500);border-radius:var(--r-md);padding:var(--space-3)">
+      <strong style="color:var(--flame-200);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-family:var(--font-display)">One-Click Send</strong>
+      <span style="color:var(--text-muted);font-size:13px;flex:1;min-width:200px">Opens your email app with the script as the body. After it opens, attach the flyer file you just downloaded.</span>
+      <input class="cc-input" id="prospect-email" type="email" placeholder="prospect@example.com" style="min-width:220px;max-width:280px;font-size:13px">
+      <button class="cc-btn cc-btn-primary cc-btn-sm" id="open-email">Email with Flyer</button>
+    </div>
+
+    <p style="margin:var(--space-3) 0 0;color:var(--text-faint);font-size:12px;line-height:1.5">
+      <strong>Why we can't auto-attach:</strong> Email clients (Gmail, Outlook, Apple Mail) block websites from attaching files automatically for security. The download + open-email flow is two clicks and works in every client.
+    </p>
+  </div>
 
   <!-- Tiers -->
   <h3 class="cc-section-title" id="tiers">Sponsorship Tiers</h3>
@@ -106,6 +147,9 @@
         <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-email">▶ Play</button>
         <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-email">Copy</button>
       </div>
+      <p style="margin:0 0 12px;padding:8px 12px;background:rgba(255,107,26,0.10);border-left:3px solid var(--flame-500);border-radius:4px;font-size:13px;color:var(--cream)">
+        📎 <strong>Attach the Sponsor Flyer</strong> before sending. <a href="#attach" style="color:var(--flame-400)">Grab it here</a> or click <a href="flyers/sponsor-flyer-2026.jpg" download="BlazingPaddles2026_Sponsor_Flyer.jpg" style="color:var(--flame-400)">Download Sponsor Flyer</a>.
+      </p>
       <pre class="cc-script" id="script-email">Subject: Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament
 
 Hi [FIRST NAME],
@@ -169,6 +213,9 @@ Thanks so much!"</pre>
         <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-follow">▶ Play</button>
         <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-follow">Copy</button>
       </div>
+      <p style="margin:0 0 12px;padding:8px 12px;background:rgba(255,107,26,0.10);border-left:3px solid var(--flame-500);border-radius:4px;font-size:13px;color:var(--cream)">
+        📎 <strong>Re-attach the Sponsor Flyer</strong> on follow-ups too. <a href="flyers/sponsor-flyer-2026.jpg" download="BlazingPaddles2026_Sponsor_Flyer.jpg" style="color:var(--flame-400)">Download Sponsor Flyer</a>.
+      </p>
       <pre class="cc-script" id="script-follow">Subject: Quick follow-up — Blazing Paddles sponsorship
 
 Hi [FIRST NAME],
@@ -384,6 +431,29 @@ Round Rock Fire Foundation
   // Voices may load asynchronously
   if ('speechSynthesis' in window && typeof speechSynthesis.onvoiceschanged !== 'undefined') {
     speechSynthesis.onvoiceschanged = function () { /* voices loaded */ };
+  }
+
+  // Email with Flyer — opens mailto: with the email script pre-filled
+  var openEmailBtn = document.getElementById('open-email');
+  if (openEmailBtn) {
+    openEmailBtn.addEventListener('click', function () {
+      var emailScript = document.getElementById('script-email');
+      if (!emailScript) return;
+      var raw = emailScript.textContent;
+      // Split subject line off the body
+      var subjectMatch = raw.match(/^Subject:\s*(.+?)\n/);
+      var subject = subjectMatch ? subjectMatch[1].trim() : 'Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament';
+      var body = subjectMatch ? raw.replace(subjectMatch[0], '').trim() : raw.trim();
+      // Append a friendly reminder line about the attached flyer
+      body += '\n\n---\n[NOTE: After this opens in your email app, ATTACH the sponsor flyer you downloaded.]';
+      var to = (document.getElementById('prospect-email').value || '').trim();
+      var url = 'mailto:' + encodeURIComponent(to) +
+                '?subject=' + encodeURIComponent(subject) +
+                '&body='    + encodeURIComponent(body);
+      // Show a quick reminder toast
+      showToast('Email opening — don\'t forget to attach the flyer.');
+      window.location.href = url;
+    });
   }
 })();
 </script>
