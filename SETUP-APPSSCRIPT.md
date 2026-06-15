@@ -1,74 +1,120 @@
-# Dashboard Backend Setup — One-time, ~5 minutes
+# Dashboard Backend Setup — One-Time, ~10 Minutes Total
 
-This one-time setup lets the dashboard at
-`dashboard.roundrockfirefoundation.org` read AND write to your private
-Google Sheet — without making the Sheet public.
+This setup gives the dashboard at `dashboard.roundrockfirefoundation.org`
+three superpowers, all running on your own Google Workspace account:
 
-Everything runs on **your own Google account**. Free.
+1. **Read** the live Sponsor / Raffle / Log / Team data from your Sheet
+2. **Write** new sponsors and raffle items into the Sheet from the dashboard
+3. **Send sponsor emails from `info@roundrockfirefoundation.org`** with the
+   flyer auto-attached, no committee member access to your inbox needed
 
-## What you're installing
+All free. No new vendors, no API keys, no DNS records.
 
-A tiny script (about 100 lines) that lives inside your Google Sheet
-and gives the dashboard a private URL it can read and write through.
+---
 
 ## Steps
 
-1. **Open the Sheet:**
-   [Blazing Paddles 2026 Donation Tracker](https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit)
+### 1. Open the script editor
 
-2. **Menu:** Extensions → Apps Script. A new tab opens with a code editor.
+Open the live Google Sheet:
+[Blazing Paddles 2026 Donation Tracker](https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit)
 
-3. **Delete everything** that's in the editor and paste in the contents of
-   [`apps-script.gs`](./apps-script.gs) from this repo.
+Menu: **Extensions → Apps Script**. A new tab opens with a code editor.
 
-4. **Save:** Click the disk icon (or Ctrl/Cmd + S). Name it
-   `Blazing Paddles Backend`.
+### 2. Paste the script
 
-5. **Deploy:** Click **Deploy → New deployment** (top right).
-   - Click the gear icon next to "Select type" → pick **Web app**.
-   - Description: `Blazing Paddles dashboard webhook`
-   - **Execute as:** Me (your own account)
-   - **Who has access:** Anyone
-   - Click **Deploy**.
+Delete everything in the editor and paste in the contents of
+[`apps-script.gs`](./apps-script.gs) from this repo.
 
-6. Google asks you to authorize. Approve. (You're authorizing your own
-   script to read and write your own Sheet — perfectly safe.)
+Save: disk icon or Ctrl/Cmd + S. Name it `Blazing Paddles Backend`.
 
-7. **Copy the Web app URL.** It looks like:
-   `https://script.google.com/macros/s/AKfycb.../exec`
+### 3. Authorize Gmail send (one-time)
 
-8. **Open the dashboard's Settings page:**
-   https://dashboard.roundrockfirefoundation.org/settings.html
-   - Paste the URL into the Apps Script Webhook field
-   - Click Save
+In the editor's function dropdown (top toolbar), pick **`authorizeGmailScope`**
+and click **Run**. Google will prompt you to review permissions. Approve
+**Send email as you** — this is what lets the dashboard send from
+`info@roundrockfirefoundation.org`.
 
-Done. Refresh the Sponsor or Raffle pages — live data loads.
+If you don't see the prompt: Settings (gear icon) → check
+"Show 'appsscript.json' manifest file" — then Run again.
 
-## Sharing this with the committee
+### 4. Deploy as a web app
 
-You only need to install this once. After you save the webhook URL,
-the dashboard sends every committee member's writes through your
-webhook. They use the dashboard without any setup or login.
+Click **Deploy → New deployment** (top right).
 
-If you want everyone's browser to pre-load the webhook URL (so they
-never see the Settings prompt), I can wire that into the page directly —
-just ask.
+- Click the gear icon next to "Select type" → pick **Web app**.
+- Description: `Blazing Paddles dashboard webhook`
+- **Execute as:** Me (`info@roundrockfirefoundation.org`)
+- **Who has access:** Anyone
+- Click **Deploy**.
 
-## If anything breaks
+Google asks you to authorize the script's permissions. Approve.
 
-- **"Writes are not configured yet"** — your URL didn't save. Try Settings again.
-- **"Webhook failed: HTTP 401"** — the deployment is missing "Anyone access".
-  Re-deploy with Who-has-access set to Anyone.
-- **"Webhook failed: HTTP 403"** — common after Google revokes auth.
-  In Apps Script: Deploy → Manage deployments → edit → Re-deploy.
-- **CORS errors** — you used `application/json` instead of `text/plain`.
-  The dashboard uses text/plain automatically; just don't change it.
+### 5. Copy the Web app URL
+
+It looks like: `https://script.google.com/macros/s/AKfycb.../exec`
+
+### 6. Paste it into the dashboard
+
+Open https://dashboard.roundrockfirefoundation.org/settings.html → paste
+the URL → click Save.
+
+Refresh the dashboard. Live data loads. Try sending a test email from
+the playbook page to your own address to confirm the From shows up as
+`info@roundrockfirefoundation.org`.
+
+---
+
+## If you ever update the script
+
+After editing `apps-script.gs` (e.g. adding a feature), **re-deploy**:
+
+1. Apps Script editor → Deploy → **Manage deployments**
+2. Click the pencil icon on the existing deployment
+3. Version → **New version**
+4. Click Deploy
+5. The URL stays the same — no need to update the dashboard
+
+---
+
+## Configuration knobs
+
+Inside `apps-script.gs` near the top:
+
+```javascript
+var SEND_FROM_NAME  = 'Round Rock Fire Foundation';
+var SEND_FROM_EMAIL = 'info@roundrockfirefoundation.org';
+var BCC_EVERY_SEND  = '';   // set to your personal email to BCC every send
+```
+
+To get a copy of every outreach email in your personal inbox, set
+`BCC_EVERY_SEND = 'diedrabrownell@gmail.com';` and re-deploy.
+
+---
 
 ## What the script does
 
-- `GET ?action=read&sheet=<tab>` returns all rows of a tab as JSON
-- `POST {action: "append", sheet, row}` appends a row
-- `POST {action: "update", sheet, matchColumn, matchValue, updates}` updates matching rows
+- `read` — returns all rows of a Sheet tab as JSON
+- `append` — appends a row to a tab
+- `update` — updates rows matching a column value
+- `send_email` — sends an email from `info@roundrockfirefoundation.org`
+  with optional flyer attachment, and logs the send to the **Outreach Log**
+  tab automatically
 
-Nothing else. It can't delete rows, can't access other Sheets, can't
-send email. It only touches the Donation Tracker spreadsheet.
+Nothing else. It can't delete rows, access other Sheets, or read your
+inbox. It can only touch this one Sheet and send email as you.
+
+---
+
+## Common problems
+
+- **"Send failed: Service invoked too many times"** — You've hit the daily
+  Gmail send quota for Workspace (1,500/day). This is way more than committee
+  outreach uses; the limit resets at midnight.
+- **"Send failed: Mail service not enabled"** — Workspace admin has Gmail
+  send turned off for your account. Re-enable it.
+- **"Send failed: Invalid from address"** — `info@roundrockfirefoundation.org`
+  isn't the primary on this Apps Script's owner account. The script must be
+  deployed (step 4) with "Execute as: Me" while you're signed into the
+  `info@` Workspace account, OR add `info@` as a send-as alias in your Gmail
+  Settings → Accounts.

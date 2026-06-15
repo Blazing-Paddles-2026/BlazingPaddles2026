@@ -120,6 +120,34 @@
     return j;
   }
 
+  async function sendSponsorEmail(opts) {
+    if (!APPS_SCRIPT_URL) {
+      throw new Error('Email sending is not configured yet. Open Settings and paste your Apps Script Web App URL.');
+    }
+    if (!opts || !opts.to || !opts.subject || !opts.body) {
+      throw new Error('to, subject, and body are required.');
+    }
+    const resp = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'send_email',
+        to: opts.to,
+        subject: opts.subject,
+        body: opts.body,
+        attachUrl: opts.attachUrl || '',
+        attachName: opts.attachName || '',
+        sentBy: opts.sentBy || '',
+        scriptUsed: opts.scriptUsed || '',
+      }),
+    });
+    if (!resp.ok) throw new Error('Send failed: HTTP ' + resp.status);
+    const j = await resp.json().catch(() => ({ ok: true }));
+    if (j && j.error) throw new Error(j.error);
+    return j;
+  }
+
   async function updateRow(sheetName, matchColumn, matchValue, updates) {
     if (!APPS_SCRIPT_URL) {
       throw new Error('Writes are not configured yet — see Settings.');
@@ -162,6 +190,7 @@
     read: readSheet,
     append: appendRow,
     update: updateRow,
+    sendSponsorEmail: sendSponsorEmail,
     setWebhookUrl: setWebhookUrl,
     getWebhookUrl: getWebhookUrl,
     publicSheetUrl: publicSheetUrl,

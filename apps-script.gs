@@ -8,11 +8,24 @@
  *   POST { action: "append", sheet: "<tab>", row: {Header: value, ...} }
  *   POST { action: "update", sheet: "<tab>", matchColumn: "Business",
  *          matchValue: "Acme", updates: {Status: "Confirmed"} }
+ *   POST { action: "send_email", to, subject, body, attachUrl, attachName, sentBy, scriptUsed }
  *
- * The dashboard's sheets.js uses POST for reads too, so the sheet
- * can stay private and writes are gated by your own Apps Script
- * deployment (you control who has access).
+ * Returns { ok: true } or { error: "..." }.
  */
+
+// ── CONFIG ───────────────────────────────────────────────────────────
+// The "From" address every outreach email is sent from.
+// MUST be a verified send-as alias on the Apps Script owner's Gmail.
+var SEND_FROM_NAME  = 'Round Rock Fire Foundation';
+var SEND_FROM_EMAIL = 'info@roundrockfirefoundation.org';
+
+// Optional bcc on every send so Diedra has a copy
+var BCC_EVERY_SEND  = '';   // e.g. 'diedrabrownell@gmail.com'
+
+// Outreach Log tab name
+var OUTREACH_LOG_SHEET = 'Outreach Log';
+// ─────────────────────────────────────────────────────────────────────
+
 
 function _json(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
@@ -37,11 +50,89 @@ function _readSheet(sheetName) {
     });
 }
 
+function _logOutreach(row) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(OUTREACH_LOG_SHEET);
+    if (!sheet) {
+      // Create the log tab on the fly if missing
+      sheet = ss.insertSheet(OUTREACH_LOG_SHEET);
+      sheet.getRange(1, 1, 1, 7).setValues([['Timestamp','Sent By','To','Subject','Flyer Attached','Script Used','Status']]);
+    }
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    sheet.appendRow(headers.map(function (h) { return row[h] || ''; }));
+  } catch (e) {
+    // Logging is best-effort; don't fail the send if logging fails
+  }
+}
+
+function _sendEmail(body) {
+  if (!body.to)      throw new Error('Missing recipient email (to).');
+  if (!body.subject) throw new Error('Missing subject.');
+  if (!body.body)    throw new Error('Missing email body.');
+
+  var options = {
+    name: SEND_FROM_NAME,
+    from: SEND_FROM_EMAIL,
+    replyTo: SEND_FROM_EMAIL,
+    htmlBody: undefined,
+  };
+
+  // Optional bcc
+  if (BCC_EVERY_SEND) options.bcc = BCC_EVERY_SEND;
+
+  // Convert plain-text body to a light-touch HTML version so paragraph
+  // breaks survive rendering in Gmail / Outlook, while keeping the
+  // plain-text body as fallback.
+  var htmlBody = body.body
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n{2,}/g, '</p><p>')
+    .replace(/\n/g, '<br>');
+  options.htmlBody = '<div style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#222"><p>' + htmlBody + '</p></div>';
+
+  // Attach the flyer if provided. attachUrl should be a publicly
+  // reachable HTTPS URL — e.g. the GitHub-Pages-hosted flyer image.
+  if (body.attachUrl) {
+    try {
+      var resp = UrlFetchApp.fetch(body.attachUrl, { muteHttpExceptions: true });
+      if (resp.getResponseCode() === 200) {
+        var blob = resp.getBlob();
+        if (body.attachName) blob.setName(body.attachName);
+        options.attachments = [blob];
+      }
+    } catch (e) {
+      // If fetching the attachment fails, send the email anyway
+      // (the recipient will still get the script + sponsor info)
+    }
+  }
+
+  GmailApp.sendEmail(body.to, body.subject, body.body, options);
+
+  // Log the send
+  _logOutreach({
+    'Timestamp': new Date().toISOString().slice(0, 19).replace('T', ' '),
+    'Sent By':   body.sentBy   || '(unknown committee member)',
+    'To':        body.to,
+    'Subject':   body.subject,
+    'Flyer Attached': body.attachName || (body.attachUrl ? body.attachUrl : 'none'),
+    'Script Used':    body.scriptUsed || '',
+    'Status':    'Sent',
+  });
+
+  return { ok: true, sent: true, from: SEND_FROM_EMAIL, to: body.to };
+}
+
 function _doAction(body) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
 
   if (body.action === 'read') {
     return _json({ ok: true, rows: _readSheet(body.sheet) });
+  }
+
+  if (body.action === 'send_email') {
+    return _json(_sendEmail(body));
   }
 
   var sheet = ss.getSheetByName(body.sheet);
@@ -102,4 +193,12 @@ function doGet(e) {
   } catch (err) {
     return _json({ error: String(err && err.message || err) });
   }
+}
+
+/**
+ * Run this once manually from the Apps Script editor to authorize
+ * Gmail sending. Triggers the consent prompt for GmailApp.
+ */
+function authorizeGmailScope() {
+  GmailApp.getInboxUnreadCount();
 }

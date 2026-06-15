@@ -82,15 +82,48 @@
       </div>
     </div>
 
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(255,107,26,0.08);border:1px dashed var(--flame-500);border-radius:var(--r-md);padding:var(--space-3)">
-      <strong style="color:var(--flame-200);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-family:var(--font-display)">One-Click Send</strong>
-      <span style="color:var(--text-muted);font-size:13px;flex:1;min-width:200px">Opens your email app with the script as the body. After it opens, attach the flyer file you just downloaded.</span>
-      <input class="cc-input" id="prospect-email" type="email" placeholder="prospect@example.com" style="min-width:220px;max-width:280px;font-size:13px">
-      <button class="cc-btn cc-btn-primary cc-btn-sm" id="open-email">Email with Flyer</button>
+    <div style="background:rgba(255,107,26,0.08);border:1px dashed var(--flame-500);border-radius:var(--r-md);padding:var(--space-4)">
+      <p style="margin:0 0 var(--space-3);font-family:var(--font-display);color:var(--flame-200);text-transform:uppercase;letter-spacing:.1em;font-size:13px;font-weight:700">Send From info@roundrockfirefoundation.org</p>
+      <p style="margin:0 0 var(--space-3);color:var(--text-muted);font-size:13px;line-height:1.5">
+        Click Send and the dashboard delivers the Initial Email script <strong style="color:var(--cream)">from info@roundrockfirefoundation.org</strong> with the Sponsor Flyer attached. No mail client needed. Every send is logged to the Outreach Log tab in the Sheet.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-2);margin-bottom:var(--space-3)">
+        <div class="cc-form-row">
+          <label for="send-to">Prospect email</label>
+          <input class="cc-input" id="send-to" type="email" placeholder="jane@acmecorp.com">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-firstname">First name</label>
+          <input class="cc-input" id="send-firstname" placeholder="Jane">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-business">Business name</label>
+          <input class="cc-input" id="send-business" placeholder="Acme Corporation">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-yourname">Your name (signature)</label>
+          <select class="cc-select" id="send-yourname"><option value="">— pick name —</option></select>
+        </div>
+        <div class="cc-form-row">
+          <label for="send-attach">Attach flyer</label>
+          <select class="cc-select" id="send-attach">
+            <option value="sponsor" selected>Sponsor Flyer (default)</option>
+            <option value="player">Player Flyer</option>
+            <option value="volunteer">Volunteer Flyer</option>
+            <option value="none">No attachment</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="cc-btn cc-btn-primary cc-btn-sm" id="send-email-btn">Send Now</button>
+        <button class="cc-btn cc-btn-ghost cc-btn-sm" id="preview-email-btn">Preview email</button>
+        <a class="cc-btn cc-btn-ghost cc-btn-sm" href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit#gid=1348522811" target="_blank" rel="noopener">View Outreach Log</a>
+      </div>
+      <div id="send-preview" style="display:none;margin-top:var(--space-3);padding:var(--space-3);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);font-family:Helvetica,Arial,sans-serif;font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.55"></div>
     </div>
 
     <p style="margin:var(--space-3) 0 0;color:var(--text-faint);font-size:12px;line-height:1.5">
-      <strong>Why we can't auto-attach:</strong> Email clients (Gmail, Outlook, Apple Mail) block websites from attaching files automatically for security. The download + open-email flow is two clicks and works in every client.
+      <strong>How it works:</strong> The dashboard sends through Diedra's authorized Google Apps Script, which runs as info@roundrockfirefoundation.org. The flyer is auto-attached. Recipients see the email as if Diedra sent it from the foundation address — no committee member needs access to the info@ inbox.
     </p>
   </div>
 
@@ -433,26 +466,102 @@ Round Rock Fire Foundation
     speechSynthesis.onvoiceschanged = function () { /* voices loaded */ };
   }
 
-  // Email with Flyer — opens mailto: with the email script pre-filled
-  var openEmailBtn = document.getElementById('open-email');
-  if (openEmailBtn) {
-    openEmailBtn.addEventListener('click', function () {
-      var emailScript = document.getElementById('script-email');
-      if (!emailScript) return;
-      var raw = emailScript.textContent;
-      // Split subject line off the body
-      var subjectMatch = raw.match(/^Subject:\s*(.+?)\n/);
-      var subject = subjectMatch ? subjectMatch[1].trim() : 'Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament';
-      var body = subjectMatch ? raw.replace(subjectMatch[0], '').trim() : raw.trim();
-      // Append a friendly reminder line about the attached flyer
-      body += '\n\n---\n[NOTE: After this opens in your email app, ATTACH the sponsor flyer you downloaded.]';
-      var to = (document.getElementById('prospect-email').value || '').trim();
-      var url = 'mailto:' + encodeURIComponent(to) +
-                '?subject=' + encodeURIComponent(subject) +
-                '&body='    + encodeURIComponent(body);
-      // Show a quick reminder toast
-      showToast('Email opening — don\'t forget to attach the flyer.');
-      window.location.href = url;
+  // Populate the "Your name" picker with committee from the Team tab
+  var nameSelect = document.getElementById('send-yourname');
+  if (nameSelect && window.BPSheets) {
+    BPSheets.read('Team').then(function (rows) {
+      var opts = rows.map(function (r) {
+        var n = (r['Name'] || '').trim();
+        return n ? '<option>' + n.replace(/</g, '&lt;') + '</option>' : '';
+      }).filter(Boolean).join('');
+      if (opts) nameSelect.innerHTML = '<option value="">— pick name —</option>' + opts;
+    }).catch(function () { /* leave default */ });
+  }
+
+  // Origin used for absolute URLs Apps Script can fetch as attachments
+  var ORIGIN = window.location.origin;
+  var FLYERS = {
+    sponsor:   { url: ORIGIN + '/flyers/sponsor-flyer-2026.jpg',   name: 'BlazingPaddles2026_Sponsor_Flyer.jpg'   },
+    player:    { url: ORIGIN + '/flyers/play-flyer-2026.jpg',      name: 'BlazingPaddles2026_Player_Flyer.jpg'    },
+    volunteer: { url: ORIGIN + '/flyers/volunteer-flyer-2026.jpg', name: 'BlazingPaddles2026_Volunteer_Flyer.jpg' },
+  };
+
+  // Build the final email by filling placeholders
+  function buildEmail() {
+    var emailScript = document.getElementById('script-email');
+    var raw = emailScript.textContent;
+    var firstName = (document.getElementById('send-firstname').value || '').trim() || 'there';
+    var business  = (document.getElementById('send-business').value  || '').trim() || 'your business';
+    var yourName  = (document.getElementById('send-yourname').value  || '').trim() || 'the Round Rock Fire Foundation';
+    var filled = raw
+      .replace(/\[FIRST NAME\]/g, firstName)
+      .replace(/\[BUSINESS NAME\]/g, business)
+      .replace(/\[BUSINESS\]/g, business)
+      .replace(/\[YOUR NAME\]/g, yourName)
+      .replace(/\[COMPANY\]/g, business)
+      .replace(/\[PHONE\]/g, '(512) 967-1007')
+      .replace(/\[EMAIL\]/g, 'info@roundrockfirefoundation.org');
+    var m = filled.match(/^Subject:\s*(.+?)\n/);
+    return {
+      subject: m ? m[1].trim() : 'Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament',
+      body:    m ? filled.replace(m[0], '').trim() : filled.trim(),
+    };
+  }
+
+  // Preview button
+  var previewBtn = document.getElementById('preview-email-btn');
+  var previewBox = document.getElementById('send-preview');
+  if (previewBtn) {
+    previewBtn.addEventListener('click', function () {
+      var e = buildEmail();
+      previewBox.style.display = 'block';
+      previewBox.innerHTML =
+        '<div style="color:var(--text-faint);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Preview — will send from info@roundrockfirefoundation.org</div>' +
+        '<strong>Subject:</strong> ' + e.subject.replace(/</g,'&lt;') + '\n\n' +
+        e.body.replace(/</g,'&lt;');
+    });
+  }
+
+  // Real send through Apps Script
+  var sendBtn = document.getElementById('send-email-btn');
+  if (sendBtn) {
+    sendBtn.addEventListener('click', function () {
+      if (!window.BPSheets || !BPSheets.getWebhookUrl()) {
+        showToast('Backend not configured. Open Settings.', true);
+        return;
+      }
+      var to = (document.getElementById('send-to').value || '').trim();
+      if (!to || to.indexOf('@') < 0) {
+        showToast('Enter a valid prospect email.', true);
+        return;
+      }
+      var e = buildEmail();
+      var att = document.getElementById('send-attach').value;
+      var flyer = FLYERS[att]; // undefined if "none"
+      var yourName = document.getElementById('send-yourname').value;
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Sending…';
+
+      BPSheets.sendSponsorEmail({
+        to: to,
+        subject: e.subject,
+        body: e.body,
+        attachUrl:  flyer ? flyer.url  : '',
+        attachName: flyer ? flyer.name : '',
+        sentBy:     yourName,
+        scriptUsed: 'Initial Email',
+      }).then(function () {
+        showToast('Sent to ' + to + ' from info@roundrockfirefoundation.org');
+        document.getElementById('send-to').value = '';
+        document.getElementById('send-firstname').value = '';
+        document.getElementById('send-business').value  = '';
+      }).catch(function (err) {
+        showToast('Send failed: ' + (err.message || err), true);
+      }).then(function () {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send Now';
+      });
     });
   }
 })();
