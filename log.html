@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quick Log · Blazing Paddles 2026</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+</head>
+<body class="cc-body">
+
+<header class="cc-topbar">
+  <a class="cc-brand" href="index.html">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><br><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-nav">
+    <a href="index.html">Actions</a>
+    <a href="log.html" class="active">Log</a>
+    <a href="sponsor-tracker.html">Sponsors</a>
+    <a href="raffle-tracker.html">Raffle</a>
+    <a href="process.html">Playbook</a>
+    <a href="team.html">Team</a>
+    <a href="contacts.html">Contacts</a>
+  </nav>
+</header>
+
+<main class="cc-main">
+
+  <div class="cc-page-header">
+    <div>
+      <h1 class="cc-page-title">Log a Win</h1>
+      <p class="cc-page-sub">Just signed a sponsor or got a raffle commitment? Log it in 5 seconds.</p>
+    </div>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">Log Your Win</h3>
+    <form class="cc-form" id="log-form" autocomplete="off">
+      <div class="cc-form-row">
+        <label for="l-owner">Your name</label>
+        <select class="cc-select" id="l-owner"><option value="">Loading…</option></select>
+      </div>
+      <div class="cc-form-row">
+        <label for="l-type">Type</label>
+        <select class="cc-select" id="l-type">
+          <option>Sponsor (cash)</option>
+          <option>Raffle item</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="l-amount">Amount $</label>
+        <input class="cc-input" id="l-amount" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="l-business">Business or item</label>
+        <input class="cc-input" id="l-business" required placeholder="What did you land?">
+      </div>
+      <div class="cc-form-row">
+        <label for="l-notes">Notes (optional)</label>
+        <input class="cc-input" id="l-notes" placeholder="Tier? Status? Followup?">
+      </div>
+      <div class="cc-form-row">
+        <button class="cc-btn cc-btn-primary" type="submit">ADD IT</button>
+      </div>
+    </form>
+    <p style="margin:var(--space-4) 0 0;font-size:13px;color:var(--text-faint)">
+      This writes a row to the <strong>Log</strong> tab of the live Google Sheet so the whole committee sees it in real time.
+      For full sponsor/raffle tracking with status and follow-ups, use the <a href="sponsor-tracker.html" style="color:var(--gold-400)">Sponsor Tracker</a> or <a href="raffle-tracker.html" style="color:var(--gold-400)">Raffle Tracker</a>.
+    </p>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">Who's Winning</h3>
+    <div id="leaderboard" class="cc-loading">Loading log…</div>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">Recent Log Entries</h3>
+    <div class="cc-table-wrap" style="margin:0;background:transparent;border:none">
+      <table class="cc-table">
+        <thead>
+          <tr><th>When</th><th>Who</th><th>Type</th><th>Amount</th><th>Business / Item</th><th>Notes</th></tr>
+        </thead>
+        <tbody id="log-rows"><tr><td colspan="6" class="cc-loading">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<div class="cc-toast" id="toast"></div>
+
+<script src="sheets.js"></script>
+<script>
+(function () {
+  var rows = [];
+  var team = [];
+
+  var tbody = document.getElementById('log-rows');
+  var lb = document.getElementById('leaderboard');
+  var toast = document.getElementById('toast');
+
+  function showToast(msg, err) {
+    toast.textContent = msg;
+    toast.className = 'cc-toast show' + (err ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+  }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function render() {
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">No entries yet. Be first.</td></tr>';
+      lb.innerHTML = '<p class="cc-empty" style="padding:var(--space-4);margin:0">No entries yet.</p>';
+      return;
+    }
+    var recent = rows.slice().reverse().slice(0, 25);
+    tbody.innerHTML = recent.map(function (r) {
+      var amt = parseFloat(String(r['Amount'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      return '<tr>' +
+        '<td><small>' + escapeHtml(r['Timestamp'] || '').slice(0, 16).replace('T', ' ') + '</small></td>' +
+        '<td>' + escapeHtml(r['Owner']) + '</td>' +
+        '<td>' + escapeHtml(r['Type']) + '</td>' +
+        '<td>' + (amt ? '$' + amt.toLocaleString() : '—') + '</td>' +
+        '<td>' + escapeHtml(r['Business / Item']) + '</td>' +
+        '<td>' + escapeHtml(r['Notes'] || '') + '</td>' +
+      '</tr>';
+    }).join('');
+
+    // Leaderboard
+    var totals = {};
+    rows.forEach(function (r) {
+      var n = r['Owner'] || '—';
+      var amt = parseFloat(String(r['Amount'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      if (!totals[n]) totals[n] = { count: 0, amt: 0 };
+      totals[n].count++;
+      totals[n].amt += amt;
+    });
+    var list = Object.keys(totals).map(function (n) {
+      return { name: n, count: totals[n].count, amt: totals[n].amt };
+    }).sort(function (a, b) { return b.amt - a.amt || b.count - a.count; });
+    lb.innerHTML = '<ol style="margin:0;padding-left:24px;font-size:14px;line-height:1.8">' +
+      list.map(function (x, i) {
+        var medal = ['🥇', '🥈', '🥉'][i] || '';
+        return '<li><strong style="color:var(--gold-400)">' + escapeHtml(x.name) + '</strong> ' + medal +
+               '<br><small style="color:var(--text-muted)">' + x.count + ' entries · $' + Math.round(x.amt).toLocaleString() + '</small></li>';
+      }).join('') + '</ol>';
+  }
+
+  function load() {
+    return Promise.all([
+      BPSheets.read('Log').catch(() => []),
+      BPSheets.read('Team').catch(() => [])
+    ]).then(function (r) {
+      rows = r[0]; team = r[1];
+      var sel = document.getElementById('l-owner');
+      sel.innerHTML = '<option value="">— pick name —</option>' +
+        team.map(function (t) { return '<option>' + escapeHtml(t['Name']) + '</option>'; }).join('');
+      render();
+    }).catch(function (err) {
+      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load log: ' + escapeHtml(err.message) + '</td></tr>';
+    });
+  }
+
+  document.getElementById('log-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var row = {
+      'Timestamp':       new Date().toISOString().slice(0, 19).replace('T', ' '),
+      'Owner':           document.getElementById('l-owner').value,
+      'Type':            document.getElementById('l-type').value,
+      'Amount':          document.getElementById('l-amount').value || '',
+      'Business / Item': document.getElementById('l-business').value.trim(),
+      'Notes':           document.getElementById('l-notes').value.trim(),
+    };
+    if (!row['Owner']) return showToast('Pick your name first.', true);
+    if (!row['Business / Item']) return showToast('Business or item required.', true);
+    var btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Saving…';
+    BPSheets.append('Log', row).then(function () {
+      showToast('Logged: ' + row['Business / Item']);
+      document.getElementById('l-amount').value = '';
+      document.getElementById('l-business').value = '';
+      document.getElementById('l-notes').value = '';
+      return load();
+    }).catch(function (err) { showToast(err.message || String(err), true); })
+      .then(function () { btn.disabled = false; btn.textContent = 'ADD IT'; });
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>

@@ -36,32 +36,45 @@
   --r-lg: 20px;
   --r-xl: 28px;
 
-  /* Brand colors */
+  /* Brand colors — navy / deep red / gold / black, per Diedra's Kimi prompt */
+  --navy-900:  #0a1530;
+  --navy-800:  #11214a;
+  --navy-700:  #1a2f64;
+  --navy-500:  #284c92;
+  --navy-300:  #6986c4;
+  --gold-400:  #f5c518;
+  --gold-500:  #e0b21a;
+  --gold-600:  #b88b16;
+  --red-600:   #8b1a1a;
+  --red-500:   #a82323;
+  --cream:     #f6efe1;
+  /* Legacy aliases (kept so old pages don't break) */
   --flame-50:  #fff4e6;
   --flame-100: #ffd5a0;
-  --flame-200: #ffb04d;
-  --flame-400: #ff8a1f;
-  --flame-500: #ff6b1a;
-  --flame-600: #e0521a;
-  --flame-700: #b53a18;
-  --ember:     #c0271a;
-  --cream:     #f6efe1;
+  --flame-200: var(--gold-400);
+  --flame-400: var(--gold-400);
+  --flame-500: var(--gold-500);
+  --flame-600: var(--gold-600);
+  --flame-700: var(--red-600);
+  --ember:     var(--red-600);
 
-  /* Theme tokens */
-  --bg:            #0a0907;
-  --bg-elev:       #131110;
-  --surface:       #1a1715;
-  --surface-2:     #221d1a;
-  --border:        #312a26;
-  --border-strong: #4a3f37;
+  /* Theme tokens — deep navy/black base */
+  --bg:            #06091a;
+  --bg-elev:       #0c1230;
+  --surface:       #111a3f;
+  --surface-2:     #18234d;
+  --border:        #283265;
+  --border-strong: #3c4a82;
   --text:          #f6efe1;
-  --text-muted:    #b6a99a;
-  --text-faint:    #7a6f63;
-  --primary:       var(--flame-500);
-  --primary-hover: var(--flame-400);
+  --text-muted:    #b6c0d8;
+  --text-faint:    #8090ae;
+  --primary:       var(--gold-500);
+  --primary-hover: var(--gold-400);
+  --accent-navy:   var(--navy-500);
+  --accent-red:    var(--red-500);
   --on-primary:    #0a0907;
-  --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.6), 0 8px 20px -8px rgba(255,107,26,.2);
-  --shadow-md: 0 12px 32px -12px rgba(0,0,0,.5);
+  --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.65), 0 8px 20px -8px rgba(245,197,24,.18);
+  --shadow-md: 0 12px 32px -12px rgba(0,0,0,.55);
 
   /* Layout */
   --sidebar-w: 280px;

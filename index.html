@@ -1,590 +1,148 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blazing Paddles 2026 Dashboard — Round Rock Fire Foundation</title>
-  <meta name="description" content="Internal committee and volunteer dashboard for the 2026 Blazing Paddles Pickleball Tournament — sponsor playbook, raffle strategy, outreach scripts, planning timeline, and day-of run-of-show for the Round Rock Fire Foundation." />
-  <meta name="theme-color" content="#0a0907" />
-
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-
-  <!-- Fonts: Khand (display) + Satoshi (body) — matches pickleball site -->
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blazing Paddles 2026 · Command Center</title>
+<meta name="description" content="Live committee command center for the Blazing Paddles 2026 Pickleball Tournament. Sponsor pipeline, raffle inventory, playbook, scripts, team contacts." />
+<meta name="theme-color" content="#06091a" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
 </head>
-<body>
+<body class="cc-body">
 
-  <a class="skip-link" href="#main">Skip to main content</a>
+<header class="cc-topbar">
+  <a class="cc-brand" href="index.html">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><br><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-nav" aria-label="Primary">
+    <a href="index.html" class="active">Actions</a>
+    <a href="log.html">Log</a>
+    <a href="sponsor-tracker.html">Sponsors</a>
+    <a href="raffle-tracker.html">Raffle</a>
+    <a href="process.html">Playbook</a>
+    <a href="team.html">Team</a>
+    <a href="contacts.html">Contacts</a>
+  </nav>
+</header>
 
-  <div class="app">
+<main class="cc-main">
 
-    <!-- Mobile sidebar backdrop (only visible when sidebar is open on small screens) -->
-    <div class="sidebar-backdrop" data-sidebar-backdrop aria-hidden="true"></div>
+  <section class="cc-hero">
+    <p class="cc-eyebrow">Round Rock Fire Foundation · Internal Committee Tool</p>
+    <h1>Blazing<br>Paddles<br>2026</h1>
+    <p class="cc-meta">October 10, 2026 · Tejas Pickleball Club · Georgetown, TX</p>
+    <p class="cc-meta-2" id="cc-tminus">Loading…</p>
+  </section>
 
-    <!-- ============== SIDEBAR ============== -->
-    <aside class="sidebar" aria-label="Dashboard navigation">
-      <a class="sidebar-brand" href="#top" aria-label="Blazing Paddles 2026 Dashboard">
-        <img class="brand-mark-img" src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="Blazing Paddles 2026 logo" width="44" height="44" />
-        <span class="brand-text">
-          <span class="brand-line-1">Blazing Paddles</span>
-          <span class="brand-line-2">2026 · Dashboard</span>
-        </span>
-      </a>
+  <section class="cc-kpis" id="cc-kpis">
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="sponsors">—</span><span class="cc-kpi-label">Sponsors</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="revenue">—</span><span class="cc-kpi-label">Committed</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="raffle">—</span><span class="cc-kpi-label">Raffle Items</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="goal">$100K</span><span class="cc-kpi-label">2026 Goal</span></div>
+  </section>
 
-      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary">
-        <p class="nav-kicker">Playbook</p>
-        <a href="index.html">Dashboard</a>
-        <a href="sponsors.html">Sponsor Playbook</a>
-        <a href="targets.html">Sponsor Targets</a>
-        <a href="raffle.html">Raffle Strategy</a>
-        <a href="outreach.html">Outreach Scripts</a>
-        <a href="flyers.html">Flyers</a>
-        <p class="nav-kicker">Operations</p>
-        <a href="timeline.html">Planning Timeline</a>
-        <a href="donations.html">Donation Tracker</a>
-        <a href="operations.html">Event Operations</a>
-        <a href="checklist.html">Day-of Checklist</a>
-        <p class="nav-kicker">Closeout</p>
-        <a href="recognition.html">Recognition Plan</a>
-        <a href="kpis.html">KPIs</a>
-      </nav>
+  <section class="cc-actions">
+    <a class="cc-action cc-action-primary" href="sponsor-tracker.html">
+      <h2>Get Sponsors</h2>
+      <p>Add a sponsor, update status, log next steps. Scripts and tiers built in.</p>
+    </a>
+    <a class="cc-action cc-action-secondary" href="raffle-tracker.html">
+      <h2>Get Raffle Items</h2>
+      <p>Wish list, donor outreach, who's claiming pickup, photo, and winner.</p>
+    </a>
+  </section>
 
-      <div class="sidebar-venue">
-        <span class="venue-label">Tournament Day</span>
-        <span class="venue-value">Sat · Oct 10, 2026</span>
-        <a class="venue-link" href="https://maps.google.com/?q=Tejas+Pickleball+Club+4701+FM+3405+Bldg+7+Georgetown+TX+78633" target="_blank" rel="noopener noreferrer">
-          Tejas Pickleball Club <span aria-hidden="true">↗</span>
-        </a>
-        <p class="venue-fine">All proceeds benefit the Round Rock Fire Foundation — crisis relief, family support, and wellness for Round Rock firefighters and families.</p>
-      </div>
-    </aside>
-
-    <!-- ============== MAIN ============== -->
-    <main id="main" class="main">
-
-      <!-- Top status bar -->
-      <header class="topbar" id="top">
-        <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="sidebar-nav" aria-expanded="false" aria-label="Open menu">
-          <span class="hamburger" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </span>
-          <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" class="sidebar-toggle-mark" />
-          <span class="sidebar-toggle-text">Menu</span>
-        </button>
-        <div class="topbar-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span class="status-text">Committee Dashboard · Live</span>
-          <span class="status-meta" data-status-meta>T-19 weeks · Updated May 27, 2026</span>
-        </div>
-        <div class="topbar-actions">
-          <a class="btn-link" href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener noreferrer">Registration site ↗</a>
-          <a class="btn-link" href="mailto:info@roundrockfirefoundation.org" aria-label="Email RRFF">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            info@roundrockfirefoundation.org
-          </a>
-          <a class="btn-link" href="tel:+15129671007" aria-label="Call RRFF">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            (512) 967-1007
-          </a>
-        </div>
-      </header>
-
-      <!-- HERO CARD -->
-      <section class="hero" id="dashboard">
-        <div class="hero-bg" aria-hidden="true">
-          <div class="hero-glow"></div>
-          <div class="hero-grid"></div>
-        </div>
-
-        <div class="hero-inner">
-          <div class="hero-copy">
-            <p class="eyebrow">
-              <span class="dot"></span>
-              Operations · October 10, 2026
-            </p>
-            <h1 class="hero-title">
-              Round Rock<br/>Fire Foundation<br/>
-              <span class="hero-title-sub">Blazing Paddles</span>
-            </h1>
-            <p class="hero-lede">
-              Internal planning dashboard for committee members and volunteers — sponsor playbook, raffle strategy, outreach scripts, planning timeline, and day-of run-of-show in one place. All proceeds fund crisis relief, family support programs, and wellness for Round Rock firefighters.
-            </p>
-
-            <ul class="hero-meta">
-              <li>
-                <span class="meta-label">Date</span>
-                <span class="meta-value">Saturday<br/>Oct 10, 2026</span>
-              </li>
-              <li>
-                <span class="meta-label">Venue</span>
-                <span class="meta-value">Tejas Pickleball Club<br/>Georgetown, TX</span>
-              </li>
-              <li>
-                <span class="meta-label">Format</span>
-                <span class="meta-value">Doubles, Singles<br/>&amp; First Responders</span>
-              </li>
-              <li>
-                <span class="meta-label">Goal</span>
-                <span class="meta-value">$32,000<br/>Net Raised</span>
-              </li>
-            </ul>
-
-            <div class="hero-ctas">
-              <a class="btn btn-primary" href="sponsors.html">Open sponsor playbook →</a>
-              <a class="btn btn-ghost" href="outreach.html">Outreach scripts</a>
-            </div>
-          </div>
-
-          <figure class="hero-art">
-            <img src="assets/images/blazing-paddles-logo-official-2026.jpg" alt="Round Rock Fire Foundation's Blazing Paddles Pickleball Tournament 2026 logo." width="1080" height="1080" />
-          </figure>
-        </div>
-      </section>
-
-      <!-- MARQUEE -->
-      <section class="strip" aria-label="Event highlights">
-        <div class="strip-track">
-          <span>T-19 Weeks</span><span aria-hidden="true">●</span>
-          <span>Sponsor Outreach</span><span aria-hidden="true">●</span>
-          <span>Raffle Procurement</span><span aria-hidden="true">●</span>
-          <span>Registration Open</span><span aria-hidden="true">●</span>
-          <span>October 10, 2026</span><span aria-hidden="true">●</span>
-          <span>Tejas Pickleball Club</span><span aria-hidden="true">●</span>
-          <span>Round Rock Fire Foundation</span><span aria-hidden="true">●</span>
-          <span>T-19 Weeks</span><span aria-hidden="true">●</span>
-          <span>Sponsor Outreach</span><span aria-hidden="true">●</span>
-          <span>Raffle Procurement</span><span aria-hidden="true">●</span>
-          <span>Registration Open</span><span aria-hidden="true">●</span>
-          <span>October 10, 2026</span><span aria-hidden="true">●</span>
-          <span>Tejas Pickleball Club</span><span aria-hidden="true">●</span>
-          <span>Round Rock Fire Foundation</span><span aria-hidden="true">●</span>
-        </div>
-      </section>
-
-      <!-- AUDIO WALKTHROUGH -->
-      <section class="section section-alt" id="audio-walkthrough">
-        <header class="section-head">
-          <p class="kicker">Start here</p>
-          <h2 class="section-title">Listen to the dashboard walkthrough.</h2>
-          <p class="section-lede">A short spoken overview for committee members and volunteers. It explains where to find the main tools and how to use the donation tracker.</p>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>Dashboard audio walkthrough</h3>
-            <p>Length: about 3 minutes. Play it before using the dashboard or send people here after a committee meeting.</p>
-            <audio class="site-audio" controls preload="metadata">
-              <source src="audio/dashboard-walkthrough.mp3" type="audio/mpeg" />
-              Your browser does not support the audio player. Use the download link below.
-            </audio>
-            <div class="section-nav">
-              <a class="btn btn-ghost" href="audio/dashboard-walkthrough.mp3" download>Download audio</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- KPI GRID -->
-      <section class="section" id="kpis">
-        <header class="section-head">
-          <p class="kicker">At a Glance</p>
-          <h2 class="section-title">The numbers that matter this week.</h2>
-          <p class="section-lede">Internal committee and volunteer KPIs. Update each Sunday during the standup.</p>
-        </header>
-
-        <div class="grid kpi-grid">
-          <article class="kpi-card">
-            <span class="kpi-label">Funding Goal</span>
-            <span class="kpi-value">$32,000</span>
-            <span class="kpi-sub">$8,500 committed to date</span>
-            <div class="kpi-bar" aria-hidden="true"><span style="width: 26%;"></span></div>
-          </article>
-
-          <article class="kpi-card">
-            <span class="kpi-label">Sponsor Slots</span>
-            <span class="kpi-value">20</span>
-            <span class="kpi-sub">1 Presenting · 1 Chief · 6 Lieutenant · 12 Firefighter</span>
-          </article>
-
-          <article class="kpi-card">
-            <span class="kpi-label">Target List</span>
-            <span class="kpi-value">50</span>
-            <span class="kpi-sub">Local &amp; regional prospects</span>
-          </article>
-
-          <article class="kpi-card">
-            <span class="kpi-label">Raffle Prize Ideas</span>
-            <span class="kpi-value">32</span>
-            <span class="kpi-sub">Across 12 categories</span>
-          </article>
-        </div>
-      </section>
-
-      <!-- THIS WEEK'S FOCUS + COMPLIANCE -->
-      <section class="section section-alt" id="focus">
-        <div class="two-col">
-
-          <div>
-            <p class="kicker">Priority Actions · Recommended by T-8</p>
-            <h2 class="section-title">Lock the Presenting Sponsor.</h2>
-            <p class="section-lede">
-              Sponsor momentum hinges on a confirmed Presenting Sponsor ($10,000, one available) by T-8. Kalahari Round Rock, H-E-B, and Round Rock Express have been offered Presenting in parallel — first commit wins exclusivity; the rest can fall back to the new Chief tier at $5,000.
-            </p>
-
-            <ul class="focus-list">
-              <li>
-                <span class="focus-icon" aria-hidden="true">✅</span>
-                <div>
-                  <h3>Presenting Sponsor asks sent</h3>
-                  <p>Kalahari, H-E-B, and Round Rock Express received Presenting Sponsor packets on Jun 10. Track replies in the donation tracker.</p>
-                </div>
-              </li>
-              <li>
-                <span class="focus-icon" aria-hidden="true">✅</span>
-                <div>
-                  <h3>501(c)(3) determination letter confirmed</h3>
-                  <p>On file and included with every sponsor packet going out this week.</p>
-                </div>
-              </li>
-              <li>
-                <span class="focus-icon" aria-hidden="true">✉️</span>
-                <div>
-                  <h3>Send 15 Lieutenant cold/warm emails</h3>
-                  <p>Use the Lieutenant outreach script. Track in the donation tracker.</p>
-                </div>
-              </li>
-              <li>
-                <span class="focus-icon" aria-hidden="true">🎁</span>
-                <div>
-                  <h3>Open raffle prize asks to top 10 targets</h3>
-                  <p>Focus on hospitality and restaurant targets. Prizes must be in hand before tickets sell.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <aside class="aside-card" id="raffle-shortlist">
-            <p class="kicker">Raffle Ask List</p>
-            <h3>Start with these prize types.</h3>
-            <ul class="bullet-list">
-              <li><strong>Weekend or staycation package:</strong> hotel, dinner, and activity bundled together.</li>
-              <li><strong>Pickleball package:</strong> lessons, court time, paddles, bag, balls, and pro shop credit.</li>
-              <li><strong>Date night:</strong> dinner gift card, dessert, flowers, and movie or concert tickets.</li>
-              <li><strong>Family package:</strong> waterpark, baseball tickets, arcade, pizza, and ice cream.</li>
-              <li><strong>Home services:</strong> lawn care, house cleaning, HVAC tune-up, pest control, or car detail.</li>
-            </ul>
-            <a class="btn btn-ghost" href="raffle.html">Open raffle target list →</a>
-          </aside>
-
-        </div>
-      </section>
-
-      <!-- PLAYBOOK PANELS -->
-      <section class="section" id="sponsors">
-        <header class="section-head">
-          <p class="kicker">Playbook</p>
-          <h2 class="section-title">Sponsor outreach, donations &amp; day-of ops.</h2>
-          <p class="section-lede">Open any panel below to jump into the relevant work area. Owners coordinate weekly with committee members and volunteers.</p>
-        </header>
-
-        <div class="grid panel-grid">
-          <a class="panel-card" href="sponsors.html">
-            <span class="panel-tier">Sponsorship</span>
-            <h3>Sponsor Playbook</h3>
-            <p>Sponsorship tiers, asks, deck, and the email + voicemail scripts that convert. Updated weekly.</p>
-            <span class="panel-cta">Open playbook →</span>
-          </a>
-
-          <a class="panel-card" href="targets.html">
-            <span class="panel-tier">Sponsorship</span>
-            <h3>Sponsor Targets</h3>
-            <p>The live 50-name target list, color-coded by tier with owner and last-touch dates.</p>
-            <span class="panel-cta">Open list →</span>
-          </a>
-
-          <a class="panel-card" href="raffle.html">
-            <span class="panel-tier">Fundraising</span>
-            <h3>Raffle Strategy</h3>
-            <p>Prize ideas, specific businesses to contact, suggested asks, and owner tracking for volunteers.</p>
-            <span class="panel-cta">Open strategy →</span>
-          </a>
-
-          <a class="panel-card panel-card-feature" href="outreach.html">
-            <span class="panel-tier panel-tier-flame">Outreach</span>
-            <h3>Outreach Scripts</h3>
-            <p>Email, text, voicemail, follow-up, and thank-you scripts for every tier and use case.</p>
-            <span class="panel-cta">Open scripts →</span>
-          </a>
-
-          <a class="panel-card panel-card-feature" href="flyers.html">
-            <span class="panel-tier panel-tier-flame">Assets</span>
-            <h3>Flyers</h3>
-            <p>The three current flyer files for committee members to open, download, or send.</p>
-            <span class="panel-cta">Open flyers →</span>
-          </a>
-
-          <a class="panel-card" href="timeline.html">
-            <span class="panel-tier">Operations</span>
-            <h3>Planning Timeline</h3>
-            <p>T-minus countdown from today to tournament day, with weekly milestones and owners.</p>
-            <span class="panel-cta">Open timeline →</span>
-          </a>
-
-          <a class="panel-card" href="donations.html">
-            <span class="panel-tier">Operations</span>
-            <h3>Donation Tracker</h3>
-            <p>Open the live Google Sheet for sponsor leads, raffle prizes, in-kind donations, follow-ups, pickups, and thank-yous.</p>
-            <span class="panel-cta">Open tracker page →</span>
-          </a>
-
-          <a class="panel-card panel-card-feature" href="checklist.html">
-            <span class="panel-tier panel-tier-flame">Day-Of</span>
-            <h3>Day-of Checklist</h3>
-            <p>Hour-by-hour run-of-show, check-in tables, raffle table, awards, and tear-down.</p>
-            <span class="panel-cta">Open checklist →</span>
-          </a>
-
-          <a class="panel-card" href="operations.html">
-            <span class="panel-tier">Operations</span>
-            <h3>Event Operations</h3>
-            <p>Vendors, volunteers, court layouts, food trucks, music, signage, and run-of-show.</p>
-            <span class="panel-cta">Open ops →</span>
-          </a>
-
-          <a class="panel-card" href="kpis.html">
-            <span class="panel-tier">Closeout</span>
-            <h3>KPIs</h3>
-            <p>Live committee numbers — funding, sponsor slots, target list, and raffle prize inventory.</p>
-            <span class="panel-cta">Open KPIs →</span>
-          </a>
-
-          <a class="panel-card" href="recognition.html">
-            <span class="panel-tier">Closeout</span>
-            <h3>Recognition Plan</h3>
-            <p>Thank-yous, social posts, press, sponsor recognition, and donor stewardship plan.</p>
-            <span class="panel-cta">Open plan →</span>
-          </a>
-
-        </div>
-      </section>
-
-      <!-- SPONSOR TARGETS -->
-      <section class="section section-alt" id="targets">
-        <header class="section-head">
-          <p class="kicker">Sponsor Targets</p>
-          <h2 class="section-title">Start with high-fit local businesses.</h2>
-          <p class="section-lede">Use this as the first call list. Assign an owner before anyone reaches out so businesses do not hear from multiple committee members.</p>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>Presenting-level prospects · $10,000</h3>
-            <p>The biggest brands with a regional footprint and a community-impact budget: Dell Technologies, Kalahari Resorts Round Rock, H-E-B, Baylor Scott &amp; White Round Rock, St. David’s Round Rock, and Round Rock Express. Only one will win exclusivity.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Chief-level prospects · $5,000</h3>
-            <p>Strong regional employers and visible community brands that want major recognition without presenting exclusivity: major construction or development firms, large medical groups, regional banks, and tier-two corporate partners.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Lieutenant-level prospects · $2,500</h3>
-            <p>Restaurants, breweries, banks, real estate groups, insurance agencies, car dealerships, urgent care clinics, home builders, law firms, and regional employers in Round Rock, Georgetown, Cedar Park, Hutto, and Pflugerville.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Firefighter-level prospects · $1,000</h3>
-            <p>Small businesses that want community recognition: gyms, salons, HVAC, plumbing, roofing, landscapers, coffee shops, boutiques, family entertainment, and pickleball-related businesses.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- RAFFLE STRATEGY -->
-      <section class="section" id="raffle">
-        <header class="section-head">
-          <p class="kicker">Raffle Strategy</p>
-          <h2 class="section-title">Build a raffle people talk about.</h2>
-          <p class="section-lede">Aim for fewer, better prizes. Give volunteers a specific business, a specific ask, and a clear pickup or delivery plan.</p>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>High-end prize categories</h3>
-            <p>Weekend getaway, private chef or dining package, spa day, guided fishing or hunting trip, golf foursome, premium pickleball package, sports tickets, jewelry, home services, tech bundle, wine or bourbon basket, and family entertainment package.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Best asks</h3>
-            <p>Ask for a complete experience instead of one item. Example: dinner, hotel, and activity packaged as one featured prize. It sounds larger and gives more sponsors visibility.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Businesses to start with</h3>
-            <p>Kalahari Resorts, Round Rock Express, Tejas Pickleball Club, The Picklr Round Rock, City Post Chophouse, 2020 Market, Viva Day Spa, Hand &amp; Stone Round Rock, Hometown Gift &amp; Decor, local dentists, orthodontists, HVAC companies, landscapers, and car detailers.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- OUTREACH SCRIPTS -->
-      <section class="section section-alt" id="outreach">
-        <header class="section-head">
-          <p class="kicker">Outreach Scripts</p>
-          <h2 class="section-title">Use clear, direct asks.</h2>
-          <p class="section-lede">Keep messages short. Say what the event is, who it benefits, what you are asking for, and the deadline for artwork or prize pickup.</p>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card"><h3>Copy-ready messages</h3><p>Sponsor email, warm contact, text message, raffle prize ask, follow-up, yes next steps, pickup details, and decline response.</p></article>
-          <article class="detail-card"><h3>Use the right script</h3><p>Pick the version that matches the situation. Personalize the business name, contact name, specific ask, and next step before sending.</p></article>
-          <article class="detail-card"><h3>Track after sending</h3><p>After every call, email, text, or visit, update the Donation Tracker with the status and next follow-up date.</p></article>
-        </div>
-        <div class="section-nav"><a class="btn btn-primary" href="outreach.html">Open full script library</a></div>
-      </section>
-
-      <!-- TIMELINE -->
-      <section class="section" id="timeline">
-        <header class="section-head">
-          <p class="kicker">Planning Timeline</p>
-          <h2 class="section-title">Weekly priorities to keep the event moving.</h2>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card"><h3>Now to T-12</h3><p>Confirm sponsor packet, donation receipt language, registration page, raffle rules, and committee owners.</p></article>
-          <article class="detail-card"><h3>T-12 to T-6</h3><p>Push sponsor outreach, secure raffle prizes, confirm vendors, publish registration, and order sponsor signage.</p></article>
-          <article class="detail-card"><h3>T-6 to event week</h3><p>Close sponsor artwork, finalize brackets, print signage, organize raffle display, and assign day-of roles.</p></article>
-        </div>
-      </section>
-
-      <!-- DONATION TRACKER -->
-      <section class="section section-alt" id="donations">
-        <header class="section-head">
-          <p class="kicker">Donation Tracker</p>
-          <h2 class="section-title">Track every ask the same way.</h2>
-          <p class="section-lede">Use the live Google Sheet so the committee can see what is pending, committed, received, picked up, and thanked.</p>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card">
-            <h3>Open the live tracker</h3>
-            <p>Use this when someone contacts a business, gets a yes or no, receives a raffle item, or sends a thank-you.</p>
-            <div class="section-nav">
-              <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit?usp=sharing" target="_blank" rel="noopener">Open live donation tracker</a>
-            </div>
-          </article>
-          <article class="detail-card">
-            <h3>Use the right tab</h3>
-            <p>Donation Tracker is the full lead list. Raffle Inventory is for prizes. Sponsor Pipeline is for cash sponsors. Instructions has the operating notes.</p>
-          </article>
-          <article class="detail-card">
-            <h3>Keep it current</h3>
-            <p>Each row should have one owner, one next step, and a current status so volunteers do not duplicate asks.</p>
-          </article>
-        </div>
-        <div class="quick-facts">
-          <div class="fact"><span class="fact-label">Contact</span><span class="fact-value">Business, contact name, email, phone</span></div>
-          <div class="fact"><span class="fact-label">Ask</span><span class="fact-value">Sponsor tier, dollar amount, or prize requested</span></div>
-          <div class="fact"><span class="fact-label">Status</span><span class="fact-value">Not started, contacted, follow-up, committed, received, thanked</span></div>
-          <div class="fact"><span class="fact-label">Owner</span><span class="fact-value">Committee member responsible</span></div>
-          <div class="fact"><span class="fact-label">Deadline</span><span class="fact-value">Artwork due, pickup date, payment due</span></div>
-          <div class="fact"><span class="fact-label">Recognition</span><span class="fact-value">Logo received, signage, social post, emcee note</span></div>
-        </div>
-      </section>
-
-      <!-- EVENT OPERATIONS -->
-      <section class="section" id="operations">
-        <header class="section-head">
-          <p class="kicker">Event Operations</p>
-          <h2 class="section-title">Make tournament day easy to run.</h2>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card"><h3>Volunteer stations</h3><p>Check-in, court flow, raffle table, sponsor table, food and water, awards, photography, and cleanup.</p></article>
-          <article class="detail-card"><h3>Physical setup</h3><p>Directional signs, sponsor banners, raffle display, prize claim area, first aid, shade, water, trash, and backup supplies.</p></article>
-          <article class="detail-card"><h3>Run of show</h3><p>Arrival, check-in, welcome, play blocks, raffle pushes, sponsor recognition, awards, final raffle draw, and cleanup.</p></article>
-        </div>
-      </section>
-
-      <!-- DAY-OF CHECKLIST -->
-      <section class="section section-alt" id="checklist">
-        <header class="section-head">
-          <p class="kicker">Day-of Checklist</p>
-          <h2 class="section-title">Use this before anyone leaves home.</h2>
-        </header>
-        <ul class="focus-list">
-          <li><span class="focus-icon" aria-hidden="true">1</span><div><h3>Print and pack</h3><p>Brackets, sponsor list, raffle item list, volunteer assignments, emcee notes, tape, markers, zip ties, pens, clipboards, and cashless payment signs.</p></div></li>
-          <li><span class="focus-icon" aria-hidden="true">2</span><div><h3>Set up sponsor recognition</h3><p>Place banners and signs before players arrive. Confirm sponsor names with the emcee sheet.</p></div></li>
-          <li><span class="focus-icon" aria-hidden="true">3</span><div><h3>Secure raffle items</h3><p>Set up prize display, item numbers, winner claim process, and one person responsible for prize custody.</p></div></li>
-          <li><span class="focus-icon" aria-hidden="true">4</span><div><h3>Close out</h3><p>Take photos, collect signs, confirm payments, record winners, thank volunteers, and list every sponsor follow-up due next week.</p></div></li>
-        </ul>
-      </section>
-
-      <!-- RECOGNITION -->
-      <section class="section" id="recognition">
-        <header class="section-head">
-          <p class="kicker">Recognition Plan</p>
-          <h2 class="section-title">Thank sponsors quickly and specifically.</h2>
-        </header>
-        <div class="detail-grid">
-          <article class="detail-card"><h3>Before event</h3><p>Confirm logo, spelling, sponsor level, and social media preferences. Send what their sponsorship supports.</p></article>
-          <article class="detail-card"><h3>During event</h3><p>Use emcee recognition, signage, sponsor table visibility, and photos of sponsor assets in place.</p></article>
-          <article class="detail-card"><h3>After event</h3><p>Send a thank-you within 72 hours with photos, amount raised, beneficiary language, and an invitation to support next year.</p></article>
-        </div>
-      </section>
-
-      <!-- EVENT INFO QUICK FACTS -->
-      <section class="section section-alt" id="event-info">
-        <header class="section-head">
-          <p class="kicker">Event Info</p>
-          <h2 class="section-title">Tournament essentials.</h2>
-          <p class="section-lede">Internal working details for committee members and volunteers. Confirm with the foundation before sharing externally.</p>
-        </header>
-
-        <div class="quick-facts">
-          <div class="fact">
-            <span class="fact-label">Date</span>
-            <span class="fact-value">Saturday, October 10, 2026</span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Venue</span>
-            <span class="fact-value">Tejas Pickleball Club</span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Address</span>
-            <span class="fact-value">4701 FM 3405, Bldg 7<br/>Georgetown, TX 78633</span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Email</span>
-            <span class="fact-value"><a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a></span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Phone</span>
-            <span class="fact-value"><a href="tel:+15129671007">(512) 967-1007</a></span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">Public site</span>
-            <span class="fact-value"><a href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener noreferrer">pickleball.roundrockfirefoundation.org ↗</a></span>
-          </div>
-        </div>
-
-        <p class="fine-print">Placeholder · Confirm exact start/end times, registration link, and final logistics with RRFF before sharing externally.</p>
-      </section>
-
-      <!-- CONTACT CTA -->
-      <section class="section" id="contact">
-        <div class="contact-cta">
-          <div>
-            <p class="kicker">Need help routing an ask?</p>
-            <h2 class="section-title">Forward warm leads to the foundation.</h2>
-            <p class="section-lede">Send warm leads here so the right committee member or volunteer can follow up without duplicating outreach.</p>
-          </div>
-          <div class="cta-row cta-row-stack">
-            <a class="btn btn-primary" href="mailto:info@roundrockfirefoundation.org?subject=Blazing%20Paddles%202026%20Lead">Email info@roundrockfirefoundation.org</a>
-            <a class="btn btn-ghost" href="tel:+15129671007">Call (512) 967-1007</a>
-          </div>
-        </div>
-      </section>
-
-      <footer class="dashboard-footer">
-        <p>© <span id="year">2026</span> Round Rock Fire Foundation · Blazing Paddles Committee & Volunteer Dashboard</p>
-        <p class="muted small">All proceeds benefit the Round Rock Fire Foundation — crisis relief, family support, and wellness for Round Rock firefighters and families.</p>
-      </footer>
-
-    </main>
+  <div class="cc-next-meeting">
+    <strong>Next Meeting:</strong> First Tuesday of the month at 7:00 PM
   </div>
 
-  <script src="script.js" defer></script>
+  <h3 class="cc-section-title">Everything Else</h3>
+  <section class="cc-tile-grid">
+    <a class="cc-tile" href="log.html">
+      <h4>Quick Log</h4>
+      <p>Log a win in 5 seconds — sponsor cash or raffle item</p>
+    </a>
+    <a class="cc-tile" href="process.html">
+      <h4>Sponsorship Playbook</h4>
+      <p>13 business categories, scripts, objections, 7-day follow-up</p>
+    </a>
+    <a class="cc-tile" href="team.html">
+      <h4>Team Guide</h4>
+      <p>Roles, lanes, volunteers, event day</p>
+    </a>
+    <a class="cc-tile" href="marketing.html">
+      <h4>Marketing</h4>
+      <p>Social posts, email templates, flyers</p>
+    </a>
+    <a class="cc-tile" href="goals.html">
+      <h4>Goal Tracker</h4>
+      <p>Sponsorships, raffle, players, day-of operations</p>
+    </a>
+    <a class="cc-tile" href="contacts.html">
+      <h4>Contacts</h4>
+      <p>Committee phone book, venue, hospital, PD</p>
+    </a>
+    <a class="cc-tile" href="flyers.html">
+      <h4>Flyers</h4>
+      <p>Print and digital assets ready to share</p>
+    </a>
+    <a class="cc-tile" href="settings.html">
+      <h4>Settings</h4>
+      <p>Connect the Sheets webhook so the dashboard can save data</p>
+    </a>
+  </section>
+
+  <p class="cc-tagline">"Every play counts. Every member scores. No one rides the bench."</p>
+
+</main>
+
+<script src="sheets.js"></script>
+<script>
+(function () {
+  // T-minus countdown
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  function tminus() {
+    var event = startOfDay(new Date(2026, 9, 10));
+    var today = startOfDay(new Date());
+    var days = Math.round((event - today) / 86400000);
+    if (days > 14) return 'T-' + Math.floor(days/7) + ' weeks · ' + days + ' days out';
+    if (days > 1) return 'T-' + days + ' days';
+    if (days === 1) return 'T-1 day · Tomorrow';
+    if (days === 0) return 'Event Day · Live';
+    return 'Tournament day was ' + (-days) + ' days ago';
+  }
+  document.getElementById('cc-tminus').textContent = tminus();
+
+  // KPIs from live sheet
+  Promise.all([
+    BPSheets.read('Sponsor Pipeline').catch(() => []),
+    BPSheets.read('Raffle Inventory').catch(() => []),
+  ]).then(function (results) {
+    var sponsors = results[0];
+    var raffle = results[1];
+    var confirmedCount = sponsors.filter(function (s) {
+      var st = (s['Status'] || '').toLowerCase();
+      return st === 'confirmed' || st === 'paid';
+    }).length;
+    var committed = sponsors.reduce(function (sum, s) {
+      var n = parseFloat(String(s['Amount Committed'] || '').replace(/[^0-9.\-]/g, ''));
+      return sum + (isFinite(n) ? n : 0);
+    }, 0);
+    var raffleCount = raffle.filter(function (r) {
+      return (r['Status'] || '').toLowerCase() !== 'wish list';
+    }).length;
+    document.querySelector('[data-kpi="sponsors"]').textContent = confirmedCount;
+    document.querySelector('[data-kpi="revenue"]').textContent = '$' + Math.round(committed).toLocaleString();
+    document.querySelector('[data-kpi="raffle"]').textContent = raffleCount;
+  });
+})();
+</script>
 </body>
 </html>

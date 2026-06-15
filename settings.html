@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Settings · Blazing Paddles 2026</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+</head>
+<body class="cc-body">
+
+<header class="cc-topbar">
+  <a class="cc-brand" href="index.html">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><br><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-nav">
+    <a href="index.html">Actions</a><a href="log.html">Log</a><a href="sponsor-tracker.html">Sponsors</a>
+    <a href="raffle-tracker.html">Raffle</a><a href="process.html">Playbook</a>
+    <a href="team.html">Team</a><a href="contacts.html">Contacts</a>
+  </nav>
+</header>
+
+<main class="cc-main">
+  <div class="cc-page-header">
+    <div><h1 class="cc-page-title">Settings</h1>
+    <p class="cc-page-sub">One-time setup to enable writing to the Google Sheet from this dashboard.</p></div>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">Apps Script Webhook</h3>
+    <p style="color:var(--text-muted);font-size:14px;line-height:1.6">
+      The dashboard reads from your Google Sheet automatically (no setup needed).
+      To <strong style="color:var(--text)">write new sponsors and raffle items back to the Sheet</strong>,
+      install the free Apps Script webhook one time. Full instructions are in
+      <a href="https://github.com/Blazing-Paddles-2026/BlazingPaddles2026/blob/main/SETUP-APPSSCRIPT.md" target="_blank" rel="noopener" style="color:var(--gold-400)">SETUP-APPSSCRIPT.md</a>.
+    </p>
+    <p style="color:var(--text-muted);font-size:14px;line-height:1.6">
+      The 30-second version:
+      Open <a href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit" target="_blank" style="color:var(--gold-400)">the Sheet</a>
+      → Extensions → Apps Script → paste the contents of
+      <a href="https://github.com/Blazing-Paddles-2026/BlazingPaddles2026/blob/main/apps-script.gs" target="_blank" rel="noopener" style="color:var(--gold-400)">apps-script.gs</a>
+      → Deploy → New deployment → Web app, Execute as: Me, Access: Anyone → copy the URL and paste below.
+    </p>
+
+    <form class="cc-form" id="webhook-form" style="margin-top:var(--space-4)">
+      <div class="cc-form-row" style="grid-column: 1 / -1">
+        <label for="webhook-url">Apps Script Web App URL</label>
+        <input class="cc-input" id="webhook-url" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+      <div class="cc-form-row">
+        <button type="submit" class="cc-btn cc-btn-primary">Save</button>
+      </div>
+      <div class="cc-form-row">
+        <button type="button" class="cc-btn cc-btn-ghost" id="test-btn">Test webhook</button>
+      </div>
+      <div class="cc-form-row">
+        <button type="button" class="cc-btn cc-btn-ghost" id="clear-btn">Clear</button>
+      </div>
+    </form>
+    <p id="webhook-status" style="margin:var(--space-3) 0 0;font-size:13px;color:var(--text-muted)"></p>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">What's connected</h3>
+    <ul style="margin:0;color:var(--text-muted);line-height:1.8;font-size:14px">
+      <li><strong style="color:var(--text)">Google Sheet:</strong>
+        <a href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit" target="_blank" style="color:var(--gold-400)">Blazing Paddles 2026 Donation Tracker</a>
+      </li>
+      <li><strong style="color:var(--text)">Tabs:</strong> Sponsor Pipeline · Raffle Inventory · Log · Team · Instructions · Donation Tracker</li>
+      <li><strong style="color:var(--text)">Reads:</strong> Public CSV export — works without any auth as long as the Sheet stays set to "Anyone with the link can view"</li>
+      <li><strong style="color:var(--text)">Writes:</strong> Apps Script webhook (configured above)</li>
+    </ul>
+  </div>
+</main>
+
+<div class="cc-toast" id="toast"></div>
+
+<script src="sheets.js"></script>
+<script>
+(function () {
+  var input = document.getElementById('webhook-url');
+  var status = document.getElementById('webhook-status');
+  var toast = document.getElementById('toast');
+  function showToast(m, err) {
+    toast.textContent = m;
+    toast.className = 'cc-toast show' + (err ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 3000);
+  }
+  function refreshStatus() {
+    var u = BPSheets.getWebhookUrl();
+    if (u) status.innerHTML = '✅ Webhook configured: <code style="font-size:12px">' + u.replace(/^(.{50}).+$/, '$1…') + '</code>';
+    else status.textContent = '⚠️ No webhook configured. Adds and edits will fail until you paste a URL above.';
+  }
+  input.value = BPSheets.getWebhookUrl();
+  refreshStatus();
+
+  document.getElementById('webhook-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    BPSheets.setWebhookUrl(input.value);
+    refreshStatus();
+    showToast('Saved.');
+  });
+  document.getElementById('clear-btn').addEventListener('click', function () {
+    input.value = '';
+    BPSheets.setWebhookUrl('');
+    refreshStatus();
+    showToast('Cleared.');
+  });
+  document.getElementById('test-btn').addEventListener('click', function () {
+    var u = (input.value || '').trim();
+    if (!u) return showToast('Paste a URL first.', true);
+    BPSheets.setWebhookUrl(u);
+    fetch(u, { mode: 'cors' }).then(function (r) {
+      return r.text();
+    }).then(function (t) {
+      showToast('Reachable: ' + t.slice(0, 60));
+    }).catch(function (e) {
+      showToast('Failed: ' + e.message, true);
+    });
+  });
+})();
+</script>
+</body>
+</html>

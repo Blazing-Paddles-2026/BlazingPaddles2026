@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Raffle Tracker · Blazing Paddles 2026</title>
+<meta name="theme-color" content="#06091a" />
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+</head>
+<body class="cc-body">
+
+<header class="cc-topbar">
+  <a class="cc-brand" href="index.html">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><br><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-nav">
+    <a href="index.html">Actions</a>
+    <a href="log.html">Log</a>
+    <a href="sponsor-tracker.html">Sponsors</a>
+    <a href="raffle-tracker.html" class="active">Raffle</a>
+    <a href="process.html">Playbook</a>
+    <a href="team.html">Team</a>
+    <a href="contacts.html">Contacts</a>
+  </nav>
+</header>
+
+<main class="cc-main">
+
+  <div class="cc-page-header">
+    <div>
+      <h1 class="cc-page-title">Raffle Inventory</h1>
+      <p class="cc-page-sub">Wish list → secured → on-hand. Adds save instantly.</p>
+    </div>
+    <a href="process.html#raffle" class="cc-btn cc-btn-ghost">Raffle Playbook</a>
+  </div>
+
+  <!-- KPIs -->
+  <section class="cc-kpis">
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-secured">—</span><span class="cc-kpi-label">Items Secured</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-pending">—</span><span class="cc-kpi-label">In Progress</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-value">—</span><span class="cc-kpi-label">Est. Value</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-target">8–12</span><span class="cc-kpi-label">Goal</span></div>
+  </section>
+
+  <!-- Raffle day rules card -->
+  <div class="cc-card">
+    <h3 class="cc-card-title">Raffle Day Rules — Tournament Day Only</h3>
+    <p style="margin:0 0 8px;color:var(--text-muted);font-size:14px;line-height:1.6">
+      Tickets sold <strong style="color:var(--text)">on-site only</strong> during the tournament. No pre-sales.
+      Winners drawn throughout the day. <strong style="color:var(--text)">Must be present to win</strong> — if your number is called and you're not on-site, we draw a new winner.
+    </p>
+  </div>
+
+  <!-- Add Raffle Item form -->
+  <div class="cc-card">
+    <h3 class="cc-card-title">Add a Raffle Item</h3>
+    <form class="cc-form" id="add-raffle-form" autocomplete="off">
+      <div class="cc-form-row">
+        <label for="r-item">Item / Package</label>
+        <input class="cc-input" id="r-item" required placeholder="YETI cooler bundle">
+      </div>
+      <div class="cc-form-row">
+        <label for="r-donor">Donor / Business</label>
+        <input class="cc-input" id="r-donor" placeholder="Local Hardware Co.">
+      </div>
+      <div class="cc-form-row">
+        <label for="r-value">Estimated $ value</label>
+        <input class="cc-input" id="r-value" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="r-owner">Owner</label>
+        <select class="cc-select" id="r-owner"><option value="">Loading…</option></select>
+      </div>
+      <div class="cc-form-row">
+        <label for="r-status">Status</label>
+        <select class="cc-select" id="r-status">
+          <option>Wish list</option>
+          <option>Asked</option>
+          <option>Committed</option>
+          <option>Received</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="r-pickup">Pickup needed?</label>
+        <select class="cc-select" id="r-pickup">
+          <option value="">—</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="r-notes">Notes / category</label>
+        <input class="cc-input" id="r-notes" placeholder="Outdoor · Experience · Sports">
+      </div>
+      <div class="cc-form-row">
+        <button type="submit" class="cc-btn cc-btn-primary">Add Item</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Filter -->
+  <div class="cc-filter-bar">
+    <input class="cc-input" id="filter-search" placeholder="Search item or donor…">
+    <select class="cc-select" id="filter-status">
+      <option value="">All Statuses</option>
+      <option>Wish list</option>
+      <option>Asked</option>
+      <option>Committed</option>
+      <option>Received</option>
+    </select>
+    <a class="cc-btn cc-btn-ghost cc-btn-sm" id="open-sheet" target="_blank" rel="noopener">Open in Google Sheets</a>
+    <button class="cc-btn cc-btn-ghost cc-btn-sm" id="refresh-btn">Refresh</button>
+  </div>
+
+  <div class="cc-table-wrap">
+    <table class="cc-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Donor</th>
+          <th>Value</th>
+          <th>Owner</th>
+          <th>Status</th>
+          <th>Pickup</th>
+        </tr>
+      </thead>
+      <tbody id="raffle-rows">
+        <tr><td colspan="6" class="cc-loading">Loading raffle inventory…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<div class="cc-toast" id="toast"></div>
+
+<script src="sheets.js"></script>
+<script>
+(function () {
+  var SHEET_NAME = 'Raffle Inventory';
+  var rows = [];
+  var team = [];
+
+  var tbody = document.getElementById('raffle-rows');
+  var search = document.getElementById('filter-search');
+  var statusFilter = document.getElementById('filter-status');
+  var refreshBtn = document.getElementById('refresh-btn');
+  document.getElementById('open-sheet').href = BPSheets.publicSheetUrl(SHEET_NAME);
+
+  var toast = document.getElementById('toast');
+  function showToast(msg, err) {
+    toast.textContent = msg;
+    toast.className = 'cc-toast show' + (err ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function statusClass(s) {
+    return 'cc-status cc-status-' + (s || 'wish-list').toLowerCase().replace(/\s+/g, '-');
+  }
+
+  function render() {
+    var q = (search.value || '').toLowerCase();
+    var sf = statusFilter.value;
+    var filtered = rows.filter(function (r) {
+      if (sf && (r['Status'] || '') !== sf) return false;
+      if (!q) return true;
+      var hay = ((r['Item / Package'] || '') + ' ' + (r['Business / Donor'] || '') + ' ' + (r['Owner'] || '')).toLowerCase();
+      return hay.indexOf(q) >= 0;
+    });
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">No items match.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = filtered.map(function (r) {
+      var v = parseFloat(String(r['Estimated Value'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      return '<tr>' +
+        '<td><strong>' + escapeHtml(r['Item / Package']) + '</strong>' +
+          (r['Notes'] ? '<br><small style="color:var(--text-faint)">' + escapeHtml(r['Notes']) + '</small>' : '') +
+        '</td>' +
+        '<td>' + escapeHtml(r['Business / Donor'] || '—') + '</td>' +
+        '<td>' + (v ? '$' + v.toLocaleString() : '—') + '</td>' +
+        '<td>' + escapeHtml(r['Owner'] || '—') + '</td>' +
+        '<td><span class="' + statusClass(r['Status']) + '">' + escapeHtml(r['Status'] || 'Wish list') + '</span></td>' +
+        '<td>' + escapeHtml(r['Pickup Needed?'] || '—') + '</td>' +
+      '</tr>';
+    }).join('');
+    updateKPIs();
+  }
+
+  function updateKPIs() {
+    var secured = 0, pending = 0, value = 0;
+    rows.forEach(function (r) {
+      var s = (r['Status'] || '').toLowerCase();
+      var v = parseFloat(String(r['Estimated Value'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      if (s === 'received' || s === 'committed') { secured++; value += v; }
+      else if (s === 'asked') { pending++; }
+    });
+    document.getElementById('kpi-secured').textContent = secured;
+    document.getElementById('kpi-pending').textContent = pending;
+    document.getElementById('kpi-value').textContent = '$' + value.toLocaleString();
+  }
+
+  function load() {
+    tbody.innerHTML = '<tr><td colspan="6" class="cc-loading">Loading raffle inventory…</td></tr>';
+    return Promise.all([
+      BPSheets.read(SHEET_NAME),
+      BPSheets.read('Team').catch(() => [])
+    ]).then(function (r) {
+      rows = r[0];
+      team = r[1];
+      var sel = document.getElementById('r-owner');
+      sel.innerHTML = '<option value="">— pick name —</option>' +
+        team.map(function (t) { return '<option>' + escapeHtml(t['Name']) + '</option>'; }).join('');
+      render();
+    }).catch(function (err) {
+      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load: ' + escapeHtml(err.message) + '</td></tr>';
+    });
+  }
+
+  document.getElementById('add-raffle-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var row = {
+      'Item / Package':   document.getElementById('r-item').value.trim(),
+      'Business / Donor': document.getElementById('r-donor').value.trim(),
+      'Estimated Value':  document.getElementById('r-value').value || '',
+      'Owner':            document.getElementById('r-owner').value,
+      'Status':           document.getElementById('r-status').value,
+      'Pickup Needed?':   document.getElementById('r-pickup').value,
+      'Photo Taken?':     '',
+      'Winner':           '',
+      'Notes':            document.getElementById('r-notes').value.trim(),
+    };
+    if (!row['Item / Package']) return showToast('Item name required.', true);
+    var submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true; submitBtn.textContent = 'Saving…';
+    BPSheets.append(SHEET_NAME, row).then(function () {
+      showToast('Added: ' + row['Item / Package']);
+      e.target.reset();
+      return load();
+    }).catch(function (err) { showToast(err.message || String(err), true); })
+      .then(function () { submitBtn.disabled = false; submitBtn.textContent = 'Add Item'; });
+  });
+
+  search.addEventListener('input', render);
+  statusFilter.addEventListener('change', render);
+  refreshBtn.addEventListener('click', load);
+  load();
+})();
+</script>
+</body>
+</html>
