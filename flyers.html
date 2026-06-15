@@ -1,46 +1,214 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flyers — Blazing Paddles 2026 Dashboard</title>
-  <meta name="description" content="Committee and volunteer access to the three Blazing Paddles 2026 flyer files." />
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flyers · Blazing Paddles 2026</title>
+<meta name="description" content="Official Blazing Paddles 2026 flyers ready to print, post, and share." />
+<meta name="theme-color" content="#0a0907" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+<style>
+  .flyer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-5);
+    margin: var(--space-5) 0;
+  }
+  .flyer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .flyer-card img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border);
+    background: #000;
+    transition: transform .2s;
+    cursor: zoom-in;
+  }
+  .flyer-card img:hover { transform: scale(1.01); }
+  .flyer-meta { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+  .flyer-meta strong { color: var(--cream); }
+  .flyer-tag {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: rgba(255,107,26,0.12);
+    color: var(--flame-200);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .flyer-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 200;
+    padding: 24px;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(255,107,26,.18);
+  }
+  .lightbox-close {
+    position: absolute; top: 24px; right: 24px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    width: 44px; height: 44px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+</style>
 </head>
-<body>
-  <main class="standalone-page">
-    <header class="topbar standalone-topbar">
-      <div class="topbar-status"><span class="status-dot" aria-hidden="true"></span><span class="status-text">Blazing Paddles 2026 Dashboard</span><span class="status-meta">Flyers</span></div>
-      <div class="topbar-actions"><a class="btn-link" href="index.html">← Back to Dashboard</a></div>
-    </header>
-    <section class="section">
-      <header class="section-head">
-        <p class="kicker">Committee and volunteer assets</p>
-        <h1 class="section-title">Flyers for sharing and outreach</h1>
-        <p class="section-lede">Use these three flyer files when committee members or volunteers need event materials to open, download, or send.</p>
-      </header>
+<body class="cc-topnav-body">
 
-      <div class="flyer-grid">
-        <article class="flyer-card">
-          <img src="flyers/RRFFBPPT_PlayerFlyer.jpg" alt="Blazing Paddles 2026 player flyer" loading="lazy" />
-          <div class="flyer-card-body"><h3>Player Flyer</h3><p>Use this flyer for player interest, registration questions, pickleball groups, gyms, and social sharing.</p><div class="flyer-actions"><a class="btn btn-primary" href="flyers/RRFFBPPT_PlayerFlyer.jpg" target="_blank" rel="noopener noreferrer">Open flyer</a><a class="btn btn-ghost" href="flyers/RRFFBPPT_PlayerFlyer.jpg" download>Download</a></div></div>
-        </article>
-        <article class="flyer-card">
-          <img src="flyers/RRFFBPPTLightUpTheCrew-2.jpg" alt="Blazing Paddles 2026 Light Up The Crew flyer" loading="lazy" />
-          <div class="flyer-card-body"><h3>Light Up The Crew</h3><p>Use this flyer when sharing event information with supporters, donors, and community contacts.</p><div class="flyer-actions"><a class="btn btn-primary" href="flyers/RRFFBPPTLightUpTheCrew-2.jpg" target="_blank" rel="noopener noreferrer">Open flyer</a><a class="btn btn-ghost" href="flyers/RRFFBPPTLightUpTheCrew-2.jpg" download>Download</a></div></div>
-        </article>
-        <article class="flyer-card">
-          <img src="flyers/RRFFBPPT_JoinTheCrew-3.jpg" alt="Blazing Paddles 2026 Join The Crew flyer" loading="lazy" />
-          <div class="flyer-card-body"><h3>Join The Crew</h3><p>Use this flyer for volunteer recruitment and committee help.</p><div class="flyer-actions"><a class="btn btn-primary" href="flyers/RRFFBPPT_JoinTheCrew-3.jpg" target="_blank" rel="noopener noreferrer">Open flyer</a><a class="btn btn-ghost" href="flyers/RRFFBPPT_JoinTheCrew-3.jpg" download>Download</a></div></div>
-        </article>
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html"           data-nav="actions">ACTIONS</a>
+    <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="team.html"            data-nav="team">TEAM</a>
+    <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">—</span>
+  </div>
+</header>
+
+<main class="cc-topnav-main">
+  <section class="section">
+
+    <div class="cc-page-header">
+      <div>
+        <h1 class="cc-page-title">Official Flyers</h1>
+        <p class="cc-page-sub">Print, post, send. Each flyer is finalized — please don't edit or recreate. Click any image for full size.</p>
       </div>
+    </div>
 
-      <div class="section-nav"><a class="btn btn-ghost" href="index.html">Dashboard</a><a class="btn btn-ghost" href="sponsors.html">Sponsor Playbook</a><a class="btn btn-ghost" href="targets.html">Sponsor Targets</a><a class="btn btn-ghost" href="raffle.html">Raffle Strategy</a><a class="btn btn-ghost" href="outreach.html">Outreach Scripts</a><a class="btn btn-ghost" href="flyers.html">Flyers</a><a class="btn btn-ghost" href="timeline.html">Planning Timeline</a><a class="btn btn-ghost" href="donations.html">Donation Tracker</a><a class="btn btn-ghost" href="operations.html">Event Operations</a><a class="btn btn-ghost" href="checklist.html">Day-of Checklist</a><a class="btn btn-ghost" href="recognition.html">Recognition Plan</a><a class="btn btn-ghost" href="kpis.html">KPIs</a></div>
-    </section>
-  </main>
-  <script src="script.js" defer></script>
+    <div class="flyer-grid">
+
+      <article class="flyer-card">
+        <span class="flyer-tag">For Sponsors</span>
+        <img src="flyers/sponsor-flyer-2026.jpg" alt="Blazing Paddles 2026 Sponsor flyer — Light up the cause. Bring the heat. Sponsor with purpose." />
+        <div class="flyer-meta">
+          <strong>Light Up The Cause — Sponsor Flyer</strong><br>
+          Send to every prospect on the call list. Includes the three tiers (Chief / Lieutenant / Firefighter), what sponsorship matters, and a QR code that points to the sponsor page.
+        </div>
+        <div class="flyer-actions">
+          <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/sponsor-flyer-2026.jpg" download="BlazingPaddles2026_Sponsor_Flyer.jpg">Download</a>
+          <a class="cc-btn cc-btn-ghost cc-btn-sm" href="flyers/sponsor-flyer-2026.jpg" target="_blank" rel="noopener">Open full size</a>
+        </div>
+      </article>
+
+      <article class="flyer-card">
+        <span class="flyer-tag">For Players</span>
+        <img src="flyers/play-flyer-2026.jpg" alt="Blazing Paddles 2026 Play flyer — Play for the crew. Bring the heat. Play with purpose." />
+        <div class="flyer-meta">
+          <strong>Play For The Crew — Player Flyer</strong><br>
+          The everyday recruiting flyer for players. $55/player, registration via FluidPB, divisions, location, and what to expect. Post in pickleball clubs, community boards, share on social.
+        </div>
+        <div class="flyer-actions">
+          <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/play-flyer-2026.jpg" download="BlazingPaddles2026_Play_Flyer.jpg">Download</a>
+          <a class="cc-btn cc-btn-ghost cc-btn-sm" href="flyers/play-flyer-2026.jpg" target="_blank" rel="noopener">Open full size</a>
+        </div>
+      </article>
+
+      <article class="flyer-card">
+        <span class="flyer-tag">Logo Flyer</span>
+        <img src="flyers/player-flyer-2026.jpg" alt="Blazing Paddles 2026 logo flyer — A tournament that ignites community. Register today." />
+        <div class="flyer-meta">
+          <strong>Ignites Community — Logo Flyer</strong><br>
+          Big-logo recruiting flyer. Best for handouts, table tents, firehouse bulletin boards. Drives traffic to www.roundrockfiredn.org/blazing-paddles.
+        </div>
+        <div class="flyer-actions">
+          <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/player-flyer-2026.jpg" download="BlazingPaddles2026_Logo_Flyer.jpg">Download</a>
+          <a class="cc-btn cc-btn-ghost cc-btn-sm" href="flyers/player-flyer-2026.jpg" target="_blank" rel="noopener">Open full size</a>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="cc-card" style="margin-top:var(--space-5)">
+      <h3 class="cc-card-title">How to Use These</h3>
+      <ul style="margin:0;color:var(--text-muted);line-height:1.9">
+        <li><strong style="color:var(--cream)">Sponsor outreach:</strong> Attach the Sponsor Flyer to every cold email and follow-up. Print 25 copies to leave with prospects in person.</li>
+        <li><strong style="color:var(--cream)">Player recruiting:</strong> Use the Play Flyer for online posts and the Logo Flyer for printed handouts at firehouses, pickleball clubs, and community spots.</li>
+        <li><strong style="color:var(--cream)">Social posts:</strong> Crop the top third of any flyer for an Instagram square. The tagline + logo combo works on its own.</li>
+        <li><strong style="color:var(--cream)">Don't recreate:</strong> These are the only approved 2026 flyers. If you need a different size or layout, ask Diedra rather than editing.</li>
+      </ul>
+    </div>
+
+  </section>
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Flyer preview">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+  <img id="lightbox-img" alt="" />
+</div>
+
+<script>
+(function () {
+  // Topbar T-minus
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  var event = startOfDay(new Date(2026, 9, 10));
+  var today = startOfDay(new Date());
+  var days = Math.round((event - today) / 86400000);
+  var label = days > 14 ? 'T-' + Math.floor(days/7) + ' weeks · ' + days + ' days out' :
+              days > 1 ? 'T-' + days + ' days' :
+              days === 1 ? 'T-1 day · Tomorrow' :
+              days === 0 ? 'Event Day · Live' :
+              'Tournament day ' + (-days) + ' days ago';
+  var el = document.getElementById('cc-tminus-status');
+  if (el) el.textContent = label;
+
+  // Lightbox
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.flyer-card img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      boxImg.src = img.src;
+      boxImg.alt = img.alt;
+      box.classList.add('open');
+    });
+  });
+  function close() { box.classList.remove('open'); boxImg.src = ''; }
+  box.addEventListener('click', function (e) { if (e.target === box || e.target.id === 'lightbox-close') close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
 </body>
 </html>
