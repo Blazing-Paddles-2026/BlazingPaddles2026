@@ -43,7 +43,7 @@
 
   <section class="cc-kpis">
     <div class="cc-kpi"><span class="cc-kpi-num" id="g-revenue">—</span><span class="cc-kpi-label">Committed</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num">$100K</span><span class="cc-kpi-label">Goal</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num">$50K</span><span class="cc-kpi-label">Goal</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" id="g-progress">—</span><span class="cc-kpi-label">% to Goal</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" id="g-raffle">—</span><span class="cc-kpi-label">Raffle Items</span></div>
   </section>
@@ -51,7 +51,7 @@
   <div class="cc-card">
     <h3 class="cc-card-title">Sponsorships</h3>
     <ul style="margin:0;color:var(--text-muted);line-height:1.9">
-      <li>🎯 $100,000 total fundraising goal</li>
+      <li>🎯 $50,000 total fundraising goal — <strong style="color:var(--flame-400)">$10,000 secured</strong> (Kalahari Presenting)</li>
       <li>🎯 Secure 20+ sponsors across all tiers (Kalahari = Presenting; others TBD)</li>
       <li>🎯 Follow up with warm leads within 48 hours</li>
       <li>🎯 Log every contact in the Sponsor Tracker</li>
@@ -108,7 +108,7 @@ Promise.all([BPSheets.read('Sponsor Pipeline').catch(()=>[]), BPSheets.read('Raf
       return (st==='confirmed'||st==='paid') ? s+a : s;
     }, 0);
     document.getElementById('g-revenue').textContent = '$' + Math.round(rev).toLocaleString();
-    document.getElementById('g-progress').textContent = Math.round(rev/100000*100) + '%';
+    document.getElementById('g-progress').textContent = Math.round(rev/50000*100) + '%';
     document.getElementById('g-raffle').textContent = rf.filter(function(x){
       var s=(x['Status']||'').toLowerCase(); return s==='received'||s==='committed';
     }).length;
