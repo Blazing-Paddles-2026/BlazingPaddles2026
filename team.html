@@ -2,6 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 
+
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Team · Blazing Paddles 2026</title>
@@ -11,71 +12,30 @@
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="command-center.css" />
 
+
 </head>
-<body>
-<a class="skip-link" href="#main">Skip to main content</a>
+<body class="cc-topnav-body">
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html"           data-nav="actions">ACTIONS</a>
+    <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="team.html"            data-nav="team">TEAM</a>
+    <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">—</span>
+  </div>
+</header>
 
-<div class="app">
-
-  <div class="sidebar-backdrop" data-sidebar-backdrop aria-hidden="true"></div>
-
-  <aside class="sidebar" aria-label="Dashboard navigation">
-    <a class="sidebar-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
-      <img class="brand-mark-img" src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="Blazing Paddles 2026 logo" width="44" height="44" />
-      <span class="brand-text">
-        <span class="brand-line-1">Blazing Paddles</span>
-        <span class="brand-line-2">2026 · Dashboard</span>
-      </span>
-    </a>
-
-    <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary">
-      <p class="nav-kicker">Command</p>
-      <a href="index.html" data-page="index">Dashboard</a>
-      <a href="log.html" data-page="log">Quick Log</a>
-      <a href="sponsor-tracker.html" data-page="sponsor-tracker">Sponsor Tracker</a>
-      <a href="raffle-tracker.html" data-page="raffle-tracker">Raffle Tracker</a>
-      <p class="nav-kicker">Playbook</p>
-      <a href="process.html" data-page="process">Sponsorship Playbook</a>
-      <a href="goals.html" data-page="goals">Committee Goals</a>
-      <a href="marketing.html" data-page="marketing">Marketing</a>
-      <a href="flyers.html" data-page="flyers">Flyers</a>
-      <p class="nav-kicker">People</p>
-      <a href="team.html" data-page="team">Team & Lanes</a>
-      <a href="contacts.html" data-page="contacts">Contacts</a>
-      <p class="nav-kicker">Setup</p>
-      <a href="settings.html" data-page="settings">Settings</a>
-    </nav>
-
-    <div class="sidebar-venue">
-      <span class="venue-label">Tournament Day</span>
-      <span class="venue-value">Sat · Oct 10, 2026</span>
-      <a class="venue-link" href="https://maps.google.com/?q=Tejas+Pickleball+Club+4701+FM+3405+Bldg+7+Georgetown+TX+78633" target="_blank" rel="noopener noreferrer">
-        Tejas Pickleball Club <span aria-hidden="true">↗</span>
-      </a>
-      <p class="venue-fine">Round Rock Fire Foundation · Internal committee tool</p>
-    </div>
-  </aside>
-
-  <main id="main" class="main">
-
-    <header class="topbar" id="top">
-      <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-controls="sidebar-nav" aria-expanded="false" aria-label="Open menu">
-        <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
-        <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" class="sidebar-toggle-mark" />
-        <span class="sidebar-toggle-text">Menu</span>
-      </button>
-      <div class="topbar-status">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span class="status-text">Team & Lanes</span>
-        <span class="status-meta" id="cc-tminus-status">—</span>
-      </div>
-      <div class="topbar-actions">
-        <a class="btn-link" href="https://pickleball.roundrockfirefoundation.org" target="_blank" rel="noopener">Public site ↗</a>
-      </div>
-    </header>
-
-
-    <section class="section">
+<main class="cc-topnav-main">
+<section class="section">
 <div class="cc-page-header">
     <div><h1 class="cc-page-title">Team & Lanes</h1>
     <p class="cc-page-sub">Each person picks one lane and owns 5 sponsor or raffle targets per week.</p></div>
@@ -119,33 +79,16 @@
   });
 })();
 </script>
-  </main>
+</main>
 </div>
 
+
 <script>
-// Highlight current sidebar link
 (function () {
-  var page = 'team';
-  document.querySelectorAll('[data-page="' + page + '"]').forEach(function (a) {
+  var key = 'team';
+  document.querySelectorAll('[data-nav="' + key + '"]').forEach(function (a) {
     a.classList.add('is-active');
   });
-  // Mobile sidebar toggle
-  var btn = document.querySelector('[data-sidebar-toggle]');
-  var sidebar = document.querySelector('.sidebar');
-  var backdrop = document.querySelector('[data-sidebar-backdrop]');
-  if (btn && sidebar) {
-    btn.addEventListener('click', function () {
-      var open = sidebar.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (backdrop) backdrop.style.display = open ? 'block' : 'none';
-    });
-    if (backdrop) backdrop.addEventListener('click', function () {
-      sidebar.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      backdrop.style.display = 'none';
-    });
-  }
-  // Topbar T-minus
   function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
   var event = startOfDay(new Date(2026, 9, 10));
   var today = startOfDay(new Date());

@@ -1,9 +1,76 @@
 /* Blazing Paddles Command Center — page-specific styles.
-   Used INSIDE the original sidebar layout (.app > .main > .section).
-   Original styles.css handles the sidebar, topbar, and base look.
-   This file adds: KPIs, action cards, tile grids, forms, tables, tabs,
-   workflow steps, business categories, and the rest of the new content.
+   Used with the Kimi-style top-nav layout (.cc-topnav-body).
 */
+
+.cc-topnav-body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  margin: 0;
+  min-height: 100vh;
+}
+
+.cc-topnav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-3) var(--space-6);
+  background: rgba(10,9,7,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.cc-topnav-brand {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text); text-decoration: none;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.cc-topnav-brand img { border-radius: 8px; }
+.cc-topnav-brand span { display: flex; flex-direction: column; line-height: 1.1; }
+.cc-topnav-brand strong { font-size: 16px; letter-spacing: 0.03em; }
+.cc-topnav-brand small { color: var(--text-muted); font-weight: 500; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+
+.cc-topnav-links { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.cc-topnav-links a {
+  padding: 10px 16px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-family: var(--font-body);
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+}
+.cc-topnav-links a:hover { color: var(--text); }
+.cc-topnav-links a.is-active {
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.cc-topnav-meta {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.cc-topnav-tminus { color: var(--flame-200); }
+
+.cc-topnav-main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .cc-topnav { padding: var(--space-2) var(--space-4); }
+  .cc-topnav-links a { padding: 6px 10px; font-size: 11px; letter-spacing: 0.12em; }
+  .cc-topnav-meta { display: none; }
+}
 
 /* Hero */
 .cc-hero {
