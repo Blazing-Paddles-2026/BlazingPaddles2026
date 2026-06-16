@@ -120,7 +120,220 @@
   }
 
   /* -------------------------------------------------------------
-   * 4) Sidebar scroll-spy
+   * 4) Live dashboard updates
+   * ------------------------------------------------------------- */
+  var updateForm = document.querySelector('[data-update-form]');
+  var updatesFeed = document.querySelector('[data-updates-feed]');
+  var updateStatus = document.querySelector('[data-update-status]');
+  var refreshedEl = document.querySelector('[data-updates-refreshed]');
+  var refreshButton = document.querySelector('[data-refresh-updates]');
+  var supabaseUrl = 'https://zdbxsfswdjjieqkgyyid.supabase.co';
+  var supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYnhzZnN3ZGpqaWVxa2d5eWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NjAwNjgsImV4cCI6MjA5NzEzNjA2OH0.QNRdX8x2Vb-uGgomC44SidcziynT0xrKu7wu9hzN1Tc';
+  var updatesEndpoint = supabaseUrl + '/rest/v1/dashboard_updates';
+
+  function updateHeaders(extra) {
+    var headers = {
+      apikey: supabaseAnonKey,
+      Authorization: 'Bearer ' + supabaseAnonKey
+    };
+    if (extra) {
+      Object.keys(extra).forEach(function (key) {
+        headers[key] = extra[key];
+      });
+    }
+    return headers;
+  }
+
+  function setFormStatus(message, state) {
+    if (!updateStatus) return;
+    updateStatus.textContent = message;
+    updateStatus.dataset.state = state || '';
+  }
+
+  function formatUpdateDate(value) {
+    var date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '';
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  function clearElement(el) {
+    while (el.firstChild) el.removeChild(el.firstChild);
+  }
+
+  function makeUpdateCard(update) {
+    var card = document.createElement('article');
+    card.className = 'update-card';
+
+    var meta = document.createElement('p');
+    meta.className = 'update-meta';
+
+    var category = document.createElement('span');
+    category.className = 'update-category';
+    category.textContent = update.category || 'Update';
+    meta.appendChild(category);
+
+    var dateText = formatUpdateDate(update.created_at);
+    var details = document.createElement('span');
+    details.textContent = [dateText, update.submitted_by].filter(Boolean).join(' · ');
+    meta.appendChild(details);
+
+    var title = document.createElement('h3');
+    title.textContent = update.title || 'Dashboard update';
+
+    var message = document.createElement('p');
+    message.textContent = update.message || '';
+
+    card.appendChild(meta);
+    card.appendChild(title);
+    card.appendChild(message);
+
+    if (update.link_url) {
+      var link = document.createElement('a');
+      link.className = 'btn btn-ghost btn-small';
+      link.href = update.link_url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = update.link_text || 'Open link';
+      card.appendChild(link);
+    }
+
+    return card;
+  }
+
+  function renderUpdates(updates) {
+    if (!updatesFeed) return;
+    clearElement(updatesFeed);
+
+    if (!updates.length) {
+      var empty = document.createElement('article');
+      empty.className = 'update-card';
+      var emptyText = document.createElement('p');
+      emptyText.textContent = 'No updates yet. Post the first committee note when something changes.';
+      empty.appendChild(emptyText);
+      updatesFeed.appendChild(empty);
+      return;
+    }
+
+    updates.forEach(function (update) {
+      updatesFeed.appendChild(makeUpdateCard(update));
+    });
+  }
+
+  function loadDashboardUpdates() {
+    if (!updatesFeed) return Promise.resolve();
+
+    var query = '?select=id,created_at,submitted_by,category,title,message,link_text,link_url&is_visible=eq.true&order=created_at.desc&limit=10';
+    return fetch(updatesEndpoint + query, {
+      method: 'GET',
+      headers: updateHeaders()
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Updates could not be loaded.');
+        return response.json();
+      })
+      .then(function (updates) {
+        renderUpdates(Array.isArray(updates) ? updates : []);
+        if (refreshedEl) {
+          refreshedEl.textContent = 'Last refreshed ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        }
+      })
+      .catch(function () {
+        clearElement(updatesFeed);
+        var error = document.createElement('article');
+        error.className = 'update-card';
+        var text = document.createElement('p');
+        text.textContent = 'Updates are temporarily unavailable. Please refresh the page in a moment.';
+        error.appendChild(text);
+        updatesFeed.appendChild(error);
+        if (refreshedEl) refreshedEl.textContent = 'Unable to refresh updates';
+      });
+  }
+
+  function isValidHttpUrl(value) {
+    if (!value) return true;
+    try {
+      var url = new URL(value);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  if (updatesFeed) {
+    loadDashboardUpdates();
+    window.setInterval(loadDashboardUpdates, 45000);
+  }
+
+  if (refreshButton) {
+    refreshButton.addEventListener('click', function () {
+      loadDashboardUpdates();
+    });
+  }
+
+  if (updateForm) {
+    updateForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var formData = new FormData(updateForm);
+      var linkUrl = String(formData.get('link_url') || '').trim();
+      var linkText = String(formData.get('link_text') || '').trim();
+
+      if (!isValidHttpUrl(linkUrl)) {
+        setFormStatus('Please use a full link that starts with http:// or https://.', 'error');
+        return;
+      }
+
+      var payload = {
+        submitted_by: String(formData.get('submitted_by') || '').trim(),
+        category: String(formData.get('category') || 'General').trim(),
+        title: String(formData.get('title') || '').trim(),
+        message: String(formData.get('message') || '').trim(),
+        link_text: linkUrl ? (linkText || 'Open link') : null,
+        link_url: linkUrl || null,
+        is_visible: true
+      };
+
+      if (!payload.submitted_by || !payload.title || !payload.message) {
+        setFormStatus('Please add your name, a title, and the update details.', 'error');
+        return;
+      }
+
+      setFormStatus('Posting update…', 'working');
+      updateForm.querySelector('button[type="submit"]').disabled = true;
+
+      fetch(updatesEndpoint, {
+        method: 'POST',
+        headers: updateHeaders({
+          'Content-Type': 'application/json',
+          Prefer: 'return=representation'
+        }),
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Update could not be posted.');
+          return response.json();
+        })
+        .then(function () {
+          updateForm.reset();
+          setFormStatus('Posted. Everyone who opens the dashboard can see it.', 'success');
+          return loadDashboardUpdates();
+        })
+        .catch(function () {
+          setFormStatus('The update did not post. Please check the fields and try again.', 'error');
+        })
+        .finally(function () {
+          updateForm.querySelector('button[type="submit"]').disabled = false;
+        });
+    });
+  }
+
+  /* -------------------------------------------------------------
+   * 5) Sidebar scroll-spy
    * ------------------------------------------------------------- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.sidebar-nav a[href^="#"]'));
   if (!navLinks.length || !('IntersectionObserver' in window)) return;

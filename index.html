@@ -30,6 +30,7 @@
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
     <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="#live-updates">UPDATES</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -48,12 +49,11 @@
 
   <section class="section" style="padding:0 clamp(var(--space-4),3vw,var(--space-8)) var(--space-6)">
     <div style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg, rgba(255,107,26,0.18), rgba(192,39,26,0.15));border:1px solid var(--flame-500);border-radius:var(--r-lg);padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap">
-      <div style="font-size:2.4rem;line-height:1">🎉</div>
       <div style="flex:1;min-width:240px">
-        <p style="margin:0;font-family:var(--font-display);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--flame-200);font-weight:700">Today's Win · June 15, 2026</p>
-        <h2 style="margin:4px 0 6px;font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);letter-spacing:0.02em">Kalahari Resorts — Presenting Sponsor, $10,000 🔥</h2>
+        <p style="margin:0;font-family:var(--font-display);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--flame-200);font-weight:700">Sponsor confirmed · June 15, 2026</p>
+        <h2 style="margin:4px 0 6px;font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);letter-spacing:0.02em">Kalahari Resorts — Presenting Sponsor, $10,000</h2>
         <p style="margin:0;color:var(--text-muted);font-size:14px;line-height:1.5">
-          Our biggest sponsor of the year is locked in. Blazing Paddles 2026 is now officially <strong style="color:var(--cream)">presented by Kalahari Resorts</strong>. Thank you to Diedra for landing the ask.
+          Blazing Paddles 2026 is now officially <strong style="color:var(--cream)">presented by Kalahari Resorts</strong>. Keep sponsor outreach, raffle asks, and player registration moving.
         </p>
       </div>
       <a href="sponsor-tracker.html" class="btn btn-primary" style="flex-shrink:0">See Sponsor Pipeline →</a>
@@ -98,6 +98,7 @@
         </ul>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="sponsor-tracker.html">Open Sponsor Tracker →</a>
+          <a class="btn btn-ghost" href="#live-updates">Post an Update</a>
           <a class="btn btn-ghost" href="process.html">Open the Playbook</a>
         </div>
       </div>
@@ -123,6 +124,84 @@
       <h2>Get Raffle Items</h2>
       <p>Wish list, donor outreach, who's claiming pickup, photo, and winner.</p>
     </a>
+  </section>
+
+  <section class="section section-alt cc-live-updates" id="live-updates">
+    <header class="section-head">
+      <p class="kicker">Committee Updates</p>
+      <h2 class="section-title">Post what changed. Everyone sees it here.</h2>
+      <p class="section-lede">Use this for sponsor wins, raffle donations, player registration pushes, volunteer needs, and planning notes that the whole committee should see.</p>
+    </header>
+
+    <div class="updates-layout">
+      <form class="update-form" data-update-form>
+        <div class="form-head">
+          <h3>Add an update</h3>
+          <p>No login required. Keep it short, specific, and useful for the next person checking the dashboard.</p>
+        </div>
+
+        <div class="update-form-grid">
+          <label class="field">
+            <span>Your name</span>
+            <input name="submitted_by" type="text" autocomplete="name" maxlength="80" required placeholder="Name" data-testid="input-update-name" />
+          </label>
+
+          <label class="field">
+            <span>Category</span>
+            <select name="category" required data-testid="select-update-category">
+              <option value="Sponsor">Sponsor</option>
+              <option value="Raffle">Raffle</option>
+              <option value="Registration">Registration</option>
+              <option value="Volunteer">Volunteer</option>
+              <option value="Operations">Operations</option>
+              <option value="General">General</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Update title</span>
+          <input name="title" type="text" maxlength="120" required placeholder="Example: Named sponsor confirmed" data-testid="input-update-title" />
+        </label>
+
+        <label class="field">
+          <span>Details</span>
+          <textarea name="message" maxlength="1000" required placeholder="What happened, what should the committee know, and what is the next step?" data-testid="textarea-update-message"></textarea>
+        </label>
+
+        <div class="update-form-grid">
+          <label class="field">
+            <span>Optional link text</span>
+            <input name="link_text" type="text" maxlength="80" placeholder="Open flyer, registration, etc." data-testid="input-update-link-text" />
+          </label>
+
+          <label class="field">
+            <span>Optional link URL</span>
+            <input name="link_url" type="url" maxlength="500" placeholder="https://..." data-testid="input-update-link-url" />
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit" data-testid="button-submit-update">Post update</button>
+          <p class="form-status" data-update-status aria-live="polite">Updates post to the dashboard feed for everyone with this link.</p>
+        </div>
+      </form>
+
+      <aside class="updates-feed-shell" aria-label="Latest dashboard updates">
+        <div class="updates-feed-head">
+          <div>
+            <h3>Latest updates</h3>
+            <p data-updates-refreshed>Loading latest posts…</p>
+          </div>
+          <button class="btn btn-ghost btn-small" type="button" data-refresh-updates data-testid="button-refresh-updates">Refresh</button>
+        </div>
+        <div class="updates-feed" data-updates-feed data-testid="feed-dashboard-updates">
+          <article class="update-card is-loading">
+            <p>Loading dashboard updates…</p>
+          </article>
+        </div>
+      </aside>
+    </div>
   </section>
 
   <div class="cc-next-meeting">
@@ -165,11 +244,12 @@
     </a>
   </section>
 
-  <p class="cc-tagline">"Every play counts. Every member scores. No one rides the bench."</p>
+  <p class="cc-tagline">Committee focus: sponsors, raffle items, and player registration.</p>
     </section>
 
 
 <script src="sheets.js"></script>
+<script src="script.js" defer></script>
 <script>
 (function () {
   // T-minus countdown
@@ -216,7 +296,6 @@
 })();
 </script>
 </main>
-</div>
 
 
 <script>
