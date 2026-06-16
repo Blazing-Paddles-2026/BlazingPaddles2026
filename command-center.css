@@ -121,6 +121,11 @@
   padding: var(--space-4);
   text-align: center;
 }
+.cc-kpi-highlight {
+  border-color: var(--gold-500);
+  background: linear-gradient(180deg, rgba(245,197,24,0.14), var(--surface));
+  box-shadow: 0 14px 34px -22px rgba(245,197,24,0.5);
+}
 .cc-kpi-num {
   display: block;
   font-family: var(--font-display);
@@ -137,6 +142,13 @@
   text-transform: uppercase;
   color: var(--text-faint);
   font-weight: 600;
+}
+.cc-kpi-note {
+  display: block;
+  margin-top: 6px;
+  color: var(--gold-400);
+  font-size: 12px;
+  font-weight: 700;
 }
 @media (max-width: 640px) {
   .cc-kpis { grid-template-columns: repeat(2, 1fr); }

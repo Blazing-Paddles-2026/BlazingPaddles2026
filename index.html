@@ -109,8 +109,8 @@
   </section>
 
   <section class="cc-kpis" id="cc-kpis">
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="sponsors">—</span><span class="cc-kpi-label">Sponsors</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="revenue">—</span><span class="cc-kpi-label">Committed</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="sponsors">1</span><span class="cc-kpi-label">Sponsor Confirmed</span></div>
+    <div class="cc-kpi cc-kpi-highlight"><span class="cc-kpi-num" data-kpi="revenue">$10,000</span><span class="cc-kpi-label">Committed</span><span class="cc-kpi-note">20% of $50K goal</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="raffle">—</span><span class="cc-kpi-label">Raffle Items</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="goal">$50K</span><span class="cc-kpi-label">2026 Goal</span></div>
   </section>
@@ -277,6 +277,8 @@
   }
 
   // KPIs from live sheet
+  var baselineSponsors = 1;
+  var baselineCommitted = 10000;
   Promise.all([
     BPSheets.read('Sponsor Pipeline').catch(() => []),
     BPSheets.read('Raffle Inventory').catch(() => []),
@@ -294,6 +296,8 @@
     var raffleCount = raffle.filter(function (r) {
       return (r['Status'] || '').toLowerCase() !== 'wish list';
     }).length;
+    confirmedCount = Math.max(confirmedCount, baselineSponsors);
+    committed = Math.max(committed, baselineCommitted);
     document.querySelector('[data-kpi="sponsors"]').textContent = confirmedCount;
     document.querySelector('[data-kpi="revenue"]').textContent = '$' + Math.round(committed).toLocaleString();
     document.querySelector('[data-kpi="raffle"]').textContent = raffleCount;
