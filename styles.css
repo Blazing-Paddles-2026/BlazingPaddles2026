@@ -854,6 +854,24 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   font-size: var(--text-sm);
   line-height: 1.55;
 }
+.update-help {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+  border: 1px solid color-mix(in oklab, var(--primary) 30%, var(--border));
+  border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--primary) 8%, transparent);
+}
+.update-help li {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.update-help strong {
+  color: var(--text);
+}
 .update-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1620,4 +1638,3 @@ body.sidebar-open .hamburger span:nth-child(3) {
   text-transform: uppercase;
   margin-top: 6px;
 }
-
