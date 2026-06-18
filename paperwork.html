@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paperwork & Forms · Blazing Paddles 2026</title>
+<meta name="description" content="Simple sponsor, auction donation, and vendor paperwork for the Blazing Paddles 2026 committee." />
+<meta name="theme-color" content="#0a0907" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+<style>
+  .form-page-actions { display:flex; gap:10px; flex-wrap:wrap; margin: var(--space-4) 0 var(--space-6); }
+  .paper-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
+  .paper-card,
+  .agreement {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: var(--space-5);
+  }
+  .paper-card h3,
+  .agreement h3 {
+    margin: 0 0 10px;
+    color: var(--cream);
+    font-family: var(--font-display);
+    letter-spacing: .03em;
+  }
+  .paper-card p,
+  .agreement p,
+  .agreement li { color: var(--text-muted); line-height: 1.65; }
+  .paper-card ul,
+  .agreement ul { margin: 10px 0 0; padding-left: 20px; }
+  .form-lines { display:grid; gap: 10px; margin-top: var(--space-4); }
+  .line-field {
+    display:grid;
+    grid-template-columns: minmax(140px, 220px) 1fr;
+    gap: 12px;
+    align-items:end;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .line-field span:last-child {
+    min-height: 28px;
+    border-bottom: 1px solid var(--border-strong);
+    color: var(--cream);
+  }
+  .deposit-box {
+    border: 1px solid var(--gold-500);
+    background: rgba(245,197,24,.09);
+    border-radius: var(--r-sm);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+  }
+  .deposit-box strong { color: var(--gold-400); }
+  .signature-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+  @media print {
+    body { background:#fff; color:#111; }
+    .cc-topnav, .form-page-actions, .section-nav, script { display:none !important; }
+    .cc-topnav-main, .section { padding:0 !important; }
+    .paper-card, .agreement { break-inside: avoid; border:1px solid #999; background:#fff; color:#111; margin-bottom:16px; }
+    .paper-card h3, .agreement h3, .section-title, .kicker { color:#111 !important; }
+    .paper-card p, .agreement p, .agreement li, .section-lede, .line-field { color:#111 !important; }
+    .line-field span:last-child { border-bottom:1px solid #333; }
+    a { color:#111; text-decoration:none; }
+  }
+</style>
+</head>
+<body class="cc-topnav-body">
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Dashboard</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html" data-nav="actions">ACTIONS</a>
+    <a href="goals.html" data-nav="scoreboard">SCOREBOARD</a>
+    <a href="outreach.html" data-nav="scripts">SCRIPTS</a>
+    <a href="paperwork.html" data-nav="forms">FORMS</a>
+    <a href="team.html" data-nav="team">TEAM</a>
+    <a href="contacts.html" data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">-</span>
+  </div>
+</header>
+
+<main class="cc-topnav-main">
+  <section class="section">
+    <header class="section-head">
+      <p class="kicker">Paperwork & Forms</p>
+      <h1 class="section-title">Keep sponsor and auction paperwork simple.</h1>
+      <p class="section-lede">Use the simple checklists for sponsor and auction details. Use the formal vendor agreement when a vendor needs space at the event. Vendor spots require a $100 deposit to hold the spot.</p>
+    </header>
+
+    <div class="form-page-actions">
+      <button class="btn btn-primary" type="button" onclick="window.print()">Print this page</button>
+      <a class="btn btn-ghost" href="outreach.html">Open Outreach Scripts</a>
+      <a class="btn btn-ghost" href="flyers.html">Open Flyers</a>
+    </div>
+
+    <div class="paper-grid">
+      <article class="paper-card">
+        <h3>Sponsor information checklist</h3>
+        <p>This is not a formal contract. Use it to collect the details Diedra needs after a sponsor says yes or asks for next steps.</p>
+        <ul>
+          <li>Business name and preferred recognition name.</li>
+          <li>Contact person, email, and phone number.</li>
+          <li>Sponsorship level or amount committed.</li>
+          <li>Invoice needed: yes or no.</li>
+          <li>Logo file or best person to request the logo from.</li>
+          <li>Website or social link for recognition.</li>
+          <li>Any deadline or special recognition notes.</li>
+        </ul>
+      </article>
+
+      <article class="paper-card">
+        <h3>Auction donation checklist</h3>
+        <p>This is a simple detail list for donated items, gift cards, services, and experiences. Volunteers only need to send this information when something is confirmed or likely.</p>
+        <ul>
+          <li>Donor or business name.</li>
+          <li>Contact person, email, and phone number.</li>
+          <li>Item, gift card, service, or experience being donated.</li>
+          <li>Estimated value, if known.</li>
+          <li>Restrictions, expiration date, or blackout dates.</li>
+          <li>Pickup or delivery details.</li>
+          <li>Recognition preference, logo, website, or social link.</li>
+        </ul>
+      </article>
+
+      <article class="paper-card">
+        <h3>Food or beverage donation notes</h3>
+        <p>Use this when a restaurant, coffee shop, bakery, brewery, beverage company, or snack vendor is donating food or drinks.</p>
+        <ul>
+          <li>Business name and contact person.</li>
+          <li>Food or beverage item and estimated quantity.</li>
+          <li>Pickup or delivery time.</li>
+          <li>Serving, storage, refrigeration, or warming needs.</li>
+          <li>Allergy notes or ingredient concerns.</li>
+          <li>Recognition preference.</li>
+        </ul>
+      </article>
+
+      <article class="paper-card">
+        <h3>Volunteer role sheet</h3>
+        <p>Use closer to the tournament when roles and shifts are being assigned.</p>
+        <ul>
+          <li>Volunteer name and phone number.</li>
+          <li>Assigned role and shift time.</li>
+          <li>Arrival time and check-in location.</li>
+          <li>Lead person they report to.</li>
+          <li>Supplies or notes for the role.</li>
+        </ul>
+      </article>
+    </div>
+
+    <article class="agreement">
+      <p class="kicker">Formal vendor agreement</p>
+      <h2 class="section-title">Blazing Paddles 2026 Vendor Agreement</h2>
+      <p>This agreement is for vendors who will have an on-site presence at the tournament. Vendor space is limited and is not confirmed until the $100 deposit is received and RRFF confirms the vendor in writing.</p>
+
+      <div class="deposit-box">
+        <strong>$100 deposit required to hold vendor space.</strong>
+        <p>The vendor spot is not held until the $100 deposit is received. Deposit handling, final payment instructions, and any refund or cancellation decision must be confirmed by Round Rock Fire Foundation in writing.</p>
+      </div>
+
+      <h3>Event information</h3>
+      <div class="form-lines">
+        <div class="line-field"><span>Event</span><span>Blazing Paddles Pickleball Tournament 2026</span></div>
+        <div class="line-field"><span>Date</span><span>Saturday, October 10, 2026</span></div>
+        <div class="line-field"><span>Location</span><span>Tejas Pickleball Club, Georgetown, Texas</span></div>
+        <div class="line-field"><span>Organization</span><span>Round Rock Fire Foundation</span></div>
+      </div>
+
+      <h3>Vendor information</h3>
+      <div class="form-lines">
+        <div class="line-field"><span>Vendor business name</span><span></span></div>
+        <div class="line-field"><span>Contact person</span><span></span></div>
+        <div class="line-field"><span>Email</span><span></span></div>
+        <div class="line-field"><span>Phone</span><span></span></div>
+        <div class="line-field"><span>Website or social link</span><span></span></div>
+        <div class="line-field"><span>Product or service offered</span><span></span></div>
+      </div>
+
+      <h3>Vendor space and setup needs</h3>
+      <div class="form-lines">
+        <div class="line-field"><span>Requested space size</span><span></span></div>
+        <div class="line-field"><span>Table needed</span><span>Yes / No</span></div>
+        <div class="line-field"><span>Chairs needed</span><span>Yes / No</span></div>
+        <div class="line-field"><span>Tent needed</span><span>Vendor provides / RRFF provides if available</span></div>
+        <div class="line-field"><span>Power needed</span><span>Yes / No</span></div>
+        <div class="line-field"><span>Arrival and setup time</span><span></span></div>
+        <div class="line-field"><span>Special setup notes</span><span></span></div>
+      </div>
+
+      <h3>Deposit and payment</h3>
+      <ul>
+        <li>A $100 deposit is required to hold the vendor spot.</li>
+        <li>Vendor space is not confirmed until RRFF receives the deposit and confirms the vendor in writing.</li>
+        <li>Any remaining vendor fee, if applicable, must be paid by the deadline provided by RRFF.</li>
+        <li>Deposit handling, cancellation, and refund decisions must be confirmed by RRFF in writing.</li>
+      </ul>
+      <div class="form-lines">
+        <div class="line-field"><span>Deposit received</span><span>Yes / No</span></div>
+        <div class="line-field"><span>Deposit date</span><span></span></div>
+        <div class="line-field"><span>Payment method</span><span></span></div>
+        <div class="line-field"><span>Remaining balance, if any</span><span></span></div>
+      </div>
+
+      <h3>Vendor responsibilities</h3>
+      <ul>
+        <li>Vendor is responsible for setup, staffing, and cleanup of their own area.</li>
+        <li>Vendor must keep the assigned space clean, safe, and within the approved footprint.</li>
+        <li>Vendor must provide accurate information about products, services, pricing, restrictions, and any required permits.</li>
+        <li>Food or beverage vendors are responsible for any required health, safety, or service requirements that apply to their participation.</li>
+        <li>Vendor may not assign or transfer the space to another business without written approval from RRFF.</li>
+        <li>RRFF may decline or remove vendor participation if the vendor is not a fit for the event, creates a safety concern, or does not follow event instructions.</li>
+      </ul>
+
+      <h3>Recognition</h3>
+      <div class="form-lines">
+        <div class="line-field"><span>Recognition name</span><span></span></div>
+        <div class="line-field"><span>Logo received</span><span>Yes / No</span></div>
+        <div class="line-field"><span>Recognition promised</span><span></span></div>
+      </div>
+
+      <h3>Approval</h3>
+      <p>By signing below, the vendor confirms the information provided is accurate and agrees to follow the event instructions provided by Round Rock Fire Foundation.</p>
+      <div class="signature-grid">
+        <div class="form-lines">
+          <div class="line-field"><span>Vendor signature</span><span></span></div>
+          <div class="line-field"><span>Printed name</span><span></span></div>
+          <div class="line-field"><span>Date</span><span></span></div>
+        </div>
+        <div class="form-lines">
+          <div class="line-field"><span>RRFF approval</span><span></span></div>
+          <div class="line-field"><span>Printed name</span><span></span></div>
+          <div class="line-field"><span>Date</span><span></span></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="section-nav">
+      <a class="btn btn-ghost" href="index.html">Back to Dashboard</a>
+      <a class="btn btn-ghost" href="outreach.html">Outreach Scripts</a>
+      <a class="btn btn-ghost" href="flyers.html">Flyers</a>
+    </div>
+  </section>
+</main>
+
+<script src="script.js" defer></script>
+<script>
+(function () {
+  var key = 'forms';
+  document.querySelectorAll('[data-nav="' + key + '"]').forEach(function (a) {
+    a.classList.add('is-active');
+  });
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  var event = startOfDay(new Date(2026, 9, 10));
+  var today = startOfDay(new Date());
+  var days = Math.round((event - today) / 86400000);
+  var t = document.getElementById('cc-tminus-status');
+  if (t) t.textContent = days > 0 ? 'T-' + days + ' days' : (days === 0 ? 'Event Day' : 'Post-event');
+})();
+</script>
+</body>
+</html>
