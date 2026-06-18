@@ -45,8 +45,8 @@
   --flame-600: #e0521a;
   --flame-700: #b53a18;
   --ember:     #c0271a;   /* ember red */
-  --cream:     #f6efe1;   /* warm white from artwork */
-  --cream-2:   #ece4d1;
+  --cream:     #ffffff;   /* white text on dark surfaces */
+  --cream-2:   #f3f4f6;
   /* Aliases kept for command-center.css */
   --gold-400:  var(--flame-400);
   --gold-500:  var(--flame-500);
@@ -57,20 +57,20 @@
   --navy-500:  var(--flame-600);
   --navy-700:  var(--flame-700);
 
-  /* Theme tokens — matches public tournament site (deep black, warm) */
-  --bg:            #0a0907;
-  --bg-elev:       #131110;
-  --surface:       #1a1715;
-  --surface-2:     #221d1a;
-  --border:        #312a26;
-  --border-strong: #4a3f37;
-  --text:          #f6efe1;
-  --text-muted:    #b6a99a;
-  --text-faint:    #7a6f63;
+  /* Theme tokens — charcoal gray, not brown */
+  --bg:            #07090c;
+  --bg-elev:       #101318;
+  --surface:       #171b22;
+  --surface-2:     #202631;
+  --border:        #333a46;
+  --border-strong: #4b5563;
+  --text:          #ffffff;
+  --text-muted:    #e5e7eb;
+  --text-faint:    #cbd5e1;
   --primary:       var(--flame-500);
   --primary-hover: var(--flame-400);
   --accent-ember:  var(--ember);
-  --on-primary:    #0a0907;
+  --on-primary:    #07090c;
   --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.6), 0 8px 20px -8px rgba(255,107,26,.2);
   --shadow-md: 0 12px 32px -12px rgba(0,0,0,.5);
 
@@ -344,12 +344,12 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
 }
 .btn-primary {
   background: linear-gradient(180deg, var(--flame-400), var(--flame-600));
-  color: #0a0907;
+  color: var(--on-primary);
   box-shadow: 0 10px 30px -10px rgba(255,107,26,.55), inset 0 1px 0 rgba(255,255,255,.25);
 }
 .btn-primary:hover {
   background: linear-gradient(180deg, var(--flame-200), var(--flame-500));
-  color: #0a0907;
+  color: var(--on-primary);
   transform: translateY(-1px);
 }
 .btn-ghost {
