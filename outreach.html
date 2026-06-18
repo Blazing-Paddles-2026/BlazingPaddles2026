@@ -1,166 +1,744 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Outreach Scripts — Blazing Paddles 2026 Dashboard</title>
-  <meta name="description" content="Outreach Scripts for the Round Rock Fire Foundation Blazing Paddles 2026 Dashboard." />
-  <link rel="icon" href="favicon.ico" sizes="any" />
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Outreach Scripts · Blazing Paddles 2026</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+
+
 </head>
-<body>
-  <main class="standalone-page">
-    <header class="topbar standalone-topbar">
-      <div class="topbar-status"><span class="status-dot" aria-hidden="true"></span><span class="status-text">Blazing Paddles 2026 Dashboard</span><span class="status-meta">Outreach Scripts</span></div>
-      <div class="topbar-actions"><a class="btn-link" href="index.html">← Back to Dashboard</a></div>
-    </header>
-    <section class="section">
-      <header class="section-head">
-        <p class="kicker">Blazing Paddles 2026</p>
-        <h1 class="section-title">Use clear, direct asks</h1>
-        <p class="section-lede">Use these exactly as written or make them sound like you. The goal is simple: ask clearly, make it easy to say no, and email info@roundrockfirefoundation.org with the details when someone says yes.</p>
-      </header>
-      <div class="quick-facts">
-        <div class="fact"><span class="fact-label">Keep it specific</span><span class="fact-value">Name the event, the ask, and the next step.</span></div>
-        <div class="fact"><span class="fact-label">Do not over-explain</span><span class="fact-value">Short messages are easier for businesses to answer.</span></div>
-        <div class="fact"><span class="fact-label">Do not over-track</span><span class="fact-value">No one needs to log every no. Send details when someone is interested or says yes.</span></div>
+<body class="cc-topnav-body">
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html"           data-nav="actions">ACTIONS</a>
+    <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">AUCTION</a>
+    <a href="outreach.html"         data-nav="scripts">SCRIPTS</a>
+    <a href="team.html"            data-nav="team">TEAM</a>
+    <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">—</span>
+  </div>
+</header>
+
+<main class="cc-topnav-main">
+<section class="section">
+<div class="cc-page-header">
+    <div>
+      <h1 class="cc-page-title">Outreach Scripts</h1>
+      <p class="cc-page-sub">A guided walk-through of how to use this dashboard to land sponsors.</p>
+    </div>
+  </div>
+
+  <!-- Guided Tour -->
+  <h3 class="cc-section-title">Here's What You Can Do</h3>
+  <div class="cc-card" style="line-height:1.75">
+    <p style="margin:0 0 var(--space-3);font-size:15px;color:var(--cream)">
+      Welcome to your command center. Everything you need to land sponsors lives in this dashboard. Here's the order to do it in — follow it once, and the next sponsor is easier than the first.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">First</strong>, head to the <a href="team.html" style="color:var(--flame-400);font-weight:600">Team page</a> and pick which lane you're working: <strong style="color:var(--cream)">sponsorship outreach, silent auction packages, event ops, or recognition.</strong> Don't try to do everything. Pick one and own it. If you're sponsorship outreach, keep reading — the rest of this playbook is for you.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">Next</strong>, scroll down to the <a href="#categories" style="color:var(--flame-400);font-weight:600">13 Business Categories</a> and pick 5 prospects from one category to reach out to this week. Don't shotgun across all 13 — own one category and become the expert in it.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">Then</strong>, write down those 5 prospects for yourself and work through them. The committee does not need every no or unanswered message. The important part is moving real opportunities forward.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">Now you reach out.</strong> Most prospects start with an email. Scroll to the <a href="#talking-points" style="color:var(--flame-400);font-weight:600">Talking Points</a> section below — grab the message structure, sample opener, and Send Now form. The email goes from <code style="color:var(--cream)">info@roundrockfirefoundation.org</code> with the Sponsor Flyer auto-attached. For walk-ins or cold calls, the same talking points work — say them in your own voice.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">After you reach out</strong>, follow up if they are interested or asked for more information. If they say yes to a sponsorship, cash donation, or auction item, email the details to <code style="color:var(--cream)">info@roundrockfirefoundation.org</code>.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">Then comes follow-up.</strong> Most sponsors say yes on touch 3, 4, or 5 — not the first ask. The <a href="#sequence" style="color:var(--flame-400);font-weight:600">7-Day Follow-Up Sequence</a> tells you exactly when to circle back: day 1 email, day 2 reminder, day 4 check-in, all the way through. Move prospects to "next year" if they're still cold by day 14.
+    </p>
+
+    <p style="margin:0 0 var(--space-3);font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">When someone says no</strong>, check the <a href="#objections" style="color:var(--flame-400);font-weight:600">Handling Objections</a> section — every common pushback ("no budget," "already sponsor other events," "send me info") has a response you can deliver in your own voice. "We don't have budget" is not the end of the conversation; it's the start of a different one.
+    </p>
+
+    <p style="margin:0;font-size:14px;color:var(--text-muted)">
+      <strong style="color:var(--flame-400);font-family:var(--font-display);letter-spacing:0.04em">Finally, when you close</strong>, send the full details to <code style="color:var(--cream)">info@roundrockfirefoundation.org</code> so Diedra can invoice, coordinate pickup, track recognition, and thank the donor properly. After the event, sponsors and donors should receive a recap with photos and the final fundraising total.
+    </p>
+  </div>
+
+  <!-- Attach the flyers helper -->
+  <h3 class="cc-section-title" id="attach">Attach The Flyers</h3>
+  <div class="cc-card">
+    <p style="margin:0 0 var(--space-4);color:var(--text-muted);font-size:14px;line-height:1.6">
+      The dashboard <strong style="color:var(--cream)">sends the email for you</strong> straight from <code>info@roundrockfirefoundation.org</code> with the flyer auto-attached — just use the Send Now form below. If you'd rather attach the flyer manually in Gmail or Outlook, click any <strong style="color:var(--cream)">Download</strong> button to save the file first.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-3);margin-bottom:var(--space-4)">
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/sponsor-flyer-2026.jpg" alt="Sponsor flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Sponsor Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">For cold emails &amp; follow-ups</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/sponsor-flyer-2026.jpg" download="BlazingPaddles2026_Sponsor_Flyer.jpg">Download</a>
       </div>
-      <header class="section-head">
-        <p class="kicker">Auction package choices</p>
-        <h2 class="section-title">Give businesses a clear way to help</h2>
-        <p class="section-lede">Use these package ideas to make the ask specific. Volunteers do not need to ask one business for the whole package. Ask for one piece: a gift card, service, item, experience, or certificate that fits the theme.</p>
-      </header>
-      <div class="detail-grid">
-        <article class="script-card">
-          <h3>Backyard Pitmaster</h3>
-          <p>Good fits: grill or smoker, meat market gift card, BBQ restaurant gift card, rubs, sauces, cooler, cutting board, grill tools, outdoor serving pieces.</p>
-        </article>
-        <article class="script-card">
-          <h3>Date Night</h3>
-          <p>Good fits: restaurant gift cards, dessert, flowers, hotel stay, event tickets, live music, rideshare credit, coffee or brunch gift card.</p>
-        </article>
-        <article class="script-card">
-          <h3>Family Adventure</h3>
-          <p>Good fits: arcade, bowling, movies, waterpark or activity passes, children’s museum, trampoline park, ice cream, pizza, family restaurant gift cards.</p>
-        </article>
-        <article class="script-card">
-          <h3>Hill Country Getaway</h3>
-          <p>Good fits: cabin or hotel stay, winery tasting, brewery visit, dinner, coffee, spa service, boutique gift card, local experience.</p>
-        </article>
-        <article class="script-card">
-          <h3>Luxury Staycation</h3>
-          <p>Good fits: resort or hotel stay, spa service, dinner, brunch, champagne or dessert, salon service, shopping gift card, transportation credit.</p>
-        </article>
-        <article class="script-card">
-          <h3>Pickleball Enthusiast</h3>
-          <p>Good fits: premium paddles, balls, court bag, private lesson, court time, athletic apparel, shoes, water bottle, recovery or wellness service.</p>
-        </article>
-        <article class="script-card">
-          <h3>Sports Fan</h3>
-          <p>Good fits: game tickets, team merchandise, sports bar gift card, hotel stay, tailgate supplies, signed item, golf simulator or sports experience.</p>
-        </article>
-        <article class="script-card">
-          <h3>Texas Tailgate</h3>
-          <p>Good fits: cooler, cornhole boards, tailgating chairs, snacks, grill accessories, team gear, folding table, outdoor speaker, restaurant gift card.</p>
-        </article>
-        <article class="script-card">
-          <h3>Backyard Oasis</h3>
-          <p>Good fits: fire pit, Adirondack chairs, patio lights, garden center gift card, outdoor rug, planter, outdoor games, pool or patio accessories.</p>
-        </article>
-        <article class="script-card">
-          <h3>Ultimate Home Chef</h3>
-          <p>Good fits: pizza oven, smoker, cooking class, specialty foods, knives, cutting board, spices, olive oil, cookware, private chef experience.</p>
-        </article>
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/play-flyer-2026.jpg" alt="Play flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Player Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">If they ask about playing too</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/play-flyer-2026.jpg" download="BlazingPaddles2026_Player_Flyer.jpg">Download</a>
       </div>
-      <div class="quick-facts">
-        <div class="fact"><span class="fact-label">Best ask</span><span class="fact-value">“Would you consider donating one item for our [package name] package?”</span></div>
-        <div class="fact"><span class="fact-label">Best follow-up</span><span class="fact-value">If they say yes, email info@roundrockfirefoundation.org with the contact, item, value, and pickup details.</span></div>
-        <div class="fact"><span class="fact-label">Best boundary</span><span class="fact-value">No pressure, no repeated asks, and no need to report every decline.</span></div>
+      <div style="background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--space-3);text-align:center">
+        <img src="flyers/volunteer-flyer-2026.jpg" alt="Volunteer flyer" style="width:100%;max-width:200px;border-radius:var(--r-sm);margin-bottom:8px;border:1px solid var(--border)">
+        <p style="margin:0 0 8px;font-family:var(--font-display);font-weight:700;letter-spacing:0.04em">Volunteer Flyer</p>
+        <p style="margin:0 0 12px;color:var(--text-faint);font-size:12px">For team-volunteer sponsors</p>
+        <a class="cc-btn cc-btn-primary cc-btn-sm" href="flyers/volunteer-flyer-2026.jpg" download="BlazingPaddles2026_Volunteer_Flyer.jpg">Download</a>
       </div>
-      <header class="section-head">
-        <p class="kicker">Scripts</p>
-        <h2 class="section-title">Copy, paste, and adjust as needed</h2>
-        <p class="section-lede">Choose the version that fits the contact. Keep the tone normal, respectful, and easy to answer.</p>
-      </header>
-      <div class="script-stack">
-        <article class="script-card">
-          <h3>Sponsor email</h3>
-          <p>Subject: Blazing Paddles 2026 sponsorship</p>
-          <p>Hi [Name],</p>
-          <p>I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on October 10 at Tejas Pickleball Club. We are inviting local businesses to sponsor the event, with proceeds supporting crisis relief, family support, and wellness programs for Round Rock firefighters and their families.</p>
-          <p>Would [Business] be open to reviewing the sponsorship options this week? No pressure at all. I can send the flyer and sponsorship details if you are open to taking a look.</p>
-          <p>Thank you,<br>[Your Name]</p>
-        </article>
-        <article class="script-card">
-          <h3>Warm contact sponsor ask</h3>
-          <p>Hi [Name], I wanted to reach out personally because I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on October 10.</p>
-          <p>We are looking for local businesses to sponsor the event. I thought of [Business] because [short reason: local connection, community involvement, past support, or customer base].</p>
-          <p>Would you be willing to look at the sponsor options? If it is not the right fit, no problem. I appreciate you considering it.</p>
-        </article>
-        <article class="script-card">
-          <h3>Phone call script</h3>
-          <p>Hi, my name is [Your Name]. I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on October 10 at Tejas Pickleball Club.</p>
-          <p>We are reaching out to local businesses about sponsorships and silent auction package donations. Is there a good person I should send the information to?</p>
-          <p>If yes: Thank you. I’ll send a short email with the event flyer and the specific options. What email should I use?</p>
-          <p>If no: No problem. Thank you for your time.</p>
-        </article>
-        <article class="script-card">
-          <h3>Voicemail script</h3>
-          <p>Hi [Name], this is [Your Name]. I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on October 10.</p>
-          <p>We are reaching out to local businesses about sponsorships and silent auction donations that support programs for Round Rock firefighters and their families.</p>
-          <p>I’ll send a quick email with the event details. If it looks like a fit, I’d be grateful for a reply. If not, no problem at all. Thank you.</p>
-        </article>
-        <article class="script-card">
-          <h3>Text message version</h3>
-          <p>Hi [Name], this is [Your Name]. I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on Oct. 10. We’re looking for local sponsors and silent auction donations. Would it be okay if I sent you the flyer and details? No pressure if it’s not a fit.</p>
-        </article>
-        <article class="script-card">
-          <h3>Auction package ask</h3>
-          <p>Hi [Name], I’m helping collect auction packages for the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament on October 10.</p>
-          <p>We are building a [package name] package for the silent auction, and I thought [Business] might be a good fit. Would you consider donating [specific item, gift card, service, or experience]?</p>
-          <p>We will recognize auction donors through the event materials and thank-you follow-up. No pressure if it is not a fit.</p>
-          <p>If this is possible, I can coordinate pickup or provide any details you need.</p>
-        </article>
-        <article class="script-card">
-          <h3>Stop-in script</h3>
-          <p>Hi, I’m [Your Name]. I’m helping with the Round Rock Fire Foundation’s Blazing Paddles Pickleball Tournament.</p>
-          <p>I wanted to drop off the flyer and ask whether [Business] would consider a sponsorship or a silent auction donation this year. Gift cards, services, experiences, and donated items all help.</p>
-          <p>No pressure. Who would be the best person for me to leave this with or email?</p>
-        </article>
-        <article class="script-card">
-          <h3>Sponsor yes next steps</h3>
-          <p>Thank you for agreeing to sponsor Blazing Paddles 2026. We appreciate the support.</p>
-          <p>To get everything set up, could you please send the best contact name, email, phone number, logo file, preferred business name for recognition, and the sponsorship level or amount confirmed?</p>
-          <p>Once I have that, Diedra will submit the invoice and confirm any recognition deadlines so everything is included correctly.</p>
-        </article>
-        <article class="script-card">
-          <h3>Auction package yes next steps</h3>
-          <p>Thank you for donating an auction item for Blazing Paddles 2026. Could you send the item description, estimated value, and the best pickup contact?</p>
-          <p>If there are restrictions, expiration dates, blackout dates, or delivery instructions, please include those too. If pickup is needed, please let me know the best day and time window. We will make sure the donation is tracked and recognized with the event materials.</p>
-        </article>
-        <article class="script-card">
-          <h3>What to send to info@roundrockfirefoundation.org after a yes</h3>
-          <p>Sponsorship or cash donation: email the business name, contact person, email, phone, amount, recognition name, and logo contact. Diedra will submit the invoice to them.</p>
-          <p>Auction donation: email the donor name, contact person, item or experience, estimated value, restrictions, expiration date, and pickup or delivery details.</p>
-          <p>For either one: include any deadline, special instructions, website, social link, or recognition preference.</p>
-        </article>
-        <article class="script-card">
-          <h3>Follow-up message</h3>
-          <p>Hi [Name], I’m following up on the Blazing Paddles sponsorship or auction request. We are organizing sponsor recognition and auction inventory now.</p>
-          <p>If this is something [Business] can support, I can send the details today or answer any questions.</p>
-          <p>If now is not a good time, no problem. Just let me know so I can update our list.</p>
-        </article>
-        <article class="script-card">
-          <h3>Polite decline response</h3>
-          <p>Thank you for letting me know. I appreciate you taking the time to consider it.</p>
-          <p>I’ll update our committee list so we do not continue following up. We appreciate your time and hope to connect again another year.</p>
-        </article>
+    </div>
+
+    <div style="background:rgba(255,107,26,0.08);border:1px dashed var(--flame-500);border-radius:var(--r-md);padding:var(--space-4)">
+      <p style="margin:0 0 var(--space-3);font-family:var(--font-display);color:var(--flame-200);text-transform:uppercase;letter-spacing:.1em;font-size:13px;font-weight:700">Send From info@roundrockfirefoundation.org</p>
+      <p style="margin:0 0 var(--space-3);color:var(--text-muted);font-size:13px;line-height:1.5">
+        Use the sponsor email script as a copy-and-paste starting point. Keep the ask short, send the flyer when needed, and email confirmed sponsor details to info@roundrockfirefoundation.org.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-2);margin-bottom:var(--space-3)">
+        <div class="cc-form-row">
+          <label for="send-to">Prospect email</label>
+          <input class="cc-input" id="send-to" type="email" placeholder="jane@acmecorp.com">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-firstname">First name</label>
+          <input class="cc-input" id="send-firstname" placeholder="Jane">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-business">Business name</label>
+          <input class="cc-input" id="send-business" placeholder="Acme Corporation">
+        </div>
+        <div class="cc-form-row">
+          <label for="send-yourname">Your name (signature)</label>
+          <select class="cc-select" id="send-yourname"><option value="">— pick name —</option></select>
+        </div>
+        <div class="cc-form-row">
+          <label for="send-attach">Attach flyer</label>
+          <select class="cc-select" id="send-attach">
+            <option value="sponsor" selected>Sponsor Flyer (default)</option>
+            <option value="player">Player Flyer</option>
+            <option value="volunteer">Volunteer Flyer</option>
+            <option value="none">No attachment</option>
+          </select>
+        </div>
       </div>
-      <div class="section-nav"><a class="btn btn-ghost" href="index.html">Dashboard</a><a class="btn btn-ghost" href="sponsors.html">Sponsor Playbook</a><a class="btn btn-ghost" href="targets.html">Sponsor Targets</a><a class="btn btn-ghost" href="raffle.html">Auction Strategy</a><a class="btn btn-ghost" href="outreach.html">Outreach Scripts</a><a class="btn btn-ghost" href="flyers.html">Flyers</a><a class="btn btn-ghost" href="timeline.html">Planning Timeline</a><a class="btn btn-ghost" href="donations.html">Donation Tracker</a><a class="btn btn-ghost" href="operations.html">Event Operations</a><a class="btn btn-ghost" href="checklist.html">Day-of Checklist</a><a class="btn btn-ghost" href="recognition.html">Recognition Plan</a><a class="btn btn-ghost" href="kpis.html">KPIs</a></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="cc-btn cc-btn-primary cc-btn-sm" id="send-email-btn">Send Now</button>
+        <button class="cc-btn cc-btn-ghost cc-btn-sm" id="preview-email-btn">Preview email</button>
+        <a class="cc-btn cc-btn-ghost cc-btn-sm" href="outreach.html">Open Outreach Scripts</a>
+      </div>
+      <div id="send-preview" style="display:none;margin-top:var(--space-3);padding:var(--space-3);background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);font-family:Helvetica,Arial,sans-serif;font-size:13px;color:var(--text);white-space:pre-wrap;line-height:1.55"></div>
+    </div>
+
+    <p style="margin:var(--space-3) 0 0;color:var(--text-faint);font-size:12px;line-height:1.5">
+      <strong>How it works:</strong> The dashboard sends through Diedra's authorized Google Apps Script, which runs as info@roundrockfirefoundation.org. The flyer is auto-attached. Recipients see the email as if Diedra sent it from the foundation address — no committee member needs access to the info@ inbox.
+    </p>
+  </div>
+
+  <!-- Tiers -->
+  <h3 class="cc-section-title" id="tiers">Sponsorship Tiers</h3>
+  <p style="color:var(--text-muted);font-size:14px;margin:0 0 var(--space-3)">
+    Three askable tiers, all tax-deductible (RRFF is a 501(c)(3)). The Presenting billing for 2026 is already secured by Kalahari Resorts — every business below is being asked at Chief, Lieutenant, or Firefighter.
+  </p>
+  <section class="cc-tiers">
+    <div class="cc-tier cc-tier-chief">
+      <div class="cc-tier-name">CHIEF</div><div class="cc-tier-amount">$5,000</div>
+      <p style="margin:0 0 8px;font-size:12px;color:var(--flame-200);letter-spacing:.08em;text-transform:uppercase;font-weight:700">Top askable tier</p>
+      <ul>
+        <li>Premier logo placement on all signage</li>
+        <li>Front of t-shirts · branded participant giveaways</li>
+        <li>Multiple emcee spotlights · named court</li>
+        <li>VIP hospitality for company reps</li>
+      </ul>
+    </div>
+    <div class="cc-tier cc-tier-lieutenant">
+      <div class="cc-tier-name">LIEUTENANT</div><div class="cc-tier-amount">$2,500</div>
+      <ul>
+        <li>Logo on shirts &amp; main banners</li>
+        <li>Court-side signage · booth at event village</li>
+        <li>Social &amp; email recognition</li>
+        <li>4 player entries included</li>
+      </ul>
+    </div>
+    <div class="cc-tier cc-tier-firefighter">
+      <div class="cc-tier-name">FIREFIGHTER</div><div class="cc-tier-amount">$1,000</div>
+      <ul>
+        <li>Logo on event banners</li>
+        <li>Recognition signage at venue</li>
+        <li>Social mention</li>
+        <li>2 player entries included</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Talking Points (replaces word-for-word scripts) -->
+  <h3 class="cc-section-title" id="talking-points">Talking Points · Say It In Your Own Voice</h3>
+  <p style="margin:0 0 var(--space-3);color:var(--text-muted);font-size:14px;line-height:1.7">
+    These aren't rigid scripts. Each tab tells you <strong style="color:var(--cream)">what to cover</strong>, gives you <strong style="color:var(--cream)">a sample opener</strong> you can adapt, and — if you're stuck for words — has an <strong style="color:var(--cream)">"exact wording"</strong> fallback you can expand. You'll sound more genuine when you make it your own.
+  </p>
+  <div class="cc-card">
+    <div class="cc-tabs" role="tablist">
+      <button class="cc-tab" role="tab" aria-selected="true"  data-target="email">Initial Email</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="cold">Cold Call</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="walk">Walk-In</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="voice">Voicemail</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="follow">Follow-Up</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="thank">Thank You</button>
+    </div>
+
+    <div class="cc-tab-panel active" data-panel="email">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover in the email</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Who you are</strong> — your name + the Round Rock Fire Foundation</li>
+        <li><strong style="color:var(--cream)">What Blazing Paddles is</strong> — our 2nd Annual Pickleball Tournament, Sat Oct 10 at Tejas Pickleball Club in Georgetown</li>
+        <li><strong style="color:var(--cream)">Why their business fits</strong> — 200+ players plus families = 500+ people from Round Rock &amp; Georgetown</li>
+        <li><strong style="color:var(--cream)">The ask</strong> — Chief $5,000 / Lieutenant $2,500 / Firefighter $1,000 (Kalahari has Presenting)</li>
+        <li><strong style="color:var(--cream)">Next step</strong> — quick call this week + attach the Sponsor Flyer (we do this for you below)</li>
+      </ol>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample opener (adapt it)</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi [first name], I'm Diedra with the Round Rock Fire Foundation. We're hosting our 2nd Annual Blazing Paddles Pickleball Tournament on October 10th and I think [business] would be a great fit as a sponsor. Mind if I send over our one-page sponsor flyer?"
+      </p>
+
+      <p style="margin:0 0 var(--space-3);padding:10px 14px;background:rgba(255,107,26,0.10);border-left:3px solid var(--flame-500);border-radius:4px;font-size:13px;color:var(--cream)">
+        ✨ Use the <strong>Send Now</strong> form in <a href="#attach" style="color:var(--flame-400)">Attach The Flyers</a> above — the email goes from <code>info@roundrockfirefoundation.org</code> with the flyer pre-attached, no copy-paste required.
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-email">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-email">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-email">Subject: Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament
+
+Hi [FIRST NAME],
+
+I'm [YOUR NAME] with the Round Rock Fire Foundation, a nonprofit that supports the firefighters and families who keep Round Rock safe.
+
+On Saturday, October 10, 2026, we're hosting our 2nd Annual Blazing Paddles Pickleball Tournament at Tejas Pickleball Club in Georgetown — and we'd love to partner with [BUSINESS NAME].
+
+This event brings together 200+ players plus their families and friends — we're expecting more than 500 people total from across Round Rock, Georgetown, and the surrounding fire-service community. As a sponsor, your business gets:
+• Logo on event flyers and social media
+• Name recognition at the event
+• Booth or table space (higher tiers)
+• Direct engagement with local families
+
+Three tiers — Chief $5,000 · Lieutenant $2,500 · Firefighter $1,000. (Our Presenting billing for 2026 is already secured by Kalahari Resorts.) Would you be open to a quick call this week to learn more?
+
+Thank you for considering this — it means a lot to the fire families we serve.
+
+[YOUR NAME]
+Round Rock Fire Foundation
+[PHONE] · [EMAIL]</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="cold">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover on the call</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Introduce yourself</strong> — name + Round Rock Fire Foundation</li>
+        <li><strong style="color:var(--cream)">One-sentence what we do</strong> — "we support local firefighters and their families"</li>
+        <li><strong style="color:var(--cream)">The event</strong> — 2nd Annual Blazing Paddles Pickleball Tournament, Oct 10, Tejas Pickleball Club</li>
+        <li><strong style="color:var(--cream)">Reach</strong> — 200+ players + their families = 500+ local people</li>
+        <li><strong style="color:var(--cream)">Permission to continue</strong> — "Is this a good time, or should I call back?"</li>
+      </ol>
+      <p style="margin:0 0 var(--space-3);padding:10px 14px;background:rgba(40,200,140,0.08);border-left:3px solid #6ee7a7;border-radius:4px;font-size:13px;color:var(--cream);line-height:1.6">
+        💡 <strong>Tone tip:</strong> Smile while you dial. The person on the other end can hear it. Keep the opener under 25 seconds before you stop and let them respond.
+      </p>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample opener</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi, this is Diedra from the Round Rock Fire Foundation — we support local firefighters and their families. We're hosting our 2nd Annual Blazing Paddles Pickleball Tournament on October 10th at Tejas Pickleball Club, and I think [business] would be a great fit. Is this a good time for a couple minutes?"
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-cold">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-cold">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-cold">"Hi, this is [YOUR NAME] calling from the Round Rock Fire Foundation. We're a nonprofit that supports local firefighters and their families, and we're hosting our 2nd Annual Blazing Paddles Pickleball Tournament on Saturday, October 10th at Tejas Pickleball Club in Georgetown.
+
+It's going to bring together 200+ players and their families — over 500 people total from the Round Rock and Georgetown communities. I'd love to talk with you about a sponsorship opportunity that would get [BUSINESS NAME] in front of all those families.
+
+Is this a good time, or should I call back?"</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="walk">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover when you walk in</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Be brief</strong> — they're working, you're interrupting</li>
+        <li><strong style="color:var(--cream)">Name + foundation</strong> — "Round Rock Fire Foundation"</li>
+        <li><strong style="color:var(--cream)">One line about the event</strong> — pickleball tournament Oct 10th raising money for fire families</li>
+        <li><strong style="color:var(--cream)">Why you came in person</strong> — you thought their business would be a perfect fit</li>
+        <li><strong style="color:var(--cream)">Ask for the decision-maker</strong> — "Do you have someone here who handles community partnerships?"</li>
+        <li><strong style="color:var(--cream)">Always leave a flyer</strong> — print the Sponsor Flyer ahead of time and hand it over</li>
+      </ol>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample opener</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi there — I'm Diedra with the Round Rock Fire Foundation. We're putting on a pickleball tournament on October 10th to raise money for local firefighter families, and I thought [business] would be a perfect fit as a sponsor. Do you have someone here who handles community partnerships?"
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-walk">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-walk">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-walk">"Hi there — my name is [YOUR NAME] and I'm with the Round Rock Fire Foundation. We're putting on a pickleball tournament on October 10th at Tejas Pickleball Club in Georgetown to raise money for local firefighter families.
+
+I wanted to stop by personally because I think [BUSINESS NAME] would be a perfect fit as a sponsor. Do you have someone here who handles community partnerships?"</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="voice">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover in the voicemail</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Keep it under 25 seconds</strong> — longer and they delete</li>
+        <li><strong style="color:var(--cream)">Your name + foundation</strong></li>
+        <li><strong style="color:var(--cream)">One sentence: the event</strong> — pickleball tournament Oct 10 for firefighter families</li>
+        <li><strong style="color:var(--cream)">One sentence: the reach</strong> — 200+ players and their families</li>
+        <li><strong style="color:var(--cream)">Your callback number, slowly, twice</strong></li>
+        <li><strong style="color:var(--cream)">End warm</strong> — "Thanks so much"</li>
+      </ol>
+      <p style="margin:0 0 var(--space-3);padding:10px 14px;background:rgba(40,200,140,0.08);border-left:3px solid #6ee7a7;border-radius:4px;font-size:13px;color:var(--cream);line-height:1.6">
+        💡 <strong>Pace tip:</strong> Speak slower than feels natural — especially when you say the phone number. Say it twice. They're writing it down while you talk.
+      </p>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample voicemail · tap ▶ to hear the pace</h4>
+      <div style="position:relative">
+        <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+          <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-voice" title="Hear how it should sound">▶ Play</button>
+          <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-voice">Copy</button>
+        </div>
+        <pre class="cc-script" id="script-voice">"Hi, this is [YOUR NAME] with the Round Rock Fire Foundation. We're hosting our 2nd Annual Blazing Paddles Pickleball Tournament on Saturday, October 10th in Georgetown — it's a community fundraiser for local firefighter families.
+
+I have a sponsorship opportunity I'd love to share with [BUSINESS NAME] that would put your business in front of 200+ players and their families. Please give me a call back at [YOUR PHONE].
+
+Thanks so much!"</pre>
+      </div>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="follow">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover in the follow-up</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Reference your first message</strong> — "just circling back on…"</li>
+        <li><strong style="color:var(--cream)">A reason to act now</strong> — "we're finalizing the lineup in the next few weeks"</li>
+        <li><strong style="color:var(--cream)">Lower the bar</strong> — offer a quick call OR the flyer, whichever is easier</li>
+        <li><strong style="color:var(--cream)">Re-attach the Sponsor Flyer</strong> — don't make them dig through old emails</li>
+      </ol>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample opener</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi [first name], just circling back on the sponsorship opportunity I mentioned for Blazing Paddles. We're finalizing our lineup over the next few weeks — would love to know if [business] wants in. Happy to jump on a quick call or just resend the flyer, whichever's easier."
+      </p>
+
+      <p style="margin:0 0 var(--space-3);padding:10px 14px;background:rgba(255,107,26,0.10);border-left:3px solid var(--flame-500);border-radius:4px;font-size:13px;color:var(--cream)">
+        📎 <strong>Re-attach the Sponsor Flyer</strong> on follow-ups too. Use <a href="#attach" style="color:var(--flame-400)">Send Now</a> to auto-attach.
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-follow">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-follow">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-follow">Subject: Quick follow-up — Blazing Paddles sponsorship
+
+Hi [FIRST NAME],
+
+Just wanted to circle back on the sponsorship opportunity I mentioned for the Blazing Paddles Pickleball Tournament on October 10th. We're finalizing our sponsor lineup over the next few weeks and I'd love to know if [BUSINESS NAME] would like to be part of it.
+
+Happy to jump on a quick call or send the one-page sponsorship flyer — whichever is easier for you.
+
+Thanks for your time,
+[YOUR NAME]
+Round Rock Fire Foundation</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="thank">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover in the thank-you</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Thank them by name</strong> — not the company, the human</li>
+        <li><strong style="color:var(--cream)">Tell them what you raised</strong> — exact dollar amount, attributable to them</li>
+        <li><strong style="color:var(--cream)">Show the impact</strong> — teams played, people attended, social reach</li>
+        <li><strong style="color:var(--cream)">Attach 2–3 photos</strong> — their logo/banner visible at the event</li>
+        <li><strong style="color:var(--cream)">Plant the 2027 seed</strong> — "I'll reach out in the spring"</li>
+      </ol>
+      <p style="margin:0 0 var(--space-3);padding:10px 14px;background:rgba(40,200,140,0.08);border-left:3px solid #6ee7a7;border-radius:4px;font-size:13px;color:var(--cream);line-height:1.6">
+        💡 <strong>Why this matters:</strong> The thank-you is when you re-sell next year's sponsorship. Sponsors who see real impact + photos of their logo come back at 2x the rate.
+      </p>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample opener</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi [first name] — thank you again for sponsoring Blazing Paddles. Because of [business], we raised $[total] for Round Rock firefighter families. Here are a few photos from the day with your logo front and center. We couldn't have done it without you."
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-thank">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-thank">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-thank">Subject: Thank You — Blazing Paddles Tournament Results
+
+Hi [FIRST NAME],
+
+Thank you again for sponsoring the Blazing Paddles Pickleball Tournament on October 10th. Because of your support, we raised $[AMOUNT] for Round Rock firefighter families.
+
+Here's a quick recap of the day:
+• [XX] teams played
+• [XX] people attended
+• We reached [XX] people on social media
+
+[Attach 2–3 photos showing their logo/banner at the event]
+
+We couldn't have done this without you. Your sponsorship made a real difference for the families we serve.
+
+We'd love to have you back next year. I'll reach out in the spring about the 2027 tournament.
+
+With gratitude,
+[YOUR NAME]
+Round Rock Fire Foundation
+[PHONE] · [EMAIL]</pre>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 13 Categories -->
+  <h3 class="cc-section-title" id="categories">13 Business Categories — In Priority Order</h3>
+  <ul class="cc-cats">
+    <li><details class="cc-cat" open><summary><span class="cc-cat-num">1</span> Healthcare &amp; Wellness</summary><div class="cc-cat-body"><strong>Who to call:</strong> Local chiropractors, physical therapy clinics, urgent care, dental, eye care, massage therapy.<br><strong>Why they sponsor:</strong> Health-conscious audience, community wellness alignment, family event.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">2</span> Financial Services</summary><div class="cc-cat-body"><strong>Who to call:</strong> Community banks, credit unions, mortgage brokers, insurance agents, financial advisors.<br><strong>Why they sponsor:</strong> Trusted community presence, family demographic, brand visibility.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">3</span> Real Estate</summary><div class="cc-cat-body"><strong>Who to call:</strong> Local agents, brokerages, title companies, home builders, property management.<br><strong>Why they sponsor:</strong> Homeowners = target demographic, community visibility.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">4</span> Restaurants, Bars &amp; Breweries</summary><div class="cc-cat-body"><strong>Who to call:</strong> Family restaurants, sports bars, breweries, coffee shops, catering.<br><strong>Note:</strong> Many prefer to donate gift cards for the auction instead of cash. <strong>Take the gift card AND ask for a cash sponsorship too.</strong></div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">5</span> Fitness &amp; Sporting Goods</summary><div class="cc-cat-body"><strong>Who to call:</strong> Gyms, yoga studios, CrossFit boxes, sporting goods, pickleball pro shops, coaches.<br><strong>Why they sponsor:</strong> Direct alignment with active lifestyle, player demographic.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">6</span> Automotive</summary><div class="cc-cat-body"><strong>Who to call:</strong> Car dealerships, auto detail shops, tire shops, oil change centers, car wash businesses.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">7</span> Home Services</summary><div class="cc-cat-body"><strong>Who to call:</strong> HVAC, landscaping, pool cleaning, house cleaning, pest control, handyman, home security.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">8</span> Professional Services</summary><div class="cc-cat-body"><strong>Who to call:</strong> Law firms, CPAs, marketing agencies, web design, business consultants, print shops.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">9</span> Retail &amp; Shopping</summary><div class="cc-cat-body"><strong>Who to call:</strong> Local boutiques, gift shops, home decor, pet stores, farmers market vendors.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">10</span> Hotels &amp; Hospitality</summary><div class="cc-cat-body"><strong>Who to call:</strong> Local hotels, B&amp;Bs, travel agents.<br><strong>Note:</strong> Hotels often prefer to donate a weekend stay. <strong>Take it AND ask for sponsorship.</strong></div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">11</span> Entertainment &amp; Experiences</summary><div class="cc-cat-body"><strong>Who to call:</strong> Golf courses, movie theaters, escape rooms, bowling alleys, museums, event venues.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">12</span> Medical &amp; Dental Practices</summary><div class="cc-cat-body"><strong>Who to call:</strong> Family medical practices, pediatricians, orthodontists, optometrists, veterinary clinics.</div></details></li>
+    <li><details class="cc-cat"><summary><span class="cc-cat-num">13</span> National Chains with Local Presence</summary><div class="cc-cat-body"><strong>Who to call:</strong> Local managers of major chains.<br><strong>Note:</strong> Start 4+ months early — corporate approval takes time.</div></details></li>
+  </ul>
+
+  <!-- 7-Day Follow-up -->
+  <h3 class="cc-section-title" id="sequence">7-Day Follow-Up Sequence</h3>
+  <div class="cc-seq">
+    <div class="cc-seq-day">Day 1</div><div class="cc-seq-action">Initial call or email</div>
+    <div class="cc-seq-day">Day 2</div><div class="cc-seq-action">Send follow-up email with sponsorship flyer attached</div>
+    <div class="cc-seq-day">Day 4</div><div class="cc-seq-action">Call or email: "Quick follow-up — did you get a chance to look at the flyer?"</div>
+    <div class="cc-seq-day">Day 6</div><div class="cc-seq-action">Brief text or email: "Still interested in learning more?"</div>
+    <div class="cc-seq-day">Day 8</div><div class="cc-seq-action">Call: "I wanted to check in one more time — we're finalizing sponsors soon."</div>
+    <div class="cc-seq-day">Day 11</div><div class="cc-seq-action">Final email: "Last chance to join us — would love to have [BUSINESS NAME] on board."</div>
+    <div class="cc-seq-day">Day 14</div><div class="cc-seq-action">If there is still no response, stop following up and move on to the next prospect.</div>
+  </div>
+
+  <!-- Objection Handling -->
+  <h3 class="cc-section-title" id="objections">Handling Objections</h3>
+  <div class="cc-obj">
+    <p class="cc-obj-q">"We don't have budget right now."</p>
+    <p class="cc-obj-a">"I totally understand — a lot of businesses are planning ahead right now. We also have an in-kind option where you could donate a gift card or service for our silent auction. That still gets your name in front of 500+ people (players plus their families), and it's a smaller commitment. Would that work better?"</p>
+  </div>
+  <div class="cc-obj">
+    <p class="cc-obj-q">"We already sponsor other events."</p>
+    <p class="cc-obj-a">"That's great — it shows you care about the community. What makes our event unique is that 100% of funds go directly to local firefighter families. There's no national overhead, no admin fees. Every dollar stays right here in Round Rock. Plus, pickleball is one of the fastest-growing sports in America — 24 million players nationwide. Your brand gets in front of an active, engaged audience."</p>
+  </div>
+  <div class="cc-obj">
+    <p class="cc-obj-q">"Send me information and I'll think about it."</p>
+    <p class="cc-obj-a">"Absolutely, I'll send you our one-page sponsorship flyer right now. Can I also ask — what's your timeline for deciding? I'd love to follow up next week and answer any questions. Would Tuesday or Wednesday work better for a quick call?"</p>
+  </div>
+  <div class="cc-obj">
+    <p class="cc-obj-q">"How do we know we'll get ROI?"</p>
+    <p class="cc-obj-a">"Great question. Your logo goes on all flyers and social media posts leading up to the event. On tournament day, your business name is announced over the PA, your banner is displayed at the venue, and you'll have direct face-to-face contact with 200+ players and their families — 500+ people in all. After the event, I send you a report with attendance numbers, photos, and social media reach. And I'll be completely transparent — if we don't deliver what we promised, I'll make it right."</p>
+  </div>
+  <div class="cc-obj">
+    <p class="cc-obj-q">"We're not interested."</p>
+    <p class="cc-obj-a">"I appreciate your time. Before I go — would it be okay if I checked back in next year? Our tournament is going to grow every year, and I'd love to keep [BUSINESS NAME] on our radar."</p>
+  </div>
+
+  <!-- Silent auction playbook -->
+  <h3 class="cc-section-title" id="auction">Silent Auction Playbook</h3>
+  <div class="cc-card">
+    <p style="margin:0 0 var(--space-3);color:var(--text-muted);line-height:1.6">
+      <strong style="color:var(--text)">Silent auction focus:</strong> build high-quality packages that feel complete, easy to display, and worth bidding on.
+      Prioritize experiences, themed collections, premium items, and local businesses that can donate something memorable.
+    </p>
+    <p style="margin:0;color:var(--text-muted);line-height:1.6">
+      <strong style="color:var(--text)">Package categories:</strong> Backyard Pitmaster, Date Night for a Year, Hill Country Getaway, Family Adventure, Sports Fan Package, Luxury Staycation, Texas Tailgate, Pickleball Enthusiast, Backyard Oasis, and Ultimate Home Chef.
+      When someone says yes, email donor name, item description, estimated value, restrictions, pickup status, and recognition notes to info@roundrockfirefoundation.org before it is counted as confirmed.
+    </p>
+    <p style="margin:var(--space-3) 0 0">
+      <a href="paperwork.html" class="cc-btn cc-btn-primary">Open Paperwork & Forms</a>
+    </p>
+  </div>
+
+  <!-- Sponsor Call Checklist -->
+  <h3 class="cc-section-title">Sponsor Call Checklist</h3>
+  <div class="cc-card">
+    <p style="margin:0 0 var(--space-2);font-weight:700;color:var(--gold-400);text-transform:uppercase;letter-spacing:.08em;font-size:13px">Before you call, have ready:</p>
+    <ul style="margin:0 0 var(--space-4);color:var(--text-muted);line-height:1.8">
+      <li>☐ One-page sponsorship flyer (printed or PDF)</li>
+      <li>☐ Pen and paper for notes</li>
+      <li>☐ Your phone with calendar open</li>
+      <li>☐ List of 3 businesses to call today</li>
+      <li>☐ Your 30-second opening pitch memorized</li>
+    </ul>
+    <p style="margin:0 0 var(--space-2);font-weight:700;color:var(--gold-400);text-transform:uppercase;letter-spacing:.08em;font-size:13px">If they say yes, email info@roundrockfirefoundation.org:</p>
+    <ul style="margin:0;color:var(--text-muted);line-height:1.8">
+      <li>☐ Business name and contact person</li>
+      <li>☐ Tier they're interested in</li>
+      <li>☐ Follow-up date agreed on</li>
+      <li>☐ Notes from conversation</li>
+    </ul>
+  </div>
     </section>
-  </main>
-  <script src="script.js" defer></script>
+
+<div class="cc-toast" id="toast"></div>
+<script>
+(function () {
+  // Tabs
+  document.querySelectorAll('.cc-tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var target = t.getAttribute('data-target');
+      var group = t.parentElement;
+      group.querySelectorAll('.cc-tab').forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+      t.setAttribute('aria-selected', 'true');
+      var card = t.closest('.cc-card');
+      card.querySelectorAll('.cc-tab-panel').forEach(function (p) {
+        p.classList.toggle('active', p.getAttribute('data-panel') === target);
+      });
+    });
+  });
+
+  // Copy buttons
+  var toast = document.getElementById('toast');
+  function showToast(m, err) {
+    toast.textContent = m;
+    toast.className = 'cc-toast show' + (err ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 2500);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+        showToast('Copied to clipboard');
+      }, function () { showToast('Copy failed', true); });
+    });
+  });
+
+  // Play (Text-to-Speech) for the voicemail and other scripts
+  var currentUtterance = null;
+  document.querySelectorAll('[data-play]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!('speechSynthesis' in window)) {
+        showToast('Your browser doesn\'t support text-to-speech', true);
+        return;
+      }
+      // Toggle: if currently speaking, stop
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        b.textContent = '▶ Play';
+        return;
+      }
+      var el = document.getElementById(b.getAttribute('data-play'));
+      if (!el) return;
+      var text = el.textContent.replace(/\[[^\]]+\]/g, function (m) {
+        // Replace placeholders with friendly stand-ins for clearer audio
+        var t = m.toLowerCase();
+        if (t.indexOf('your name') >= 0) return 'Diedra Brownell';
+        if (t.indexOf('business name') >= 0) return 'your business';
+        if (t.indexOf('first name') >= 0) return 'there';
+        if (t.indexOf('phone') >= 0) return '512 967 1007';
+        if (t.indexOf('email') >= 0) return 'info at round rock fire foundation dot org';
+        if (t.indexOf('amount') >= 0) return 'X';
+        if (t.indexOf('xx') >= 0) return 'X';
+        return '';
+      });
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      // Prefer a natural-sounding English voice
+      var voices = window.speechSynthesis.getVoices();
+      var preferred = voices.find(function (v) {
+        return /en[-_]US/.test(v.lang) && /(samantha|jenny|aria|natural|google)/i.test(v.name);
+      }) || voices.find(function (v) { return /en[-_]US/.test(v.lang); });
+      if (preferred) u.voice = preferred;
+      currentUtterance = u;
+      b.textContent = '⏹ Stop';
+      u.onend = function () { b.textContent = '▶ Play'; };
+      u.onerror = function () { b.textContent = '▶ Play'; };
+      window.speechSynthesis.speak(u);
+    });
+  });
+
+  // Voices may load asynchronously
+  if ('speechSynthesis' in window && typeof speechSynthesis.onvoiceschanged !== 'undefined') {
+    speechSynthesis.onvoiceschanged = function () { /* voices loaded */ };
+  }
+
+  // Populate the "Your name" picker with committee from the Team tab
+  var nameSelect = document.getElementById('send-yourname');
+  if (nameSelect && window.BPSheets) {
+    BPSheets.read('Team').then(function (rows) {
+      var opts = rows.map(function (r) {
+        var n = (r['Name'] || '').trim();
+        return n ? '<option>' + n.replace(/</g, '&lt;') + '</option>' : '';
+      }).filter(Boolean).join('');
+      if (opts) nameSelect.innerHTML = '<option value="">— pick name —</option>' + opts;
+    }).catch(function () { /* leave default */ });
+  }
+
+  // Origin used for absolute URLs Apps Script can fetch as attachments
+  var ORIGIN = window.location.origin;
+  var FLYERS = {
+    sponsor:   { url: ORIGIN + '/flyers/sponsor-flyer-2026.jpg',   name: 'BlazingPaddles2026_Sponsor_Flyer.jpg'   },
+    player:    { url: ORIGIN + '/flyers/play-flyer-2026.jpg',      name: 'BlazingPaddles2026_Player_Flyer.jpg'    },
+    volunteer: { url: ORIGIN + '/flyers/volunteer-flyer-2026.jpg', name: 'BlazingPaddles2026_Volunteer_Flyer.jpg' },
+  };
+
+  // Build the final email by filling placeholders
+  function buildEmail() {
+    var emailScript = document.getElementById('script-email');
+    var raw = emailScript.textContent;
+    var firstName = (document.getElementById('send-firstname').value || '').trim() || 'there';
+    var business  = (document.getElementById('send-business').value  || '').trim() || 'your business';
+    var yourName  = (document.getElementById('send-yourname').value  || '').trim() || 'the Round Rock Fire Foundation';
+    var filled = raw
+      .replace(/\[FIRST NAME\]/g, firstName)
+      .replace(/\[BUSINESS NAME\]/g, business)
+      .replace(/\[BUSINESS\]/g, business)
+      .replace(/\[YOUR NAME\]/g, yourName)
+      .replace(/\[COMPANY\]/g, business)
+      .replace(/\[PHONE\]/g, '(512) 967-1007')
+      .replace(/\[EMAIL\]/g, 'info@roundrockfirefoundation.org');
+    var m = filled.match(/^Subject:\s*(.+?)\n/);
+    return {
+      subject: m ? m[1].trim() : 'Sponsor Local Fire Families — Blazing Paddles Pickleball Tournament',
+      body:    m ? filled.replace(m[0], '').trim() : filled.trim(),
+    };
+  }
+
+  // Preview button
+  var previewBtn = document.getElementById('preview-email-btn');
+  var previewBox = document.getElementById('send-preview');
+  if (previewBtn) {
+    previewBtn.addEventListener('click', function () {
+      var e = buildEmail();
+      previewBox.style.display = 'block';
+      previewBox.innerHTML =
+        '<div style="color:var(--text-faint);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Preview — will send from info@roundrockfirefoundation.org</div>' +
+        '<strong>Subject:</strong> ' + e.subject.replace(/</g,'&lt;') + '\n\n' +
+        e.body.replace(/</g,'&lt;');
+    });
+  }
+
+  // Real send through Apps Script
+  var sendBtn = document.getElementById('send-email-btn');
+  if (sendBtn) {
+    sendBtn.addEventListener('click', function () {
+      if (!window.BPSheets || !BPSheets.getWebhookUrl()) {
+        showToast('Automated sending is not part of the current workflow. Copy the script and send confirmed details to info@roundrockfirefoundation.org.', true);
+        return;
+      }
+      var to = (document.getElementById('send-to').value || '').trim();
+      if (!to || to.indexOf('@') < 0) {
+        showToast('Enter a valid prospect email.', true);
+        return;
+      }
+      var e = buildEmail();
+      var att = document.getElementById('send-attach').value;
+      var flyer = FLYERS[att]; // undefined if "none"
+      var yourName = document.getElementById('send-yourname').value;
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Sending…';
+
+      BPSheets.sendSponsorEmail({
+        to: to,
+        subject: e.subject,
+        body: e.body,
+        attachUrl:  flyer ? flyer.url  : '',
+        attachName: flyer ? flyer.name : '',
+        sentBy:     yourName,
+        scriptUsed: 'Initial Email',
+      }).then(function () {
+        showToast('Sent to ' + to + ' from info@roundrockfirefoundation.org');
+        document.getElementById('send-to').value = '';
+        document.getElementById('send-firstname').value = '';
+        document.getElementById('send-business').value  = '';
+      }).catch(function (err) {
+        showToast('Send failed: ' + (err.message || err), true);
+      }).then(function () {
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send Now';
+      });
+    });
+  }
+})();
+</script>
+</main>
+</div>
+
+
+<script>
+(function () {
+  var key = 'scripts';
+  document.querySelectorAll('[data-nav="' + key + '"]').forEach(function (a) {
+    a.classList.add('is-active');
+  });
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  var event = startOfDay(new Date(2026, 9, 10));
+  var today = startOfDay(new Date());
+  var days = Math.round((event - today) / 86400000);
+  var label = days > 14 ? 'T-' + Math.floor(days/7) + ' weeks · ' + days + ' days out' :
+              days > 1 ? 'T-' + days + ' days' :
+              days === 1 ? 'T-1 day · Tomorrow' :
+              days === 0 ? 'Event Day · Live' :
+              'Tournament day ' + (-days) + ' days ago';
+  var el = document.getElementById('cc-tminus-status');
+  if (el) el.textContent = label;
+})();
+</script>
 </body>
 </html>

@@ -73,8 +73,26 @@
 <script>
 (function () {
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-  BPSheets.read('Team').then(function (rows) {
-    var html = '<table class="cc-table"><thead><tr><th>Name</th><th>Role / Lane</th><th>Phone</th><th>Email</th></tr></thead><tbody>' +
+  var fallbackRows = [
+    {
+      Name: 'Diedra Brownell',
+      Role: 'Foundation lead · invoices · sponsor and auction coordination',
+      Phone: '(512) 967-1007',
+      Email: 'info@roundrockfirefoundation.org'
+    },
+    {
+      Name: 'Seth & Lauren Monroe',
+      Role: 'Gameplay and Tejas coordination',
+      Phone: '',
+      Email: 'info@roundrockfirefoundation.org'
+    }
+  ];
+  function renderRows(rows, note) {
+    var html = '';
+    if (note) {
+      html += '<p style="margin:0 0 var(--space-3);color:var(--text-muted);font-size:13px;line-height:1.5">' + esc(note) + '</p>';
+    }
+    html += '<table class="cc-table"><thead><tr><th>Name</th><th>Role / Lane</th><th>Phone</th><th>Email</th></tr></thead><tbody>' +
       rows.map(function (r) {
         var phone = r['Phone'] ? '<a href="tel:' + r['Phone'].replace(/[^0-9+]/g,'') + '" style="color:var(--gold-400)">' + esc(r['Phone']) + '</a>' : '—';
         var email = r['Email'] ? '<a href="mailto:' + esc(r['Email']) + '" style="color:var(--gold-400)">' + esc(r['Email']) + '</a>' : '—';
@@ -82,8 +100,11 @@
       }).join('') + '</tbody></table>';
     document.getElementById('team-list').innerHTML = html;
     document.getElementById('team-list').classList.remove('cc-loading');
+  }
+  BPSheets.read('Team').then(function (rows) {
+    renderRows(rows && rows.length ? rows : fallbackRows);
   }).catch(function (err) {
-    document.getElementById('team-list').innerHTML = 'Couldn\'t load: ' + esc(err.message);
+    renderRows(fallbackRows, 'The live committee roster is not available right now, so the foundation contact details are shown below.');
   });
 })();
 </script>

@@ -115,7 +115,7 @@
     <div style="background:rgba(255,107,26,0.08);border:1px dashed var(--flame-500);border-radius:var(--r-md);padding:var(--space-4)">
       <p style="margin:0 0 var(--space-3);font-family:var(--font-display);color:var(--flame-200);text-transform:uppercase;letter-spacing:.1em;font-size:13px;font-weight:700">Send From info@roundrockfirefoundation.org</p>
       <p style="margin:0 0 var(--space-3);color:var(--text-muted);font-size:13px;line-height:1.5">
-        Use the sponsor email script as a copy-and-paste starting point. Keep the ask short, send the flyer when needed, and send confirmed sponsor details to Diedra.
+        Use the sponsor email script as a copy-and-paste starting point. Keep the ask short, send the flyer when needed, and email confirmed sponsor details to info@roundrockfirefoundation.org.
       </p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-2);margin-bottom:var(--space-3)">
         <div class="cc-form-row">
@@ -678,7 +678,7 @@ Round Rock Fire Foundation
   if (sendBtn) {
     sendBtn.addEventListener('click', function () {
       if (!window.BPSheets || !BPSheets.getWebhookUrl()) {
-        showToast('Automated sending is not part of the current workflow. Copy the script and send confirmed details to Diedra.', true);
+        showToast('Automated sending is not part of the current workflow. Copy the script and send confirmed details to info@roundrockfirefoundation.org.', true);
         return;
       }
       var to = (document.getElementById('send-to').value || '').trim();

@@ -271,7 +271,7 @@
       if (/private|webhook|NO_WEBHOOK/i.test(msg) || !BPSheets.getWebhookUrl()) {
         tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">' +
           'This tracker is not part of the current committee workflow. ' +
-          '<a href="outreach.html" style="color:var(--gold-400)">Use Outreach Scripts</a> and send confirmed sponsor details to Diedra.' +
+          '<a href="outreach.html" style="color:var(--gold-400)">Use Outreach Scripts</a> and email confirmed sponsor details to info@roundrockfirefoundation.org.' +
           '</td></tr>';
       } else {
         tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load sponsors: ' + escapeHtml(msg) + '</td></tr>';
