@@ -157,7 +157,7 @@
 /* Two big action cards */
 .cc-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
@@ -397,8 +397,14 @@
   gap: var(--space-3);
   align-items: end;
 }
+.cc-form-wide {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
 .cc-form-row {
   display: flex; flex-direction: column; gap: 4px;
+}
+.cc-form-row-full {
+  grid-column: 1 / -1;
 }
 .cc-form label {
   font-size: 11px;
@@ -424,6 +430,15 @@
   box-shadow: 0 0 0 3px rgba(245,197,24,0.18);
 }
 .cc-textarea { min-height: 80px; resize: vertical; }
+.cc-form-row small,
+.cc-helper-text {
+  color: var(--text-faint);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.cc-helper-text {
+  margin: var(--space-3) 0 0;
+}
 
 /* Buttons */
 .cc-btn {
@@ -501,6 +516,72 @@
 .cc-status-pending { background: rgba(245,197,24,0.15); color: var(--gold-400); }
 .cc-status-received { background: rgba(34,197,94,0.15); color: #6ee7a7; }
 .cc-status-paid { background: rgba(34,197,94,0.18); color: #6ee7a7; }
+.cc-status-not-started { background: rgba(168,168,168,0.15); color: #cccccc; }
+.cc-status-chosen { background: rgba(40,76,146,0.24); color: var(--navy-300); }
+.cc-status-in-progress { background: rgba(245,197,24,0.15); color: var(--gold-400); }
+.cc-status-needs-help { background: rgba(255,107,26,0.18); color: #ffb27f; }
+.cc-status-complete { background: rgba(34,197,94,0.18); color: #6ee7a7; }
+
+/* Battle of the Paddle */
+.cc-battle-intro {
+  background:
+    radial-gradient(circle at top right, rgba(245,197,24,0.12), transparent 36%),
+    var(--surface);
+}
+.cc-battle-rules {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.cc-battle-rules div {
+  min-height: 132px;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--bg) 74%, var(--surface));
+}
+.cc-battle-rules strong {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--gold-400);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+.cc-battle-rules span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.cc-battle-weekly {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.45;
+}
+.cc-battle-progress {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(245,197,24,0.14);
+  color: var(--gold-400);
+  border: 1px solid rgba(245,197,24,0.25);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+@media (max-width: 980px) {
+  .cc-actions { grid-template-columns: 1fr; }
+  .cc-battle-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .cc-battle-rules { grid-template-columns: 1fr; }
+  .cc-battle-rules div { min-height: auto; }
+}
 
 /* Empty / loading states */
 .cc-empty, .cc-loading {

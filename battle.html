@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Battle of the Paddle · Blazing Paddles 2026</title>
+<meta name="theme-color" content="#06091a" />
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+</head>
+<body class="cc-topnav-body">
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html"           data-nav="actions">ACTIONS</a>
+    <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
+    <a href="battle.html"          data-nav="battle">BATTLE</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">AUCTION</a>
+    <a href="team.html"            data-nav="team">TEAM</a>
+    <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">—</span>
+  </div>
+</header>
+
+<main class="cc-topnav-main">
+<section class="section">
+  <div class="cc-page-header">
+    <div>
+      <h1 class="cc-page-title">Battle of the Paddle</h1>
+      <p class="cc-page-sub">Live team challenge tracker · silent auction credits · no registrations to track.</p>
+    </div>
+    <a class="cc-btn cc-btn-ghost" href="index.html#live-updates">View Update Feed</a>
+  </div>
+
+  <section class="cc-kpis">
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-teams">—</span><span class="cc-kpi-label">Teams</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-items">—</span><span class="cc-kpi-label">Auction Items</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-value">—</span><span class="cc-kpi-label">Package Value</span></div>
+    <div class="cc-kpi cc-kpi-highlight"><span class="cc-kpi-num" id="kpi-credit">—</span><span class="cc-kpi-label">Credits Earned</span></div>
+  </section>
+
+  <div class="cc-card cc-battle-intro">
+    <h3 class="cc-card-title">How this works</h3>
+    <div class="cc-battle-rules">
+      <div><strong>One team.</strong><span>Each team builds one high-quality silent auction package.</span></div>
+      <div><strong>One focus.</strong><span>Each week has one simple challenge so everyone moves together.</span></div>
+      <div><strong>Four milestones.</strong><span>Each completed milestone earns $25 in silent auction credit, capped at $100 per team.</span></div>
+      <div><strong>No registration tracking.</strong><span>We are tracking package progress, outreach, sponsor conversations, and auction items only.</span></div>
+    </div>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">This Week’s Challenge</h3>
+    <p class="cc-battle-weekly">Choose your auction package, contact three businesses, and post your first dashboard update.</p>
+  </div>
+
+  <div class="cc-card">
+    <h3 class="cc-card-title">Add a Team Update</h3>
+    <form class="cc-form cc-form-wide" id="battle-form" autocomplete="off">
+      <div class="cc-form-row">
+        <label for="b-team">Team</label>
+        <input class="cc-input" id="b-team" required placeholder="Smith Team">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-members">Team members</label>
+        <input class="cc-input" id="b-members" placeholder="Names">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-package">Auction package</label>
+        <select class="cc-select" id="b-package">
+          <option value="">— choose package —</option>
+          <option>Backyard Pitmaster</option>
+          <option>Date Night for a Year</option>
+          <option>Hill Country Getaway</option>
+          <option>Family Adventure</option>
+          <option>Sports Fan Package</option>
+          <option>Luxury Staycation</option>
+          <option>Texas Tailgate</option>
+          <option>Pickleball Enthusiast</option>
+          <option>Backyard Oasis</option>
+          <option>Ultimate Home Chef</option>
+          <option>Custom Package</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-status">Package status</label>
+        <select class="cc-select" id="b-status">
+          <option>Not Started</option>
+          <option>Chosen</option>
+          <option>In Progress</option>
+          <option>Needs Help</option>
+          <option>Complete</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-items-secured">Items secured</label>
+        <input class="cc-input" id="b-items-secured" placeholder="Big Green Egg, meat package, BBQ tools">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-value">Estimated value</label>
+        <input class="cc-input" id="b-value" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-businesses">Businesses contacted</label>
+        <input class="cc-input" id="b-businesses" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-sponsor-talks">Sponsor conversations</label>
+        <input class="cc-input" id="b-sponsor-talks" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-sponsors">Sponsors confirmed</label>
+        <input class="cc-input" id="b-sponsors" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-items">Auction items confirmed</label>
+        <input class="cc-input" id="b-items" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-m1">Milestone 1</label>
+        <select class="cc-select" id="b-m1">
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <small>Package chosen + 3 contacts + first update</small>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-m2">Milestone 2</label>
+        <select class="cc-select" id="b-m2">
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <small>First auction item secured</small>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-m3">Milestone 3</label>
+        <select class="cc-select" id="b-m3">
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <small>Sponsor conversation started</small>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-m4">Milestone 4</label>
+        <select class="cc-select" id="b-m4">
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <small>Package complete with value, photo, pickup details</small>
+      </div>
+      <div class="cc-form-row">
+        <label for="b-help">Help needed</label>
+        <input class="cc-input" id="b-help" placeholder="Need restaurant intro, pickup help, package photo">
+      </div>
+      <div class="cc-form-row">
+        <label for="b-next">Next step</label>
+        <input class="cc-input" id="b-next" placeholder="Follow up with business Friday">
+      </div>
+      <div class="cc-form-row cc-form-row-full">
+        <label for="b-notes">Notes</label>
+        <input class="cc-input" id="b-notes" placeholder="Anything the committee should know">
+      </div>
+      <div class="cc-form-row">
+        <button class="cc-btn cc-btn-primary" type="submit">Post Team Update</button>
+      </div>
+    </form>
+    <p class="cc-helper-text">Each save posts a live update. The table below automatically shows the latest update for each team.</p>
+  </div>
+
+  <div class="cc-filter-bar">
+    <input class="cc-input" id="filter-search" placeholder="Search team, package, or notes…">
+    <select class="cc-select" id="filter-status">
+      <option value="">All Statuses</option>
+      <option>Not Started</option>
+      <option>Chosen</option>
+      <option>In Progress</option>
+      <option>Needs Help</option>
+      <option>Complete</option>
+    </select>
+    <button class="cc-btn cc-btn-ghost cc-btn-sm" id="refresh-btn">Refresh</button>
+  </div>
+
+  <div class="cc-table-wrap">
+    <table class="cc-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Package</th>
+          <th>Status</th>
+          <th>Items</th>
+          <th>Value</th>
+          <th>Sponsor Talks</th>
+          <th>Milestones</th>
+          <th>Credit</th>
+          <th>Next Step</th>
+        </tr>
+      </thead>
+      <tbody id="battle-rows">
+        <tr><td colspan="9" class="cc-loading">Loading Battle of the Paddle…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="cc-toast" id="toast"></div>
+<script src="sheets.js"></script>
+<script>
+(function () {
+  var supabaseUrl = 'https://zdbxsfswdjjieqkgyyid.supabase.co';
+  var supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYnhzZnN3ZGpqaWVxa2d5eWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NjAwNjgsImV4cCI6MjA5NzEzNjA2OH0.QNRdX8x2Vb-uGgomC44SidcziynT0xrKu7wu9hzN1Tc';
+  var updatesEndpoint = supabaseUrl + '/rest/v1/dashboard_updates';
+  var rows = [];
+  var renderedRows = [];
+
+  var tbody = document.getElementById('battle-rows');
+  var search = document.getElementById('filter-search');
+  var statusFilter = document.getElementById('filter-status');
+  var refreshBtn = document.getElementById('refresh-btn');
+  var toast = document.getElementById('toast');
+
+  function headers(extra) {
+    var h = {
+      apikey: supabaseAnonKey,
+      Authorization: 'Bearer ' + supabaseAnonKey
+    };
+    if (extra) Object.keys(extra).forEach(function (key) { h[key] = extra[key]; });
+    return h;
+  }
+
+  function showToast(msg, isError) {
+    toast.textContent = msg;
+    toast.className = 'cc-toast show' + (isError ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+  }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function numberValue(v) {
+    return parseFloat(String(v || '').replace(/[^0-9.\-]/g, '')) || 0;
+  }
+  function isYes(v) {
+    return String(v || '').toLowerCase() === 'yes';
+  }
+  function creditFor(row) {
+    var count = [
+      row['Milestone 1: Package + 3 Contacts + First Update'],
+      row['Milestone 2: First Auction Item Secured'],
+      row['Milestone 3: Sponsor Conversation Started'],
+      row['Milestone 4: Package Complete']
+    ].filter(isYes).length;
+    return Math.min(count * 25, 100);
+  }
+  function statusClass(s) {
+    return 'cc-status cc-status-' + (s || 'not-started').toLowerCase().replace(/\s+/g, '-');
+  }
+  function progressText(row) {
+    var count = [
+      row['Milestone 1: Package + 3 Contacts + First Update'],
+      row['Milestone 2: First Auction Item Secured'],
+      row['Milestone 3: Sponsor Conversation Started'],
+      row['Milestone 4: Package Complete']
+    ].filter(isYes).length;
+    return count + '/4';
+  }
+  function parseMessage(message, update) {
+    var row = {};
+    String(message || '').split('\n').forEach(function (line) {
+      var idx = line.indexOf(':');
+      if (idx < 0) return;
+      var key = line.slice(0, idx).trim();
+      var value = line.slice(idx + 1).trim();
+      if (!key) return;
+      row[key] = value === '—' ? '' : value;
+    });
+    if (!row.Team && update && update.title) {
+      row.Team = String(update.title).replace(/^Battle update:\s*/i, '').trim();
+    }
+    row.created_at = update && update.created_at;
+    row.submitted_by = update && update.submitted_by;
+    return row;
+  }
+  function updateToRow(update) {
+    var parsed = parseMessage(update.message, update);
+    return {
+      'Team': parsed.Team || '',
+      'Team Members': parsed['Team Members'] || parsed.submitted_by || '',
+      'Auction Package': parsed.Package || '',
+      'Package Status': parsed.Status || 'Not Started',
+      'Items Secured': parsed['Items Secured'] || '',
+      'Estimated Value': parsed['Estimated Value'] || '',
+      'Businesses Contacted': parsed['Businesses Contacted'] || '0',
+      'Sponsor Conversations': parsed['Sponsor Conversations'] || '0',
+      'Sponsors Confirmed': parsed['Sponsors Confirmed'] || '0',
+      'Auction Items Confirmed': parsed['Auction Items Confirmed'] || '0',
+      'Milestone 1: Package + 3 Contacts + First Update': parsed['Milestone 1'] || 'No',
+      'Milestone 2: First Auction Item Secured': parsed['Milestone 2'] || 'No',
+      'Milestone 3: Sponsor Conversation Started': parsed['Milestone 3'] || 'No',
+      'Milestone 4: Package Complete': parsed['Milestone 4'] || 'No',
+      'Auction Credit Earned': parsed['Auction Credit Earned'] || '',
+      'Help Needed': parsed['Help Needed'] || '',
+      'Next Step': parsed['Next Step'] || '',
+      'Last Update': parsed['Last Update'] || parsed.created_at || '',
+      'Notes': parsed.Notes || ''
+    };
+  }
+
+  function updateKPIs() {
+    var itemCount = 0, totalValue = 0, totalCredit = 0;
+    rows.forEach(function (r) {
+      itemCount += numberValue(r['Auction Items Confirmed']);
+      totalValue += numberValue(r['Estimated Value']);
+      totalCredit += creditFor(r);
+    });
+    document.getElementById('kpi-teams').textContent = rows.length;
+    document.getElementById('kpi-items').textContent = itemCount;
+    document.getElementById('kpi-value').textContent = '$' + Math.round(totalValue).toLocaleString();
+    document.getElementById('kpi-credit').textContent = '$' + Math.round(totalCredit).toLocaleString();
+  }
+
+  function render() {
+    var q = (search.value || '').toLowerCase();
+    var sf = statusFilter.value;
+    var filtered = rows.filter(function (r) {
+      if (sf && (r['Package Status'] || '') !== sf) return false;
+      if (!q) return true;
+      var hay = [
+        r['Team'],
+        r['Team Members'],
+        r['Auction Package'],
+        r['Items Secured'],
+        r['Help Needed'],
+        r['Next Step'],
+        r['Notes']
+      ].join(' ').toLowerCase();
+      return hay.indexOf(q) >= 0;
+    }).sort(function (a, b) {
+      return creditFor(b) - creditFor(a) || numberValue(b['Estimated Value']) - numberValue(a['Estimated Value']);
+    });
+    renderedRows = filtered;
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="9" class="cc-empty">No teams yet. Add the first team above.</td></tr>';
+      updateKPIs();
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(function (r, idx) {
+      var value = numberValue(r['Estimated Value']);
+      var credit = creditFor(r);
+      return '<tr data-index="' + idx + '">' +
+        '<td><strong>' + escapeHtml(r['Team']) + '</strong>' +
+          (r['Team Members'] ? '<br><small style="color:var(--text-faint)">' + escapeHtml(r['Team Members']) + '</small>' : '') +
+        '</td>' +
+        '<td>' + escapeHtml(r['Auction Package'] || '—') + '</td>' +
+        '<td><span class="' + statusClass(r['Package Status']) + '">' + escapeHtml(r['Package Status'] || 'Not Started') + '</span></td>' +
+        '<td>' + escapeHtml(r['Auction Items Confirmed'] || '0') + '</td>' +
+        '<td>' + (value ? '$' + value.toLocaleString() : '—') + '</td>' +
+        '<td>' + escapeHtml(r['Sponsor Conversations'] || '0') + '</td>' +
+        '<td><span class="cc-battle-progress">' + progressText(r) + '</span></td>' +
+        '<td><strong style="color:var(--gold-400)">$' + credit + '</strong></td>' +
+        '<td>' + escapeHtml(r['Next Step'] || '—') +
+          (r['Last Update'] ? '<br><small style="color:var(--text-faint)">Updated ' + escapeHtml(formatDate(r['Last Update'])) + '</small>' : '') +
+        '</td>' +
+      '</tr>';
+    }).join('');
+    updateKPIs();
+  }
+  function formatDate(value) {
+    var d = new Date(value);
+    if (Number.isNaN(d.getTime())) return String(value || '');
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  }
+
+  function fillForm(row) {
+    document.getElementById('b-team').value = row['Team'] || '';
+    document.getElementById('b-members').value = row['Team Members'] || '';
+    document.getElementById('b-package').value = row['Auction Package'] || '';
+    document.getElementById('b-status').value = row['Package Status'] || 'Not Started';
+    document.getElementById('b-items-secured').value = row['Items Secured'] || '';
+    document.getElementById('b-value').value = row['Estimated Value'] || '';
+    document.getElementById('b-businesses').value = row['Businesses Contacted'] || '';
+    document.getElementById('b-sponsor-talks').value = row['Sponsor Conversations'] || '';
+    document.getElementById('b-sponsors').value = row['Sponsors Confirmed'] || '';
+    document.getElementById('b-items').value = row['Auction Items Confirmed'] || '';
+    document.getElementById('b-m1').value = row['Milestone 1: Package + 3 Contacts + First Update'] || 'No';
+    document.getElementById('b-m2').value = row['Milestone 2: First Auction Item Secured'] || 'No';
+    document.getElementById('b-m3').value = row['Milestone 3: Sponsor Conversation Started'] || 'No';
+    document.getElementById('b-m4').value = row['Milestone 4: Package Complete'] || 'No';
+    document.getElementById('b-help').value = row['Help Needed'] || '';
+    document.getElementById('b-next').value = row['Next Step'] || '';
+    document.getElementById('b-notes').value = row['Notes'] || '';
+  }
+
+  function rowFromForm() {
+    var row = {
+      'Team': document.getElementById('b-team').value.trim(),
+      'Team Members': document.getElementById('b-members').value.trim(),
+      'Auction Package': document.getElementById('b-package').value,
+      'Package Status': document.getElementById('b-status').value,
+      'Items Secured': document.getElementById('b-items-secured').value.trim(),
+      'Estimated Value': document.getElementById('b-value').value || '',
+      'Businesses Contacted': document.getElementById('b-businesses').value || '0',
+      'Sponsor Conversations': document.getElementById('b-sponsor-talks').value || '0',
+      'Sponsors Confirmed': document.getElementById('b-sponsors').value || '0',
+      'Auction Items Confirmed': document.getElementById('b-items').value || '0',
+      'Milestone 1: Package + 3 Contacts + First Update': document.getElementById('b-m1').value,
+      'Milestone 2: First Auction Item Secured': document.getElementById('b-m2').value,
+      'Milestone 3: Sponsor Conversation Started': document.getElementById('b-m3').value,
+      'Milestone 4: Package Complete': document.getElementById('b-m4').value,
+      'Help Needed': document.getElementById('b-help').value.trim(),
+      'Next Step': document.getElementById('b-next').value.trim(),
+      'Last Update': new Date().toISOString().slice(0, 19).replace('T', ' '),
+      'Notes': document.getElementById('b-notes').value.trim()
+    };
+    row['Auction Credit Earned'] = '$' + creditFor(row);
+    return row;
+  }
+  function messageFromRow(row) {
+    return [
+      'Team: ' + row['Team'],
+      'Team Members: ' + (row['Team Members'] || '—'),
+      'Package: ' + (row['Auction Package'] || '—'),
+      'Status: ' + (row['Package Status'] || 'Not Started'),
+      'Items Secured: ' + (row['Items Secured'] || '—'),
+      'Estimated Value: ' + (row['Estimated Value'] || '0'),
+      'Businesses Contacted: ' + (row['Businesses Contacted'] || '0'),
+      'Sponsor Conversations: ' + (row['Sponsor Conversations'] || '0'),
+      'Sponsors Confirmed: ' + (row['Sponsors Confirmed'] || '0'),
+      'Auction Items Confirmed: ' + (row['Auction Items Confirmed'] || '0'),
+      'Milestone 1: ' + (row['Milestone 1: Package + 3 Contacts + First Update'] || 'No'),
+      'Milestone 2: ' + (row['Milestone 2: First Auction Item Secured'] || 'No'),
+      'Milestone 3: ' + (row['Milestone 3: Sponsor Conversation Started'] || 'No'),
+      'Milestone 4: ' + (row['Milestone 4: Package Complete'] || 'No'),
+      'Auction Credit Earned: ' + row['Auction Credit Earned'],
+      'Help Needed: ' + (row['Help Needed'] || '—'),
+      'Next Step: ' + (row['Next Step'] || '—'),
+      'Last Update: ' + row['Last Update'],
+      'Notes: ' + (row['Notes'] || '—')
+    ].join('\n');
+  }
+  function latestByTeam(updates) {
+    var seen = {};
+    (updates || []).forEach(function (update) {
+      var row = updateToRow(update);
+      var key = String(row.Team || '').trim().toLowerCase();
+      if (!key || seen[key]) return;
+      seen[key] = row;
+    });
+    return Object.keys(seen).map(function (key) { return seen[key]; });
+  }
+
+  function load() {
+    tbody.innerHTML = '<tr><td colspan="9" class="cc-loading">Loading Battle of the Paddle…</td></tr>';
+    var query = '?select=id,created_at,submitted_by,category,title,message,is_visible&category=eq.Battle&is_visible=eq.true&order=created_at.desc&limit=200';
+    return fetch(updatesEndpoint + query, { method: 'GET', headers: headers() }).then(function (response) {
+      if (!response.ok) throw new Error('Live tracker could not be loaded.');
+      return response.json();
+    }).then(function (updates) {
+      rows = latestByTeam(Array.isArray(updates) ? updates : []);
+      render();
+    }).catch(function (err) {
+      var msg = err && err.message || String(err);
+      tbody.innerHTML = '<tr><td colspan="9" class="cc-empty">Couldn\'t load tracker: ' + escapeHtml(msg) + '</td></tr>';
+    });
+  }
+
+  document.getElementById('battle-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var row = rowFromForm();
+    if (!row['Team']) return showToast('Team name is required.', true);
+    var btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Posting…';
+    var payload = {
+      submitted_by: row['Team Members'] || row['Team'],
+      category: 'Battle',
+      title: 'Battle update: ' + row['Team'],
+      message: messageFromRow(row),
+      link_text: null,
+      link_url: null,
+      is_visible: true
+    };
+    fetch(updatesEndpoint, {
+      method: 'POST',
+      headers: headers({ 'Content-Type': 'application/json', Prefer: 'return=representation' }),
+      body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) throw new Error('Team update could not be posted.');
+      return response.json();
+    }).then(function () {
+      showToast('Posted update for ' + row['Team']);
+      e.target.reset();
+      return load();
+    }).catch(function (err) {
+      showToast(err.message || String(err), true);
+    }).then(function () {
+      btn.disabled = false;
+      btn.textContent = 'Post Team Update';
+    });
+  });
+
+  tbody.addEventListener('click', function (e) {
+    var rowEl = e.target.closest('tr[data-index]');
+    if (!rowEl) return;
+    var row = renderedRows[Number(rowEl.getAttribute('data-index'))];
+    if (row) fillForm(row);
+  });
+
+  search.addEventListener('input', render);
+  statusFilter.addEventListener('change', render);
+  refreshBtn.addEventListener('click', load);
+  load();
+})();
+</script>
+</main>
+
+<script>
+(function () {
+  var key = 'battle';
+  document.querySelectorAll('[data-nav="' + key + '"]').forEach(function (a) {
+    a.classList.add('is-active');
+  });
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  var event = startOfDay(new Date(2026, 9, 10));
+  var today = startOfDay(new Date());
+  var days = Math.round((event - today) / 86400000);
+  var label = days > 14 ? 'T-' + Math.floor(days/7) + ' weeks · ' + days + ' days out' :
+              days > 1 ? 'T-' + days + ' days' :
+              days === 1 ? 'T-1 day · Tomorrow' :
+              days === 0 ? 'Event Day · Live' :
+              'Tournament day ' + (-days) + ' days ago';
+  var el = document.getElementById('cc-tminus-status');
+  if (el) el.textContent = label;
+})();
+</script>
+</body>
+</html>
