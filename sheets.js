@@ -31,7 +31,6 @@
     'Instructions':     '668182943',
     'Log':              '2100488589',
     'Team':             '395121617',
-    'Battle of the Paddle': '1413826073',
   };
 
   // ── CSV → JSON parser (RFC 4180 compliant enough) ────────
