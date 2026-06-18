@@ -157,7 +157,7 @@
 /* Two big action cards */
 .cc-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
@@ -572,6 +572,113 @@
   border: 1px solid rgba(245,197,24,0.25);
   font-weight: 800;
   font-size: 12px;
+}
+
+/* Business checklist */
+.cc-company-groups {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.cc-company-group {
+  margin-bottom: 0;
+}
+.cc-company-list {
+  display: grid;
+  gap: 8px;
+}
+.cc-company-row {
+  display: grid;
+  grid-template-columns: auto minmax(220px, 1.1fr) minmax(220px, .9fr);
+  gap: var(--space-3);
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: color-mix(in oklab, var(--bg) 72%, var(--surface));
+  cursor: pointer;
+  transition: border-color .15s, background .15s, opacity .15s;
+}
+.cc-company-row:hover {
+  border-color: var(--gold-500);
+  background: var(--surface-2);
+}
+.cc-company-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold-500);
+}
+.cc-company-main {
+  display: grid;
+  gap: 2px;
+}
+.cc-company-main strong {
+  color: var(--text);
+  font-size: 14px;
+}
+.cc-company-main small,
+.cc-company-ask {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.cc-company-ask {
+  justify-self: end;
+  text-align: right;
+}
+.cc-company-row.is-checked {
+  opacity: .62;
+  border-color: rgba(34,197,94,0.32);
+}
+.cc-company-row.is-checked .cc-company-main strong {
+  text-decoration: line-through;
+}
+
+@media (max-width: 760px) {
+  .cc-company-row {
+    grid-template-columns: auto 1fr;
+  }
+  .cc-company-ask {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+}
+
+@media print {
+  .cc-topnav,
+  .cc-topnav-meta,
+  .cc-filter-bar,
+  #donation-form-card,
+  #print-page,
+  .cc-toast {
+    display: none !important;
+  }
+  body,
+  .cc-topnav-body,
+  .cc-topnav-main {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .section {
+    padding: 0 !important;
+  }
+  .cc-card,
+  .cc-company-row {
+    break-inside: avoid;
+    border-color: #bbb !important;
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .cc-company-main strong,
+  .cc-company-main small,
+  .cc-company-ask,
+  .cc-card-title,
+  .cc-page-title,
+  .cc-page-sub,
+  .cc-helper-text {
+    color: #111 !important;
+  }
 }
 
 @media (max-width: 980px) {
