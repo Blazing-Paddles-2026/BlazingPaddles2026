@@ -78,6 +78,10 @@
   --sidebar-w: 280px;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 /* ---------------- Reset & base ---------------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
@@ -1039,6 +1043,58 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   text-underline-offset: 3px;
 }
 
+.quick-action-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 var(--space-7);
+}
+
+.auction-card-grid,
+.auction-idea-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: var(--space-7) 0;
+}
+
+.auction-business-card,
+.auction-idea-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: color-mix(in oklab, var(--surface) 94%, var(--primary));
+  padding: var(--space-5);
+  box-shadow: var(--shadow-md);
+}
+
+.auction-business-card h3,
+.auction-idea-card h3 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+
+.auction-card-ask {
+  margin: 0 0 var(--space-3);
+  color: var(--primary);
+  font-weight: 800;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.auction-business-card ul,
+.auction-idea-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+
 /* ---------------- Flyer assets ---------------- */
 .flyer-grid {
   display: grid;
@@ -1301,7 +1357,9 @@ body.sidebar-open .hamburger span:nth-child(3) {
 
   .quick-facts { grid-template-columns: 1fr; }
   .panel-grid { grid-template-columns: 1fr; }
-  .detail-grid { grid-template-columns: 1fr; }
+  .detail-grid,
+  .auction-card-grid,
+  .auction-idea-grid { grid-template-columns: 1fr; }
   .flyer-grid { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .hero-title { font-size: clamp(2.25rem, 11vw, 4rem); }

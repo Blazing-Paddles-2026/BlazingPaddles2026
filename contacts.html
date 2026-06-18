@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-
-
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Contacts · Blazing Paddles 2026</title>
@@ -11,8 +9,6 @@
 <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="command-center.css" />
-
-
 </head>
 <body class="cc-topnav-body">
 <header class="cc-topnav" id="top">
@@ -25,7 +21,7 @@
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="raffle.html"  data-nav="raffle">AUCTION</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -38,7 +34,7 @@
 <section class="section">
 <div class="cc-page-header">
     <div><h1 class="cc-page-title">Contacts</h1>
-    <p class="cc-page-sub">Committee phone book, venue, hospital, public-safety contacts.</p></div>
+    <p class="cc-page-sub">Committee phone book, venue, hospital, and public-safety contacts.</p></div>
   </div>
 
   <div class="cc-card">
@@ -62,33 +58,88 @@
   </div>
 
   <div class="cc-card">
-    <h3 class="cc-card-title">Committee</h3>
-    <div id="team-list" class="cc-loading">Loading…</div>
+    <div class="cc-card-headline">
+      <div>
+        <h3 class="cc-card-title">Committee Roster</h3>
+        <p class="cc-card-sub">This list is built into the dashboard, so it will load even when the Google Sheet does not.</p>
+      </div>
+      <button class="cc-btn cc-btn-primary" id="show-add-contact" type="button">Add Volunteer</button>
+    </div>
+
+    <form class="cc-form cc-inline-form" id="add-contact-form" hidden>
+      <label>Name <input name="Name" required placeholder="Volunteer name"></label>
+      <label>Role <input name="Role" placeholder="Optional"></label>
+      <label>Email <input name="Email" type="email" placeholder="name@email.com"></label>
+      <label>Telephone <input name="Phone" placeholder="512-000-0000"></label>
+      <button class="cc-btn cc-btn-primary" type="submit">Add to this page</button>
+      <p class="cc-form-note">This adds the volunteer to the page right away and opens an email to info@roundrockfirefoundation.org so Diedra can add them to the master list.</p>
+    </form>
+
+    <div id="team-list"></div>
   </div>
-    </section>
+</section>
 
-
-<script src="sheets.js"></script>
 <script>
 (function () {
+  var roster = [
+    { Name: 'Wylie Brownell', Role: '', Email: 'wbrownell@roundrocktexas.gov', Phone: '512-779-0663' },
+    { Name: 'Diedra Brownell', Role: '', Email: 'diedrabrownell@gmail.com', Phone: '512-632-7848' },
+    { Name: 'Micheal Boyd', Role: '', Email: 'mboyd@roundrocktexas.gov', Phone: '737-210-0890' },
+    { Name: 'Adrienne Boyd', Role: '', Email: 'beal.adrienne@gmail.com', Phone: '512-422-9377' },
+    { Name: 'Jon Talley', Role: '', Email: 'jtalley@roundrocktexas.gov', Phone: '512-740-4283' },
+    { Name: 'Sarah Talley', Role: '', Email: 'thenextstepconnects@gmail.com', Phone: '512-573-3516' },
+    { Name: 'John Collins', Role: '', Email: 'jcollins@roundrocktexas.gov', Phone: '512-351-6528' },
+    { Name: 'Rachel Collins', Role: '', Email: 'rachel.collins512@gmail.com', Phone: '512-351-6527' },
+    { Name: 'Ricky Virgne', Role: '', Email: 'rvirgne@roundrocktexas.gov', Phone: '512-317-8689' },
+    { Name: 'That Putnam', Role: '', Email: 'tputnam@roundrocktexas.gov', Phone: '737-210-6350' },
+    { Name: 'Cara Putnam', Role: '', Email: 'caraputnam8@gmail.com', Phone: '' },
+    { Name: 'Steven Puckett', Role: '', Email: 'takes1spark@gmail.com', Phone: '(254) 534-4463' },
+    { Name: 'Lauren Monroe', Role: '', Email: 'LaurenMonroe.TX@gmail.com', Phone: '512-632-5259' },
+    { Name: 'Seth Monroe', Role: '', Email: 'smonroe@roundrocktexas.gov', Phone: '512-661-6687' },
+    { Name: 'Aaron Campbell', Role: '', Email: 'acampbell@roundrocktexas.gov', Phone: '512-589-2739' },
+    { Name: 'Emily Campbell', Role: '', Email: 'emgcampbell@yahoo.com', Phone: '512-630-6951' }
+  ];
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-  BPSheets.read('Team').then(function (rows) {
-    var html = '<table class="cc-table"><thead><tr><th>Name</th><th>Role / Lane</th><th>Phone</th><th>Email</th></tr></thead><tbody>' +
-      rows.map(function (r) {
-        var phone = r['Phone'] ? '<a href="tel:' + r['Phone'].replace(/[^0-9+]/g,'') + '" style="color:var(--gold-400)">' + esc(r['Phone']) + '</a>' : '—';
-        var email = r['Email'] ? '<a href="mailto:' + esc(r['Email']) + '" style="color:var(--gold-400)">' + esc(r['Email']) + '</a>' : '—';
-        return '<tr><td><strong>' + esc(r['Name']) + '</strong></td><td>' + esc(r['Role'] || r['Lane'] || '—') + '</td><td>' + phone + '</td><td>' + email + '</td></tr>';
-      }).join('') + '</tbody></table>';
-    document.getElementById('team-list').innerHTML = html;
-    document.getElementById('team-list').classList.remove('cc-loading');
-  }).catch(function (err) {
-    document.getElementById('team-list').innerHTML = 'Couldn\'t load: ' + esc(err.message);
+  function phoneHref(s){return String(s || '').replace(/[^0-9+]/g,'')}
+  var extraRows = [];
+  function render(){
+    var rows = roster.concat(extraRows);
+    document.getElementById('team-list').innerHTML =
+      '<div class="cc-contact-grid">' + rows.map(function(r){
+        var phone = r.Phone ? '<a href="tel:' + phoneHref(r.Phone) + '">' + esc(r.Phone) + '</a>' : '—';
+        var email = r.Email ? '<a href="mailto:' + esc(r.Email) + '">' + esc(r.Email) + '</a>' : '—';
+        return '<article class="cc-contact-card"><h4>' + esc(r.Name) + '</h4>' +
+          '<p>' + esc(r.Role || 'Committee member') + '</p>' +
+          '<div>' + email + '</div><div>' + phone + '</div></article>';
+      }).join('') + '</div>';
+  }
+  document.getElementById('show-add-contact').addEventListener('click', function(){
+    var form = document.getElementById('add-contact-form');
+    form.hidden = !form.hidden;
   });
+  document.getElementById('add-contact-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var fd = new FormData(e.target);
+    var row = {
+      Name: fd.get('Name'),
+      Role: fd.get('Role'),
+      Email: fd.get('Email'),
+      Phone: fd.get('Phone')
+    };
+    extraRows.push(row);
+    render();
+    var body = 'Please add this volunteer to the Blazing Paddles committee contact list:%0D%0A%0D%0A' +
+      'Name: ' + encodeURIComponent(row.Name || '') + '%0D%0A' +
+      'Role: ' + encodeURIComponent(row.Role || '') + '%0D%0A' +
+      'Email: ' + encodeURIComponent(row.Email || '') + '%0D%0A' +
+      'Telephone: ' + encodeURIComponent(row.Phone || '');
+    window.location.href = 'mailto:info@roundrockfirefoundation.org?subject=Add%20Blazing%20Paddles%20Volunteer&body=' + body;
+    e.target.reset();
+  });
+  render();
 })();
 </script>
 </main>
-</div>
-
 
 <script>
 (function () {

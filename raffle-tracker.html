@@ -5,7 +5,7 @@
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Raffle Tracker · Blazing Paddles 2026</title>
+<title>Auction Tracker · Blazing Paddles 2026</title>
 <meta name="theme-color" content="#06091a" />
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
@@ -26,7 +26,7 @@
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="raffle.html"  data-nav="raffle">AUCTION</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -39,10 +39,10 @@
 <section class="section">
 <div class="cc-page-header">
     <div>
-      <h1 class="cc-page-title">Raffle Inventory</h1>
+      <h1 class="cc-page-title">Auction Inventory</h1>
       <p class="cc-page-sub">Wish list → secured → on-hand. Adds save instantly.</p>
     </div>
-    <a href="process.html#raffle" class="cc-btn cc-btn-ghost">Raffle Playbook</a>
+    <a href="process.html#raffle" class="cc-btn cc-btn-ghost">Auction Playbook</a>
   </div>
 
   <!-- KPIs -->
@@ -53,18 +53,19 @@
     <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-target">8–12</span><span class="cc-kpi-label">Goal</span></div>
   </section>
 
-  <!-- Raffle day rules card -->
+  <!-- Auction item rules card -->
   <div class="cc-card">
-    <h3 class="cc-card-title">Raffle Day Rules — Tournament Day Only</h3>
+    <h3 class="cc-card-title">Auction Item Rules</h3>
     <p style="margin:0 0 8px;color:var(--text-muted);font-size:14px;line-height:1.6">
-      Tickets sold <strong style="color:var(--text)">on-site only</strong> during the tournament. No pre-sales.
-      Winners drawn throughout the day. <strong style="color:var(--text)">Must be present to win</strong> — if your number is called and you're not on-site, we draw a new winner.
+      Add the item only after the donor says yes. Include the donor, estimated value, restrictions, and pickup or delivery notes.
+      If a volunteer gets the yes, they should email info@roundrockfirefoundation.org with the same details.
     </p>
+    <p style="margin:var(--space-3) 0 0"><a href="auction-ideas.html" class="cc-btn cc-btn-ghost">Open Auction Ideas</a></p>
   </div>
 
-  <!-- Add Raffle Item form -->
+  <!-- Add Auction Item form -->
   <div class="cc-card">
-    <h3 class="cc-card-title">Add a Raffle Item</h3>
+    <h3 class="cc-card-title">Add an Auction Item</h3>
     <form class="cc-form" id="add-raffle-form" autocomplete="off">
       <div class="cc-form-row">
         <label for="r-item">Item / Package</label>
@@ -136,7 +137,7 @@
         </tr>
       </thead>
       <tbody id="raffle-rows">
-        <tr><td colspan="6" class="cc-loading">Loading raffle inventory…</td></tr>
+        <tr><td colspan="6" class="cc-loading">Loading auction inventory…</td></tr>
       </tbody>
     </table>
   </div>
@@ -146,7 +147,7 @@
 <script src="sheets.js"></script>
 <script>
 (function () {
-  var SHEET_NAME = 'Raffle Inventory';
+  var SHEET_NAME = 'Auction Inventory';
   var rows = [];
   var team = [];
 
@@ -213,7 +214,7 @@
   }
 
   function load() {
-    tbody.innerHTML = '<tr><td colspan="6" class="cc-loading">Loading raffle inventory…</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="cc-loading">Loading auction inventory…</td></tr>';
     return Promise.all([
       BPSheets.read(SHEET_NAME),
       BPSheets.read('Team').catch(() => [])

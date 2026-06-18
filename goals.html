@@ -25,7 +25,7 @@
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
+    <a href="raffle.html"  data-nav="raffle">AUCTION</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -45,7 +45,7 @@
     <div class="cc-kpi"><span class="cc-kpi-num" id="g-revenue">—</span><span class="cc-kpi-label">Committed</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num">$50K</span><span class="cc-kpi-label">Goal</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" id="g-progress">—</span><span class="cc-kpi-label">% to Goal</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num" id="g-raffle">—</span><span class="cc-kpi-label">Raffle Items</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="g-raffle">—</span><span class="cc-kpi-label">Auction Items</span></div>
   </section>
 
   <div class="cc-card">
@@ -58,12 +58,12 @@
     </ul>
   </div>
   <div class="cc-card">
-    <h3 class="cc-card-title">Raffle &amp; Auction</h3>
+    <h3 class="cc-card-title">Auction</h3>
     <ul style="margin:0;color:var(--text-muted);line-height:1.9">
       <li>🎯 8–12 high-quality prizes secured</li>
       <li>🎯 Procure all prizes by <strong style="color:var(--gold-400)">October 1, 2026</strong></li>
       <li>🎯 Assign an owner to each prize</li>
-      <li>🎯 Confirm Texas raffle compliance before public promotion</li>
+      <li>🎯 Build auction packages around donated items and experiences</li>
     </ul>
   </div>
   <div class="cc-card">
@@ -82,7 +82,7 @@
       <li>🎯 Flyer shared with every confirmed sponsor</li>
       <li>🎯 Email blast to past participants</li>
       <li>🎯 Confirm volunteer assignments by <strong style="color:var(--gold-400)">September 15</strong></li>
-      <li>🎯 Setup begins at 7:00 AM tournament day · Raffle drawings every 2 hours</li>
+      <li>🎯 Setup begins at 7:00 AM tournament day · Auction table staffed throughout the event</li>
     </ul>
   </div>
   <div class="cc-card">
@@ -99,7 +99,7 @@
 
 <script src="sheets.js"></script>
 <script>
-Promise.all([BPSheets.read('Sponsor Pipeline').catch(()=>[]), BPSheets.read('Raffle Inventory').catch(()=>[])])
+Promise.all([BPSheets.read('Sponsor Pipeline').catch(()=>[]), BPSheets.read('Auction Inventory').catch(()=>[])])
   .then(function (r) {
     var sp = r[0], rf = r[1];
     var rev = sp.reduce(function (s, x) {

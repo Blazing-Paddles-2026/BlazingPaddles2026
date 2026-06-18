@@ -760,3 +760,57 @@
 }
 .cc-team-card .name { font-weight: 700; margin: 0; font-size: 14px; }
 .cc-team-card .role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.cc-card-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.cc-card-sub {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cc-inline-form {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg-elev);
+}
+.cc-form-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.cc-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.cc-contact-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  padding: var(--space-4);
+}
+.cc-contact-card h4 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 15px;
+}
+.cc-contact-card p {
+  margin: 0 0 var(--space-2);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.cc-contact-card a {
+  color: var(--gold-400);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
