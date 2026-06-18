@@ -25,8 +25,7 @@
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">AUCTION</a>
-    <a href="outreach.html"         data-nav="scripts">SCRIPTS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -38,21 +37,27 @@
 <main class="cc-topnav-main">
 <section class="section">
 <div class="cc-page-header">
-    <div><h1 class="cc-page-title">No setup needed</h1>
-    <p class="cc-page-sub">The committee is not using a shared Google Sheet workflow for outreach.</p></div>
+    <div><h1 class="cc-page-title">Settings</h1>
+    <p class="cc-page-sub">One-time setup to enable writing to the Google Sheet from this dashboard.</p></div>
   </div>
 
   <div class="cc-card">
-    <h3 class="cc-card-title">Current committee workflow</h3>
+    <h3 class="cc-card-title">Apps Script Webhook</h3>
     <p style="color:var(--text-muted);font-size:14px;line-height:1.6">
-      Volunteers should use the Outreach Scripts page, pick an auction package theme, and contact three businesses or personal contacts by the weekly deadline.
-      If a business says yes or wants more information, send the details to Diedra.
+      The dashboard reads from your Google Sheet automatically (no setup needed).
+      To <strong style="color:var(--text)">write new sponsors and raffle items back to the Sheet</strong>,
+      install the free Apps Script webhook one time. Full instructions are in
+      <a href="https://github.com/Blazing-Paddles-2026/BlazingPaddles2026/blob/main/SETUP-APPSSCRIPT.md" target="_blank" rel="noopener" style="color:var(--gold-400)">SETUP-APPSSCRIPT.md</a>.
     </p>
     <p style="color:var(--text-muted);font-size:14px;line-height:1.6">
-      No one needs to set up a spreadsheet, paste a webhook, or log every call. Keep the process simple so people will actually use it.
+      The 30-second version:
+      Open <a href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit" target="_blank" style="color:var(--gold-400)">the Sheet</a>
+      → Extensions → Apps Script → paste the contents of
+      <a href="https://github.com/Blazing-Paddles-2026/BlazingPaddles2026/blob/main/apps-script.gs" target="_blank" rel="noopener" style="color:var(--gold-400)">apps-script.gs</a>
+      → Deploy → New deployment → Web app, Execute as: Me, Access: Anyone → copy the URL and paste below.
     </p>
 
-    <form class="cc-form" id="webhook-form" style="display:none;margin-top:var(--space-4)" aria-hidden="true">
+    <form class="cc-form" id="webhook-form" style="margin-top:var(--space-4)">
       <div class="cc-form-row" style="grid-column: 1 / -1">
         <label for="webhook-url">Apps Script Web App URL</label>
         <input class="cc-input" id="webhook-url" placeholder="https://script.google.com/macros/s/.../exec">
@@ -67,16 +72,18 @@
         <button type="button" class="cc-btn cc-btn-ghost" id="clear-btn">Clear</button>
       </div>
     </form>
-    <p id="webhook-status" style="display:none;margin:var(--space-3) 0 0;font-size:13px;color:var(--text-muted)"></p>
+    <p id="webhook-status" style="margin:var(--space-3) 0 0;font-size:13px;color:var(--text-muted)"></p>
   </div>
 
   <div class="cc-card">
-    <h3 class="cc-card-title">What to send to info@roundrockfirefoundation.org after a yes</h3>
+    <h3 class="cc-card-title">What's connected</h3>
     <ul style="margin:0;color:var(--text-muted);line-height:1.8;font-size:14px">
-      <li><strong style="color:var(--text)">Business:</strong> Business name and contact person</li>
-      <li><strong style="color:var(--text)">Contact:</strong> Email or phone number</li>
-      <li><strong style="color:var(--text)">Commitment:</strong> What they are donating or considering</li>
-      <li><strong style="color:var(--text)">Details:</strong> Estimated value, pickup needs, invoice needs, logo, and recognition preferences</li>
+      <li><strong style="color:var(--text)">Google Sheet:</strong>
+        <a href="https://docs.google.com/spreadsheets/d/1wN4quNrhL-0Kp-YUG-dkjf3J0Vnpaaw2XSKGrpsjf00/edit" target="_blank" style="color:var(--gold-400)">Blazing Paddles 2026 Donation Tracker</a>
+      </li>
+      <li><strong style="color:var(--text)">Tabs:</strong> Sponsor Pipeline · Raffle Inventory · Log · Team · Instructions · Donation Tracker</li>
+      <li><strong style="color:var(--text)">Reads:</strong> Public CSV export — works without any auth as long as the Sheet stays set to "Anyone with the link can view"</li>
+      <li><strong style="color:var(--text)">Writes:</strong> Apps Script webhook (configured above)</li>
     </ul>
   </div>
     </section>

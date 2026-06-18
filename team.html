@@ -25,8 +25,7 @@
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
     <a href="log.html"             data-nav="log">LOG</a>
     <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">AUCTION</a>
-    <a href="outreach.html"         data-nav="scripts">SCRIPTS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
     <a href="team.html"            data-nav="team">TEAM</a>
     <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
   </nav>
@@ -39,15 +38,15 @@
 <section class="section">
 <div class="cc-page-header">
     <div><h1 class="cc-page-title">Team & Lanes</h1>
-    <p class="cc-page-sub">Each person picks one lane and owns a manageable set of sponsor or auction package targets each week.</p></div>
-    <a class="cc-btn cc-btn-ghost" href="outreach.html">Open Outreach Scripts</a>
+    <p class="cc-page-sub">Each person picks one lane and owns 5 sponsor or raffle targets per week.</p></div>
+    <a class="cc-btn cc-btn-ghost" target="_blank" rel="noopener" id="open-sheet">Edit in Sheets</a>
   </div>
 
   <div class="cc-card">
     <h3 class="cc-card-title">The Five Lanes</h3>
     <section class="cc-steps">
       <div class="cc-step"><span class="cc-step-num">1</span><h4>Sponsorship Outreach</h4><p>Calls, emails, follow-ups on cash sponsors.</p></div>
-      <div class="cc-step"><span class="cc-step-num">2</span><h4>Auction Packages</h4><p>In-kind asks, item pickup, package photos, and donor details.</p></div>
+      <div class="cc-step"><span class="cc-step-num">2</span><h4>Raffle Procurement</h4><p>In-kind asks, prize pickup, photo, day-of logistics.</p></div>
       <div class="cc-step"><span class="cc-step-num">3</span><h4>Player Turnout</h4><p>Registration push, firehouse networks, weekly count.</p></div>
       <div class="cc-step"><span class="cc-step-num">4</span><h4>Event Ops</h4><p>Volunteers, setup, signage, day-of run-of-show.</p></div>
       <div class="cc-step"><span class="cc-step-num">5</span><h4>Recognition &amp; Marketing</h4><p>Social posts, thank-yous, post-event recap and report.</p></div>
@@ -64,8 +63,7 @@
 <script src="sheets.js"></script>
 <script>
 (function () {
-  var openSheetBtn = document.getElementById('open-sheet');
-  if (openSheetBtn) openSheetBtn.href = BPSheets.publicSheetUrl('Team');
+  document.getElementById('open-sheet').href = BPSheets.publicSheetUrl('Team');
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
   BPSheets.read('Team').then(function (rows) {
     var html = rows.map(function (r) {

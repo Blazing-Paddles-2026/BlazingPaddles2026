@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blazing Paddles 2026 · Command Center</title>
-<meta name="description" content="Live committee command center for the Blazing Paddles 2026 Pickleball Tournament. Sponsor pipeline, silent auction inventory, outreach scripts, playbook, flyers, and team contacts." />
+<meta name="description" content="Live committee command center for the Blazing Paddles 2026 Pickleball Tournament. Sponsor pipeline, raffle inventory, playbook, scripts, team contacts." />
 <meta name="theme-color" content="#06091a" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
@@ -27,8 +27,9 @@
   <nav class="cc-topnav-links" aria-label="Primary">
     <a href="index.html"           data-nav="actions">ACTIONS</a>
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
-    <a href="outreach.html"         data-nav="scripts">SCRIPTS</a>
-    <a href="paperwork.html"        data-nav="forms">FORMS</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle-tracker.html"  data-nav="raffle">RAFFLE</a>
     <a href="#live-updates">UPDATES</a>
     <a href="#meeting-schedule">MEETINGS</a>
     <a href="team.html"            data-nav="team">TEAM</a>
@@ -41,17 +42,22 @@
 
 <main class="cc-topnav-main">
 <section class="section">
+<div id="first-run-banner" style="display:none;background:rgba(245,197,24,0.10);border:1px solid var(--gold-500);border-radius:var(--r-md);padding:var(--space-4);margin-bottom:var(--space-6);color:var(--text);font-size:14px;line-height:1.6">
+    <strong style="color:var(--gold-400);text-transform:uppercase;letter-spacing:.1em;font-size:12px">First-Run Setup</strong><br>
+    The dashboard needs a one-time 5-minute setup before live data appears. 
+    <a href="settings.html" style="color:var(--gold-400);font-weight:700">Open Settings</a> to connect the backend webhook.
+  </div>
+
   <section class="section" style="padding:0 clamp(var(--space-4),3vw,var(--space-8)) var(--space-6)">
     <div style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg, rgba(255,107,26,0.18), rgba(192,39,26,0.15));border:1px solid var(--flame-500);border-radius:var(--r-lg);padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap">
-      <div style="font-size:2.4rem;line-height:1">🎉</div>
       <div style="flex:1;min-width:240px">
-        <p style="margin:0;font-family:var(--font-display);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--flame-200);font-weight:700">Today's Win · June 15, 2026</p>
-        <h2 style="margin:4px 0 6px;font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);letter-spacing:0.02em">Kalahari Resorts — Presenting Sponsor, $10,000 🔥</h2>
+        <p style="margin:0;font-family:var(--font-display);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--flame-200);font-weight:700">Sponsor confirmed · June 15, 2026</p>
+        <h2 style="margin:4px 0 6px;font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);letter-spacing:0.02em">Kalahari Resorts — Presenting Sponsor, $10,000</h2>
         <p style="margin:0;color:var(--text-muted);font-size:14px;line-height:1.5">
-          Our biggest sponsor of the year is locked in. Blazing Paddles 2026 is now officially <strong style="color:var(--cream)">presented by Kalahari Resorts</strong>. Use this momentum to build sponsor outreach and silent auction packages.
+          Blazing Paddles 2026 is now officially <strong style="color:var(--cream)">presented by Kalahari Resorts</strong>. Keep sponsor outreach, raffle asks, and player registration moving.
         </p>
       </div>
-      <a href="outreach.html" class="btn btn-primary" style="flex-shrink:0">Open Scripts & Package Ideas →</a>
+      <a href="sponsor-tracker.html" class="btn btn-primary" style="flex-shrink:0">See Sponsor Pipeline →</a>
     </div>
   </section>
 
@@ -71,7 +77,7 @@
           <span class="hero-title-sub">2026 Command Center</span>
         </h1>
         <p class="hero-lede">
-          The committee's working dashboard — sponsor direction, silent auction package ideas, outreach scripts, flyers, planning dates, and team coordination. All proceeds fund crisis relief, family support, and wellness for Round Rock firefighters.
+          The committee's live working dashboard — sponsor pipeline, raffle inventory, full playbook with scripts, and team coordination. All proceeds fund crisis relief, family support, and wellness for Round Rock firefighters.
         </p>
         <ul class="hero-meta">
           <li>
@@ -92,9 +98,9 @@
           </li>
         </ul>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="outreach.html">Open Scripts & Package Ideas →</a>
+          <a class="btn btn-primary" href="sponsor-tracker.html">Open Sponsor Tracker →</a>
           <a class="btn btn-ghost" href="#live-updates">Post an Update</a>
-          <a class="btn btn-ghost" href="outreach.html">Open the Playbook</a>
+          <a class="btn btn-ghost" href="process.html">Open the Playbook</a>
         </div>
       </div>
       <figure class="hero-art">
@@ -106,120 +112,18 @@
   <section class="cc-kpis" id="cc-kpis">
     <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="sponsors">1</span><span class="cc-kpi-label">Sponsor Confirmed</span></div>
     <div class="cc-kpi cc-kpi-highlight"><span class="cc-kpi-num" data-kpi="revenue">$10,000</span><span class="cc-kpi-label">Committed</span><span class="cc-kpi-note">20% of $50K goal</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="raffle">—</span><span class="cc-kpi-label">Auction Items</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="raffle">—</span><span class="cc-kpi-label">Raffle Items</span></div>
     <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="goal">$50K</span><span class="cc-kpi-label">2026 Goal</span></div>
   </section>
 
-  <section class="section section-alt" id="start-here">
-    <header class="section-head">
-      <p class="kicker">Start Here</p>
-      <h2 class="section-title">Weekly asks for the committee</h2>
-      <p class="section-lede">Use this section when someone asks, “What do you need me to do this week?” Each week has one clear focus so volunteers know exactly where to start.</p>
-    </header>
-
-    <div class="detail-grid">
-      <article class="detail-card">
-        <h3>Current ask · Now through Friday, June 26</h3>
-        <ul>
-          <li>Pick one auction package theme you are willing to help build.</li>
-          <li>Contact three businesses or personal contacts.</li>
-          <li>Use the email, text, call, walk-in, or voicemail scripts if you need wording.</li>
-          <li>If someone says yes, email info@roundrockfirefoundation.org with the details.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>What to open first</h3>
-        <ul>
-          <li><a href="outreach.html#talking-points">Scripts for emails, calls, walk-ins, voicemails, follow-ups, and thank-yous</a></li>
-          <li><a href="outreach.html#categories">13 sponsor business categories to choose from</a></li>
-          <li><a href="raffle.html">Auction package ideas and businesses to contact</a></li>
-          <li><a href="flyers.html">Flyers to send or print</a></li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Upcoming weekly asks</h3>
-        <ul>
-          <li><strong>Week of June 29:</strong> Follow up with this week’s contacts and add three new businesses.</li>
-          <li><strong>Week of July 6:</strong> Confirm auction package themes and ask for one item that fits each theme.</li>
-          <li><strong>Week of July 13:</strong> Push sponsorship asks using the sponsor flyer and call script.</li>
-          <li><strong>Week of July 20:</strong> Focus on restaurants, entertainment, hotels, and experience-based donations.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Later weekly focus areas</h3>
-        <ul>
-          <li><strong>August:</strong> Fill gaps in auction packages and keep sponsor follow-ups moving.</li>
-          <li><strong>September:</strong> Confirm logos, pickup details, restrictions, and recognition preferences.</li>
-          <li><strong>Final two weeks:</strong> Finish pickups, package descriptions, sponsor recognition, and thank-you list.</li>
-        </ul>
-      </article>
-    </div>
-
-    <div class="detail-grid">
-      <article class="detail-card">
-        <h3>Volunteer basics</h3>
-        <ul>
-          <li>Pick one auction package theme.</li>
-          <li>Contact three businesses or personal contacts by next Friday.</li>
-          <li>Use the Outreach Scripts page if you need wording.</li>
-          <li>Email info@roundrockfirefoundation.org with the details when someone says yes or wants more information.</li>
-          <li>Do not track every no or every unanswered message.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Sponsorship help</h3>
-        <ul>
-          <li>Ask whether a business would consider sponsoring Blazing Paddles.</li>
-          <li>Share the sponsor flyer if they want details.</li>
-          <li>Make warm introductions when you know the owner or manager.</li>
-          <li>When you get a yes, email info@roundrockfirefoundation.org with the business name, contact person, email, phone, and amount. Diedra will submit the invoice to them.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Auction package help</h3>
-        <ul>
-          <li>Choose a package theme before asking.</li>
-          <li>Ask for one item, gift card, service, or experience that fits the theme.</li>
-          <li>Focus on strong packages instead of random donations.</li>
-          <li>When you get a yes, email info@roundrockfirefoundation.org with the donor, item description, estimated value, restrictions, and pickup or delivery details.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Player registration help</h3>
-        <ul>
-          <li>Share the player flyer with friends, coworkers, neighbors, and pickleball contacts.</li>
-          <li>Post in local pickleball groups when allowed.</li>
-          <li>Invite people to register early so the tournament builds momentum.</li>
-        </ul>
-      </article>
-      <article class="detail-card">
-        <h3>Send to info@roundrockfirefoundation.org after a yes</h3>
-        <ul>
-          <li>For sponsorships or cash donations: business name, contact person, email, phone, amount, recognition name, and logo contact. Diedra will submit the invoice.</li>
-          <li>For auction donations: donor name, contact person, item or experience, estimated value, restrictions, expiration date, and pickup or delivery details.</li>
-          <li>For either one: send any deadline, special instructions, website, social link, or recognition preference.</li>
-        </ul>
-      </article>
-    </div>
-    <div class="section-nav">
-      <a class="btn btn-primary" href="outreach.html">Open Scripts & Package Ideas</a>
-      <a class="btn btn-ghost" href="paperwork.html">Open Paperwork & Forms</a>
-      <a class="btn btn-ghost" href="flyers.html">Open Flyers</a>
-    </div>
-  </section>
-
   <section class="cc-actions">
-    <a class="cc-action cc-action-primary" href="outreach.html">
+    <a class="cc-action cc-action-primary" href="sponsor-tracker.html">
       <h2>Get Sponsors</h2>
-      <p>Use the sponsor scripts, package examples, and yes-response checklist.</p>
+      <p>Add a sponsor, update status, log next steps. Scripts and tiers built in.</p>
     </a>
-    <a class="cc-action cc-action-secondary" href="raffle.html">
-      <h2>Get Auction Items</h2>
-      <p>Pick a package theme and ask for one donated item, gift card, service, or experience.</p>
-    </a>
-    <a class="cc-action cc-action-secondary" href="outreach.html">
-      <h2>Use Outreach Scripts</h2>
-      <p>Email, text, phone, voicemail, follow-up, and yes-response scripts ready to copy.</p>
+    <a class="cc-action cc-action-secondary" href="raffle-tracker.html">
+      <h2>Get Raffle Items</h2>
+      <p>Wish list, donor outreach, who's claiming pickup, photo, and winner.</p>
     </a>
   </section>
 
@@ -227,7 +131,7 @@
     <header class="section-head">
       <p class="kicker">Committee Updates</p>
       <h2 class="section-title">Post what changed. Everyone sees it here.</h2>
-      <p class="section-lede">Use this for sponsor wins, auction package donations, volunteer needs, and planning notes that the whole committee should see.</p>
+      <p class="section-lede">Use this for sponsor wins, raffle donations, player registration pushes, volunteer needs, and planning notes that the whole committee should see.</p>
     </header>
 
     <div class="updates-layout">
@@ -236,7 +140,7 @@
           <h3>Add an update</h3>
           <p>No login required. Keep it short, specific, and useful for the next person checking the dashboard.</p>
           <ul class="update-help">
-            <li><strong>Post when something changes:</strong> a sponsor commits, an auction item is donated, a package milestone is completed, or a volunteer need comes up.</li>
+            <li><strong>Post when something changes:</strong> a sponsor commits, a raffle item is donated, a player registration push starts, or a volunteer need comes up.</li>
             <li><strong>Include the next step:</strong> who should follow up, what needs to be picked up, shared, confirmed, or completed.</li>
             <li><strong>Add a link only if helpful:</strong> registration page, flyer, signup form, or a document the committee should open.</li>
           </ul>
@@ -252,7 +156,8 @@
             <span>Category</span>
             <select name="category" required data-testid="select-update-category">
               <option value="Sponsor">Sponsor</option>
-              <option value="Auction">Auction</option>
+              <option value="Raffle">Raffle</option>
+              <option value="Registration">Registration</option>
               <option value="Volunteer">Volunteer</option>
               <option value="Operations">Operations</option>
               <option value="General">General</option>
@@ -384,11 +289,11 @@
 
   <h3 class="cc-section-title">Everything Else</h3>
   <section class="cc-tile-grid">
-    <a class="cc-tile" href="outreach.html">
-      <h4>Outreach Scripts</h4>
-      <p>Email, text, phone, voicemail, follow-up, and yes-response scripts</p>
+    <a class="cc-tile" href="log.html">
+      <h4>Quick Log</h4>
+      <p>Log a win in 5 seconds — sponsor cash or raffle item</p>
     </a>
-    <a class="cc-tile" href="outreach.html">
+    <a class="cc-tile" href="process.html">
       <h4>Sponsorship Playbook</h4>
       <p>13 business categories, scripts, objections, 7-day follow-up</p>
     </a>
@@ -402,7 +307,7 @@
     </a>
     <a class="cc-tile" href="goals.html">
       <h4>Goal Tracker</h4>
-      <p>Sponsorships, auction packages, players, day-of operations</p>
+      <p>Sponsorships, raffle, players, day-of operations</p>
     </a>
     <a class="cc-tile" href="contacts.html">
       <h4>Contacts</h4>
@@ -412,13 +317,13 @@
       <h4>Flyers</h4>
       <p>Print and digital assets ready to share</p>
     </a>
-    <a class="cc-tile" href="paperwork.html">
-      <h4>Paperwork & Forms</h4>
-      <p>Sponsor notes, auction donation details, and formal vendor agreement</p>
+    <a class="cc-tile" href="settings.html">
+      <h4>Settings</h4>
+      <p>Connect the Sheets webhook so the dashboard can save data</p>
     </a>
   </section>
 
-  <p class="cc-tagline">Committee focus: sponsors, silent auction packages, and team progress.</p>
+  <p class="cc-tagline">Committee focus: sponsors, raffle items, and player registration.</p>
     </section>
 
 
@@ -439,6 +344,11 @@
     return 'Tournament day was ' + (-days) + ' days ago';
   }
   document.getElementById('cc-tminus').textContent = tminus();
+
+  // First-run banner if no webhook configured
+  if (!BPSheets.getWebhookUrl()) {
+    document.getElementById('first-run-banner').style.display = 'block';
+  }
 
   // KPIs from live sheet
   var baselineSponsors = 1;
