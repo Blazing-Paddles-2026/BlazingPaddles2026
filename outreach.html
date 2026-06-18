@@ -201,6 +201,7 @@
   <div class="cc-card">
     <div class="cc-tabs" role="tablist">
       <button class="cc-tab" role="tab" aria-selected="true"  data-target="email">Initial Email</button>
+      <button class="cc-tab" role="tab" aria-selected="false" data-target="text">Text</button>
       <button class="cc-tab" role="tab" aria-selected="false" data-target="cold">Cold Call</button>
       <button class="cc-tab" role="tab" aria-selected="false" data-target="walk">Walk-In</button>
       <button class="cc-tab" role="tab" aria-selected="false" data-target="voice">Voicemail</button>
@@ -255,6 +256,36 @@ Thank you for considering this — it means a lot to the fire families we serve.
 [YOUR NAME]
 Round Rock Fire Foundation
 [PHONE] · [EMAIL]</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="cc-tab-panel" data-panel="text">
+      <h4 style="margin:0 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">What to cover in the text</h4>
+      <ol style="margin:0 0 var(--space-3);padding-left:22px;font-size:14px;color:var(--text-muted);line-height:1.8">
+        <li><strong style="color:var(--cream)">Use text only when you have a relationship</strong> — friend, neighbor, past donor, or warm contact.</li>
+        <li><strong style="color:var(--cream)">Keep it short</strong> — one screen, one ask, one easy next step.</li>
+        <li><strong style="color:var(--cream)">Do not send paragraphs</strong> — ask permission to send the flyer or details.</li>
+        <li><strong style="color:var(--cream)">If they say yes</strong> — email the details to info@roundrockfirefoundation.org.</li>
+      </ol>
+
+      <h4 style="margin:var(--space-4) 0 8px;font-family:var(--font-display);font-size:15px;letter-spacing:.04em">Sample text</h4>
+      <p style="margin:0 0 var(--space-3);padding:12px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm);font-style:italic;color:var(--cream);font-size:14px;line-height:1.6">
+        "Hi [first name] — I’m helping with the Round Rock Fire Foundation’s Blazing Paddles pickleball tournament on Oct. 10. We’re looking for sponsors and auction donations. Would it be okay if I sent you the quick info?"
+      </p>
+
+      <details style="margin-top:var(--space-3)">
+        <summary style="cursor:pointer;font-size:13px;color:var(--text-muted);font-weight:600;padding:8px 12px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--r-sm)">Stuck for words? Show the exact wording →</summary>
+        <div style="position:relative;margin-top:var(--space-2)">
+          <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2">
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-play="script-text">▶ Play</button>
+            <button class="cc-btn cc-btn-ghost cc-btn-sm" data-copy="script-text">Copy</button>
+          </div>
+          <pre class="cc-script" id="script-text">Hi [FIRST NAME] — I’m helping with the Round Rock Fire Foundation’s Blazing Paddles pickleball tournament on October 10.
+
+We’re looking for sponsors and auction donations from local businesses. Would it be okay if I sent you the quick info?
+
+No pressure at all — I just thought of you because [BUSINESS NAME] is such a strong local fit.</pre>
         </div>
       </details>
     </div>
