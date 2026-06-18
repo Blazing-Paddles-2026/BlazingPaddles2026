@@ -104,7 +104,7 @@
   // ── Writes ────────────────────────────────────────────────
   async function appendRow(sheetName, row) {
     if (!APPS_SCRIPT_URL) {
-      throw new Error('Writes are not configured yet. Open Settings and paste your Apps Script Web App URL.');
+      throw new Error('Automated sheet writes are not part of the current committee workflow. Send confirmed details to Diedra.');
     }
     const resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
@@ -122,7 +122,7 @@
 
   async function sendSponsorEmail(opts) {
     if (!APPS_SCRIPT_URL) {
-      throw new Error('Email sending is not configured yet. Open Settings and paste your Apps Script Web App URL.');
+      throw new Error('Automated email sending is not part of the current committee workflow. Copy the script and send from your own email or text.');
     }
     if (!opts || !opts.to || !opts.subject || !opts.body) {
       throw new Error('to, subject, and body are required.');

@@ -120,7 +120,7 @@
       <option>Committed</option>
       <option>Received</option>
     </select>
-    <a class="cc-btn cc-btn-ghost cc-btn-sm" id="open-sheet" target="_blank" rel="noopener">Open in Google Sheets</a>
+    <a class="cc-btn cc-btn-ghost cc-btn-sm" href="outreach.html">Use Outreach Scripts</a>
     <button class="cc-btn cc-btn-ghost cc-btn-sm" id="refresh-btn">Refresh</button>
   </div>
 
@@ -155,7 +155,8 @@
   var search = document.getElementById('filter-search');
   var statusFilter = document.getElementById('filter-status');
   var refreshBtn = document.getElementById('refresh-btn');
-  document.getElementById('open-sheet').href = BPSheets.publicSheetUrl(SHEET_NAME);
+  var openSheetBtn = document.getElementById('open-sheet');
+  if (openSheetBtn) openSheetBtn.href = BPSheets.publicSheetUrl(SHEET_NAME);
 
   var toast = document.getElementById('toast');
   function showToast(msg, err) {
@@ -229,8 +230,8 @@
       var msg = err && err.message || String(err);
       if (/private|webhook|NO_WEBHOOK/i.test(msg) || !BPSheets.getWebhookUrl()) {
         tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">' +
-          'Backend webhook not configured yet. ' +
-          '<a href="settings.html" style="color:var(--gold-400)">Open Settings</a> to paste the Apps Script URL (one-time, ~5 minutes).' +
+          'This tracker is not part of the current committee workflow. ' +
+          '<a href="outreach.html" style="color:var(--gold-400)">Use Outreach Scripts</a> and send confirmed auction details to Diedra.' +
           '</td></tr>';
       } else {
         tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load: ' + escapeHtml(msg) + '</td></tr>';

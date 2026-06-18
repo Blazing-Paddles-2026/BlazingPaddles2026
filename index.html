@@ -27,9 +27,6 @@
   <nav class="cc-topnav-links" aria-label="Primary">
     <a href="index.html"           data-nav="actions">ACTIONS</a>
     <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
-    <a href="log.html"             data-nav="log">LOG</a>
-    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
-    <a href="raffle-tracker.html"  data-nav="raffle">AUCTION</a>
     <a href="outreach.html"         data-nav="scripts">SCRIPTS</a>
     <a href="#live-updates">UPDATES</a>
     <a href="#meeting-schedule">MEETINGS</a>
@@ -43,12 +40,6 @@
 
 <main class="cc-topnav-main">
 <section class="section">
-<div id="first-run-banner" style="display:none;background:rgba(245,197,24,0.10);border:1px solid var(--gold-500);border-radius:var(--r-md);padding:var(--space-4);margin-bottom:var(--space-6);color:var(--text);font-size:14px;line-height:1.6">
-    <strong style="color:var(--gold-400);text-transform:uppercase;letter-spacing:.1em;font-size:12px">First-Run Setup</strong><br>
-    The dashboard needs a one-time 5-minute setup before live data appears. 
-    <a href="settings.html" style="color:var(--gold-400);font-weight:700">Open Settings</a> to connect the backend webhook.
-  </div>
-
   <section class="section" style="padding:0 clamp(var(--space-4),3vw,var(--space-8)) var(--space-6)">
     <div style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg, rgba(255,107,26,0.18), rgba(192,39,26,0.15));border:1px solid var(--flame-500);border-radius:var(--r-lg);padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap">
       <div style="flex:1;min-width:240px">
@@ -58,7 +49,7 @@
           Blazing Paddles 2026 is now officially <strong style="color:var(--cream)">presented by Kalahari Resorts</strong>. Keep sponsor outreach and silent auction package asks moving.
         </p>
       </div>
-      <a href="sponsor-tracker.html" class="btn btn-primary" style="flex-shrink:0">See Sponsor Pipeline →</a>
+      <a href="outreach.html" class="btn btn-primary" style="flex-shrink:0">Open Scripts & Package Ideas →</a>
     </div>
   </section>
 
@@ -78,7 +69,7 @@
           <span class="hero-title-sub">2026 Command Center</span>
         </h1>
         <p class="hero-lede">
-          The committee's live working dashboard — sponsor pipeline, silent auction package tracking, outreach scripts, flyers, and team coordination. All proceeds fund crisis relief, family support, and wellness for Round Rock firefighters.
+          The committee's working dashboard — sponsor direction, silent auction package ideas, outreach scripts, flyers, planning dates, and team coordination. All proceeds fund crisis relief, family support, and wellness for Round Rock firefighters.
         </p>
         <ul class="hero-meta">
           <li>
@@ -99,7 +90,7 @@
           </li>
         </ul>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="sponsor-tracker.html">Open Sponsor Tracker →</a>
+          <a class="btn btn-primary" href="outreach.html">Open Scripts & Package Ideas →</a>
           <a class="btn btn-ghost" href="#live-updates">Post an Update</a>
           <a class="btn btn-ghost" href="process.html">Open the Playbook</a>
         </div>
@@ -118,13 +109,13 @@
   </section>
 
   <section class="cc-actions">
-    <a class="cc-action cc-action-primary" href="sponsor-tracker.html">
+    <a class="cc-action cc-action-primary" href="outreach.html">
       <h2>Get Sponsors</h2>
-      <p>Add a sponsor, update status, log next steps. Scripts and tiers built in.</p>
+      <p>Use the sponsor scripts, package examples, and yes-response checklist.</p>
     </a>
-    <a class="cc-action cc-action-secondary" href="raffle-tracker.html">
+    <a class="cc-action cc-action-secondary" href="outreach.html">
       <h2>Get Auction Items</h2>
-      <p>Package ideas, donor outreach, who is claiming pickup, photo, and details.</p>
+      <p>Pick a package theme and ask for one donated item, gift card, service, or experience.</p>
     </a>
     <a class="cc-action cc-action-secondary" href="outreach.html">
       <h2>Use Outreach Scripts</h2>
@@ -162,7 +153,6 @@
             <select name="category" required data-testid="select-update-category">
               <option value="Sponsor">Sponsor</option>
               <option value="Auction">Auction</option>
-              <option value="Battle">Battle</option>
               <option value="Volunteer">Volunteer</option>
               <option value="Operations">Operations</option>
               <option value="General">General</option>
@@ -294,10 +284,6 @@
 
   <h3 class="cc-section-title">Everything Else</h3>
   <section class="cc-tile-grid">
-    <a class="cc-tile" href="log.html">
-      <h4>Quick Log</h4>
-      <p>Log a win in 5 seconds — sponsor cash or auction item</p>
-    </a>
     <a class="cc-tile" href="outreach.html">
       <h4>Outreach Scripts</h4>
       <p>Email, text, phone, voicemail, follow-up, and yes-response scripts</p>
@@ -326,10 +312,6 @@
       <h4>Flyers</h4>
       <p>Print and digital assets ready to share</p>
     </a>
-    <a class="cc-tile" href="settings.html">
-      <h4>Settings</h4>
-      <p>Connect the Sheets webhook so the dashboard can save data</p>
-    </a>
   </section>
 
   <p class="cc-tagline">Committee focus: sponsors, silent auction packages, and team progress.</p>
@@ -353,11 +335,6 @@
     return 'Tournament day was ' + (-days) + ' days ago';
   }
   document.getElementById('cc-tminus').textContent = tminus();
-
-  // First-run banner if no webhook configured
-  if (!BPSheets.getWebhookUrl()) {
-    document.getElementById('first-run-banner').style.display = 'block';
-  }
 
   // KPIs from live sheet
   var baselineSponsors = 1;

@@ -40,7 +40,7 @@
 <div class="cc-page-header">
     <div><h1 class="cc-page-title">Team & Lanes</h1>
     <p class="cc-page-sub">Each person picks one lane and owns a manageable set of sponsor or auction package targets each week.</p></div>
-    <a class="cc-btn cc-btn-ghost" target="_blank" rel="noopener" id="open-sheet">Edit in Sheets</a>
+    <a class="cc-btn cc-btn-ghost" href="outreach.html">Open Outreach Scripts</a>
   </div>
 
   <div class="cc-card">
@@ -64,7 +64,8 @@
 <script src="sheets.js"></script>
 <script>
 (function () {
-  document.getElementById('open-sheet').href = BPSheets.publicSheetUrl('Team');
+  var openSheetBtn = document.getElementById('open-sheet');
+  if (openSheetBtn) openSheetBtn.href = BPSheets.publicSheetUrl('Team');
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
   BPSheets.read('Team').then(function (rows) {
     var html = rows.map(function (r) {
