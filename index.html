@@ -74,6 +74,58 @@
     </div>
   </aside>
   <div class="cc-dashboard-primary">
+
+  <!--
+    ============================================================
+    THIS WEEK'S GOALS — Diedra: update this list each week.
+    Edit only the text inside each <span class="cc-week-text"> below.
+    Keep them numbered, short, and doable. Leave the rest alone.
+    The checkboxes save in each volunteer's browser automatically.
+    ============================================================
+  -->
+  <section class="cc-week-goals" id="this-weeks-goals" aria-labelledby="cc-week-title">
+    <div class="cc-week-head">
+      <p class="cc-week-label">This week's goals</p>
+      <h2 id="cc-week-title">Four steps. Check them off as you go.</h2>
+      <p class="cc-week-sub">Pick up where you left off any time — your checkmarks stay on this device.</p>
+    </div>
+    <ol class="cc-week-list">
+      <li class="cc-week-item">
+        <label class="cc-week-check">
+          <input type="checkbox" data-week-goal="1">
+          <span class="cc-week-box" aria-hidden="true"></span>
+          <span class="cc-week-num">1</span>
+          <span class="cc-week-text">Pick one lane: cash sponsor or auction item.</span>
+        </label>
+      </li>
+      <li class="cc-week-item">
+        <label class="cc-week-check">
+          <input type="checkbox" data-week-goal="2">
+          <span class="cc-week-box" aria-hidden="true"></span>
+          <span class="cc-week-num">2</span>
+          <span class="cc-week-text">Contact five businesses or personal connections.</span>
+        </label>
+      </li>
+      <li class="cc-week-item">
+        <label class="cc-week-check">
+          <input type="checkbox" data-week-goal="3">
+          <span class="cc-week-box" aria-hidden="true"></span>
+          <span class="cc-week-num">3</span>
+          <span class="cc-week-text">Send one sponsor ask or auction ask using the scripts.</span>
+        </label>
+      </li>
+      <li class="cc-week-item">
+        <label class="cc-week-check">
+          <input type="checkbox" data-week-goal="4">
+          <span class="cc-week-box" aria-hidden="true"></span>
+          <span class="cc-week-num">4</span>
+          <span class="cc-week-text">If someone says yes, send the details to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.</span>
+        </label>
+      </li>
+    </ol>
+    <button type="button" class="cc-week-reset" data-week-reset>Clear checkmarks</button>
+  </section>
+
   <section class="cc-card cc-start-flow" id="cc-kpis">
     <p class="cc-flow-label">Start here</p>
     <h2>Use this dashboard in this order.</h2>
@@ -378,6 +430,44 @@
     return 'Tournament day was ' + (-days) + ' days ago';
   }
   document.getElementById('cc-tminus').textContent = tminus();
+
+  // This week's goals — checkboxes persist per-device in localStorage.
+  // Key includes the week start (Monday) so a fresh week starts unchecked.
+  (function () {
+    var boxes = document.querySelectorAll('[data-week-goal]');
+    if (!boxes.length) return;
+    function weekKey() {
+      var d = startOfDay(new Date());
+      var day = (d.getDay() + 6) % 7; // 0 = Monday
+      d.setDate(d.getDate() - day);
+      return 'bp-week-goals-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }
+    var key = weekKey();
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
+    function save() {
+      var state = {};
+      boxes.forEach(function (b) { state[b.getAttribute('data-week-goal')] = b.checked; });
+      try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) {}
+    }
+    boxes.forEach(function (b) {
+      var id = b.getAttribute('data-week-goal');
+      b.checked = !!saved[id];
+      b.closest('.cc-week-item').classList.toggle('is-done', b.checked);
+      b.addEventListener('change', function () {
+        b.closest('.cc-week-item').classList.toggle('is-done', b.checked);
+        save();
+      });
+    });
+    var reset = document.querySelector('[data-week-reset]');
+    if (reset) reset.addEventListener('click', function () {
+      boxes.forEach(function (b) {
+        b.checked = false;
+        b.closest('.cc-week-item').classList.remove('is-done');
+      });
+      save();
+    });
+  })();
 
   // KPIs from live sheet
   var baselineSponsors = 1;
