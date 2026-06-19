@@ -77,52 +77,22 @@
 
   <!--
     ============================================================
-    THIS WEEK'S GOALS — Diedra: update this list each week.
-    Edit only the text inside each <span class="cc-week-text"> below.
-    Keep them numbered, short, and doable. Leave the rest alone.
-    The checkboxes save in each volunteer's browser automatically.
+    THIS WEEK'S GOALS
+    The list below fills in automatically based on today's date,
+    using the weekly schedule in the BP_WEEKLY_GOALS block lower
+    on this page (look for "DIEDRA: EDIT WEEKLY GOALS HERE").
+    Leave this section's structure alone — only the schedule
+    text needs editing. The checkboxes save in each volunteer's
+    browser automatically and reset on their own each Monday.
     ============================================================
   -->
   <section class="cc-week-goals" id="this-weeks-goals" aria-labelledby="cc-week-title">
     <div class="cc-week-head">
-      <p class="cc-week-label">This week's goals</p>
+      <p class="cc-week-label">This week's goals · <span data-week-range>—</span></p>
       <h2 id="cc-week-title">Four steps. Check them off as you go.</h2>
-      <p class="cc-week-sub">Pick up where you left off any time — your checkmarks stay on this device.</p>
+      <p class="cc-week-sub">Pick up where you left off any time — your checkmarks stay on this device and clear automatically each Monday.</p>
     </div>
-    <ol class="cc-week-list">
-      <li class="cc-week-item">
-        <label class="cc-week-check">
-          <input type="checkbox" data-week-goal="1">
-          <span class="cc-week-box" aria-hidden="true"></span>
-          <span class="cc-week-num">1</span>
-          <span class="cc-week-text">Pick one lane: cash sponsor or auction item.</span>
-        </label>
-      </li>
-      <li class="cc-week-item">
-        <label class="cc-week-check">
-          <input type="checkbox" data-week-goal="2">
-          <span class="cc-week-box" aria-hidden="true"></span>
-          <span class="cc-week-num">2</span>
-          <span class="cc-week-text">Contact five businesses or personal connections.</span>
-        </label>
-      </li>
-      <li class="cc-week-item">
-        <label class="cc-week-check">
-          <input type="checkbox" data-week-goal="3">
-          <span class="cc-week-box" aria-hidden="true"></span>
-          <span class="cc-week-num">3</span>
-          <span class="cc-week-text">Send one sponsor ask or auction ask using the scripts.</span>
-        </label>
-      </li>
-      <li class="cc-week-item">
-        <label class="cc-week-check">
-          <input type="checkbox" data-week-goal="4">
-          <span class="cc-week-box" aria-hidden="true"></span>
-          <span class="cc-week-num">4</span>
-          <span class="cc-week-text">If someone says yes, send the details to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.</span>
-        </label>
-      </li>
-    </ol>
+    <ol class="cc-week-list" data-week-list></ol>
     <button type="button" class="cc-week-reset" data-week-reset>Clear checkmarks</button>
   </section>
 
@@ -431,18 +401,245 @@
   }
   document.getElementById('cc-tminus').textContent = tminus();
 
-  // This week's goals — checkboxes persist per-device in localStorage.
-  // Key includes the week start (Monday) so a fresh week starts unchecked.
+  // ============================================================
+  // DIEDRA: EDIT WEEKLY GOALS HERE
+  // ------------------------------------------------------------
+  // Each block below is one week. The homepage automatically
+  // shows the right week based on today's date — you do not need
+  // to delete old weeks or touch any code.
+  //
+  // To change a week's goals:
+  //   1. Find the week by its "start" date (the Monday it begins).
+  //   2. Edit the four lines inside "goals". Keep them short and
+  //      written as an action ("Call...", "Email...", "Confirm...").
+  //   3. "label" is the small line shown next to "This week's goals."
+  //
+  // Notes:
+  //   • Keep four goals per week so the layout stays clean.
+  //   • Each "start" is a Monday in [year, month, day] form. The
+  //     month is the real month number (6 = June, 10 = October).
+  //   • If today is before the first week, the first week shows.
+  //     After the last week, the last week shows. So nothing breaks.
+  //   • You can write an email link like this inside a goal:
+  //     'Send the yes to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+  // ============================================================
+  var BP_WEEKLY_GOALS = [
+    {
+      start: [2026, 6, 15], label: 'Week of June 15 · Restart momentum',
+      goals: [
+        'Lead every ask with the win: "Kalahari Resorts is our presenting sponsor." Open the Playbook for the one-line version.',
+        'Make a short list of 5 businesses you already know — your gym, vet, dentist, favorite restaurant — and contact them this week.',
+        'Send your first 3 sponsor or auction asks using the ready-made Scripts. Copy, paste, personalize one line, send.',
+        'Get one auction item or sponsor verbally committed, then email the details to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 6, 22], label: 'Week of June 22 · Warm contacts first',
+      goals: [
+        'Follow up with anyone from last week who did not reply — a quick second message closes more than the first.',
+        'Add 5 more warm businesses to your list and reach out, leading with the Kalahari presenting-sponsor news.',
+        'Ask two of your contacts for a referral: "Who else should we be talking to?"',
+        'Log every yes and maybe by emailing <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a> so nothing slips.'
+      ]
+    },
+    {
+      start: [2026, 6, 29], label: 'Week of June 29 · First commitments',
+      goals: [
+        'Turn your strongest "maybe" into a yes — call or text them directly this week.',
+        'Open the Auction page, pick one package theme, and ask a business that fits it.',
+        'Send 3 fresh asks from the Scripts to businesses you have not contacted yet.',
+        'Confirm at least one auction item in writing and forward it to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 7, 6], label: 'Week of July 6 · Sponsor outreach push',
+      goals: [
+        'Send 5 sponsor asks this week using the email and call Scripts — volume matters now.',
+        'Ask each committed sponsor for their logo so marketing can start using it.',
+        'Pick one auction theme you can own and line up 2 businesses to fill it.',
+        'Email new commitments and logos to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 7, 13], label: 'Week of July 13 · Marketing launch',
+      goals: [
+        'Share the tournament flyer from the Flyers page on your own social media and in one group chat.',
+        'Follow up on every sponsor ask from last week — a quick nudge wins the slow yeses.',
+        'Collect at least one more sponsor logo and confirm one auction item.',
+        'Send all new logos, photos, and yeses to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 7, 20], label: 'Week of July 20 · Confirm auction themes',
+      goals: [
+        'Lock in the auction theme you are working on and list the items still needed.',
+        'Send 4 new asks from the Scripts, mixing sponsors and auction items.',
+        'Ask one local restaurant or experience business for a gift-card or package donation.',
+        'Report confirmed auction items and values to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 7, 27], label: 'Week of July 27 · Build the packages',
+      goals: [
+        'Combine smaller donations into one stronger auction package that looks worth bidding on.',
+        'Follow up with any sponsor who asked for more time before deciding.',
+        'Send 3 fresh sponsor or auction asks using the Scripts.',
+        'Email package details, photos, and values to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 8, 3], label: 'Week of August 3 · Registration push',
+      goals: [
+        'Share the player registration link with 5 people who might play or know a team.',
+        'Confirm one vendor or auction donor you have been chasing — get it in writing.',
+        'Send 3 new sponsor asks; aim every ask at a clear tier from the Playbook.',
+        'Send new registrations, vendors, and yeses to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 8, 10], label: 'Week of August 10 · Logistics & vendors',
+      goals: [
+        'Confirm details with any vendor you have lined up: what they bring, when, and where.',
+        'Recruit one team where it fits — a business, a station, or a friend group.',
+        'Strengthen one auction package with a second item so it stands out.',
+        'Forward vendor confirmations and auction updates to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 8, 17], label: 'Week of August 17 · Stronger packages',
+      goals: [
+        'Review your auction packages and fill the weakest one with one more donation.',
+        'Follow up on every open vendor or sponsor conversation from the past two weeks.',
+        'Send 3 fresh asks using the Scripts, prioritizing businesses near the venue.',
+        'Send updated package contents and values to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 8, 24], label: 'Week of August 24 · Recruit & confirm',
+      goals: [
+        'Ask 3 people directly to register a team and share the link with them.',
+        'Confirm one more vendor and one more auction item this week.',
+        'Re-send the sponsor ask to anyone who went quiet — set a friendly deadline.',
+        'Report registrations and confirmations to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 8, 31], label: 'Week of August 31 · Close the gaps',
+      goals: [
+        'List every sponsor and auction "maybe" still open, then contact each one this week.',
+        'Confirm details, photos, and values for two auction items.',
+        'Push registration: share the link again and ask one new team to sign up.',
+        'Send all confirmations and item details to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 9, 7], label: 'Week of September 7 · Close sponsors',
+      goals: [
+        'Get a firm yes or no from every open sponsor — give them an easy way to say yes today.',
+        'Collect photos and dollar values for each auction item you secured.',
+        'Confirm one more team registration through a personal ask.',
+        'Email final sponsor decisions and item values to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 9, 14], label: 'Week of September 14 · Finalize auction',
+      goals: [
+        'Confirm every auction item is committed in writing with a value and a photo.',
+        'Sign up to help with one volunteer role for event day — check the Team page.',
+        'Make a final registration push to your contacts before the deadline nears.',
+        'Send any missing item details and your volunteer choice to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 9, 21], label: 'Week of September 21 · Collect the details',
+      goals: [
+        'Chase down any auction item missing a photo, value, or pickup plan.',
+        'Confirm your event-day role and the time you need to arrive.',
+        'Remind your registered teams of the date, time, and what to bring.',
+        'Send completed item details to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 9, 28], label: 'Week of September 28 · Final registrations',
+      goals: [
+        'Make your last registration push — every team counts before the deadline.',
+        'Arrange pickup or delivery for the auction items you secured.',
+        'Confirm your volunteer shift and ask if anything still needs covering.',
+        'Report final registrations and pickup plans to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 10, 5], label: 'Event week · October 10',
+      goals: [
+        'Pick up and deliver your auction items to the drop-off point this week.',
+        'Confirm your event-day role, arrival time, and who to check in with.',
+        'Thank your sponsors and donors now — a personal note before the event means a lot.',
+        'Send pickup status and any last-minute needs to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    },
+    {
+      start: [2026, 10, 12], label: 'After the event · Wrap-up',
+      goals: [
+        'Send a thank-you to every sponsor, donor, and team you brought in.',
+        'Note what worked and what to do differently so next year starts strong.',
+        'Return or close out anything still outstanding from your area.',
+        'Send your thank-you list and wrap-up notes to <a href="mailto:info@roundrockfirefoundation.org">info@roundrockfirefoundation.org</a>.'
+      ]
+    }
+  ];
+  // ============================================================
+  // END OF EDITABLE WEEKLY GOALS — code below renders the list.
+  // ============================================================
+
+  // This week's goals — render the right week, then persist
+  // checkboxes per-device in localStorage. The storage key
+  // includes this week's Monday so a fresh week starts unchecked.
   (function () {
-    var boxes = document.querySelectorAll('[data-week-goal]');
-    if (!boxes.length) return;
-    function weekKey() {
+    var list = document.querySelector('[data-week-list]');
+    if (!list || !BP_WEEKLY_GOALS.length) return;
+
+    function thisMonday() {
       var d = startOfDay(new Date());
       var day = (d.getDay() + 6) % 7; // 0 = Monday
       d.setDate(d.getDate() - day);
-      return 'bp-week-goals-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+      return d;
     }
-    var key = weekKey();
+    // Pick the latest scheduled week whose start is on or before this
+    // Monday. Before the first week, show the first; after the last,
+    // show the last. This never errors on an out-of-range date.
+    function pickWeek(monday) {
+      var chosen = BP_WEEKLY_GOALS[0];
+      for (var i = 0; i < BP_WEEKLY_GOALS.length; i++) {
+        var s = BP_WEEKLY_GOALS[i].start;
+        var startDate = startOfDay(new Date(s[0], s[1] - 1, s[2]));
+        if (startDate <= monday) chosen = BP_WEEKLY_GOALS[i];
+      }
+      return chosen;
+    }
+
+    var monday = thisMonday();
+    var week = pickWeek(monday);
+
+    var rangeEl = document.querySelector('[data-week-range]');
+    if (rangeEl && week.label) rangeEl.textContent = week.label;
+
+    // Build the numbered, checkable list from the chosen week.
+    week.goals.forEach(function (text, i) {
+      var n = i + 1;
+      var li = document.createElement('li');
+      li.className = 'cc-week-item';
+      li.innerHTML =
+        '<label class="cc-week-check">' +
+          '<input type="checkbox" data-week-goal="' + n + '">' +
+          '<span class="cc-week-box" aria-hidden="true"></span>' +
+          '<span class="cc-week-num">' + n + '</span>' +
+          '<span class="cc-week-text">' + text + '</span>' +
+        '</label>';
+      list.appendChild(li);
+    });
+
+    var boxes = list.querySelectorAll('[data-week-goal]');
+    var key = 'bp-week-goals-' + monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + monday.getDate();
     var saved = {};
     try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
     function save() {
