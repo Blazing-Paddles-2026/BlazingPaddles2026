@@ -1140,6 +1140,15 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   line-height: 1.65;
 }
 
+.auction-card-donors {
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
 /* ---------------- Flyer assets ---------------- */
 .flyer-grid {
   display: grid;
