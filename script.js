@@ -333,6 +333,58 @@
   }
 
   /* -------------------------------------------------------------
+   * 4b) Copy-to-clipboard buttons for ready-to-send scripts
+   * ------------------------------------------------------------- */
+  function showCopyToast(message) {
+    var toast = document.querySelector('.copy-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message || 'Copied';
+    toast.classList.add('is-visible');
+    window.clearTimeout(showCopyToast._timer);
+    showCopyToast._timer = window.setTimeout(function () {
+      toast.classList.remove('is-visible');
+    }, 1600);
+  }
+
+  document.addEventListener('click', function (e) {
+    var button = e.target.closest('[data-copy]');
+    if (!button) return;
+
+    var target = document.getElementById(button.getAttribute('data-copy'));
+    if (!target) return;
+
+    var text = target.textContent.trim();
+    if (!text) return;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        showCopyToast('Copied to clipboard');
+      }).catch(function () {
+        showCopyToast('Select and copy the script manually');
+      });
+    } else {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCopyToast('Copied to clipboard');
+      } catch (err) {
+        showCopyToast('Select and copy the script manually');
+      }
+      document.body.removeChild(textarea);
+    }
+  });
+
+  /* -------------------------------------------------------------
    * 5) Sidebar scroll-spy
    * ------------------------------------------------------------- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.sidebar-nav a[href^="#"]'));
