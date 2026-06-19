@@ -42,11 +42,15 @@
 
 <main class="cc-topnav-main">
 <section class="section">
-<div id="first-run-banner" style="display:none;background:rgba(245,197,24,0.10);border:1px solid var(--gold-500);border-radius:var(--r-md);padding:var(--space-4);margin-bottom:var(--space-6);color:var(--text);font-size:14px;line-height:1.6">
-    <strong style="color:var(--gold-400);text-transform:uppercase;letter-spacing:.1em;font-size:12px">First-Run Setup</strong><br>
-    The dashboard needs a one-time 5-minute setup before live data appears. 
-    <a href="settings.html" style="color:var(--gold-400);font-weight:700">Open Settings</a> to connect the backend webhook.
-  </div>
+  <section class="cc-card cc-start-flow" id="cc-kpis">
+    <p class="cc-flow-label">Start here</p>
+    <h2>Use this dashboard in this order.</h2>
+    <div class="cc-flow-steps">
+      <div><strong>1. Pick the job.</strong><span>Sponsors or auction items. Do not try to do everything.</span></div>
+      <div><strong>2. Copy the script.</strong><span>Use the email, text, call, or auction ask already written for you.</span></div>
+      <div><strong>3. Send the yes.</strong><span>Email info@roundrockfirefoundation.org with the details so Diedra can handle the next step.</span></div>
+    </div>
+  </section>
 
   <section class="section" style="padding:0 clamp(var(--space-4),3vw,var(--space-8)) var(--space-6)">
     <div style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg, rgba(255,107,26,0.18), rgba(192,39,26,0.15));border:1px solid var(--flame-500);border-radius:var(--r-lg);padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap">
@@ -61,7 +65,18 @@
     </div>
   </section>
 
-  <section class="hero" id="dashboard">
+  <section class="cc-actions">
+    <a class="cc-action cc-action-primary" href="sponsor-tracker.html">
+      <h2>Get Sponsors</h2>
+      <p>Add a sponsor, update status, log next steps. Scripts and tiers built in.</p>
+    </a>
+    <a class="cc-action cc-action-secondary" href="auction-ideas.html">
+      <h2>Get Auction Items</h2>
+      <p>Pick a package idea, choose businesses to ask, and send yes details to info@roundrockfirefoundation.org.</p>
+    </a>
+  </section>
+
+  <section class="hero cc-hero-compact" id="dashboard">
     <div class="hero-bg" aria-hidden="true">
       <div class="hero-glow"></div>
       <div class="hero-grid"></div>
@@ -107,24 +122,6 @@
         <img src="assets/images/blazing-paddles-logo-official-2026.jpg" alt="Round Rock Fire Foundation's Blazing Paddles Pickleball Tournament 2026 logo." width="1080" height="1080" />
       </figure>
     </div>
-  </section>
-
-  <section class="cc-kpis" id="cc-kpis">
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="sponsors">1</span><span class="cc-kpi-label">Sponsor Confirmed</span></div>
-    <div class="cc-kpi cc-kpi-highlight"><span class="cc-kpi-num" data-kpi="revenue">$10,000</span><span class="cc-kpi-label">Committed</span><span class="cc-kpi-note">20% of $50K goal</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="raffle">—</span><span class="cc-kpi-label">Auction Items</span></div>
-    <div class="cc-kpi"><span class="cc-kpi-num" data-kpi="goal">$50K</span><span class="cc-kpi-label">2026 Goal</span></div>
-  </section>
-
-  <section class="cc-actions">
-    <a class="cc-action cc-action-primary" href="sponsor-tracker.html">
-      <h2>Get Sponsors</h2>
-      <p>Add a sponsor, update status, log next steps. Scripts and tiers built in.</p>
-    </a>
-    <a class="cc-action cc-action-secondary" href="auction-ideas.html">
-      <h2>Get Auction Items</h2>
-      <p>Pick a package idea, choose businesses to ask, and send yes details to info@roundrockfirefoundation.org.</p>
-    </a>
   </section>
 
   <section class="section section-alt cc-live-updates" id="live-updates">
@@ -348,11 +345,6 @@
     return 'Tournament day was ' + (-days) + ' days ago';
   }
   document.getElementById('cc-tminus').textContent = tminus();
-
-  // First-run banner if no webhook configured
-  if (!BPSheets.getWebhookUrl()) {
-    document.getElementById('first-run-banner').style.display = 'block';
-  }
 
   // KPIs from live sheet
   var baselineSponsors = 1;

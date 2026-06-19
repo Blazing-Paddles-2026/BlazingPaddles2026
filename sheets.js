@@ -27,11 +27,31 @@
   const GIDS = {
     'Donation Tracker': '508954391',
     'Raffle Inventory': '154523109',
+    'Auction Inventory': '154523109',
     'Sponsor Pipeline': '379467048',
     'Instructions':     '668182943',
     'Log':              '2100488589',
     'Team':             '395121617',
   };
+
+  const FALLBACK_TEAM = [
+    { Name: 'Wylie Brownell', Role: 'Committee member' },
+    { Name: 'Diedra Brownell', Role: 'Foundation lead · invoices · coordination' },
+    { Name: 'Micheal Boyd', Role: 'Committee member' },
+    { Name: 'Adrienne Boyd', Role: 'Committee member' },
+    { Name: 'Jon Talley', Role: 'Committee member' },
+    { Name: 'Sarah Talley', Role: 'Committee member' },
+    { Name: 'John Collins', Role: 'Committee member' },
+    { Name: 'Rachel Collins', Role: 'Committee member' },
+    { Name: 'Ricky Virgne', Role: 'Committee member' },
+    { Name: 'That Putnam', Role: 'Committee member' },
+    { Name: 'Cara Putnam', Role: 'Committee member' },
+    { Name: 'Steven Puckett', Role: 'Committee member' },
+    { Name: 'Lauren Monroe', Role: 'Gameplay and Tejas coordination' },
+    { Name: 'Seth Monroe', Role: 'Gameplay and Tejas coordination' },
+    { Name: 'Aaron Campbell', Role: 'Committee member' },
+    { Name: 'Emily Campbell', Role: 'Committee member' }
+  ];
 
   // ── CSV → JSON parser (RFC 4180 compliant enough) ────────
   function parseCSV(text) {
@@ -98,7 +118,12 @@
         // Fall through to CSV attempt
       }
     }
-    return readViaCSV(sheetName);
+    try {
+      return await readViaCSV(sheetName);
+    } catch (e) {
+      if (sheetName === 'Team') return FALLBACK_TEAM.slice();
+      throw e;
+    }
   }
 
   // ── Writes ────────────────────────────────────────────────

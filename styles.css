@@ -101,8 +101,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--primary); text-decoration: none; }
-a:hover { color: var(--primary-hover); }
+a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--text-muted); }
 button { font: inherit; cursor: pointer; background: none; border: 0; color: inherit; }
 :focus-visible {
   outline: 2px solid var(--flame-400);
@@ -545,7 +545,7 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
   font-size: 11px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--text);
   margin: 0 0 var(--space-4);
   padding: 4px 12px;
   border: 1px solid color-mix(in oklab, var(--primary) 40%, transparent);
@@ -1125,7 +1125,7 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
 
 .auction-card-ask {
   margin: 0 0 var(--space-3);
-  color: var(--primary);
+  color: var(--text);
   font-weight: 800;
   font-size: var(--text-sm);
   line-height: 1.45;

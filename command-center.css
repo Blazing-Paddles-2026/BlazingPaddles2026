@@ -59,7 +59,7 @@
   font-weight: 600;
   flex-shrink: 0;
 }
-.cc-topnav-tminus { color: var(--flame-200); }
+.cc-topnav-tminus { color: var(--text); }
 
 .cc-topnav-main {
   max-width: 1200px;
@@ -81,7 +81,7 @@
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold-400);
+  color: var(--text);
   font-weight: 700;
   margin: 0 0 var(--space-3);
 }
@@ -101,7 +101,7 @@
 }
 .cc-meta-2 {
   margin: var(--space-2) 0 0;
-  color: var(--gold-400);
+  color: var(--text);
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.05em;
@@ -146,12 +146,75 @@
 .cc-kpi-note {
   display: block;
   margin-top: 6px;
-  color: var(--gold-400);
+  color: var(--text);
   font-size: 12px;
   font-weight: 700;
 }
+.cc-start-flow {
+  margin: 0 0 var(--space-5);
+}
+.cc-start-flow h2 {
+  margin: 0 0 var(--space-4);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.cc-flow-label {
+  margin: 0 0 var(--space-2);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.cc-flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.cc-flow-steps div {
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-elev);
+  padding: var(--space-4);
+}
+.cc-flow-steps strong,
+.cc-flow-steps span {
+  display: block;
+}
+.cc-flow-steps strong {
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.cc-flow-steps span {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.cc-hero-compact {
+  margin-top: var(--space-6);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+.cc-hero-compact .hero-title {
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+}
+.cc-hero-compact .hero-lede {
+  margin-bottom: var(--space-5);
+}
+.cc-hero-compact .hero-meta {
+  margin-bottom: var(--space-5);
+}
+.cc-hero-compact .hero-art {
+  max-width: 360px;
+  margin-left: auto;
+}
 @media (max-width: 640px) {
   .cc-kpis { grid-template-columns: repeat(2, 1fr); }
+  .cc-flow-steps { grid-template-columns: 1fr; }
 }
 
 /* Two big action cards */
@@ -183,16 +246,16 @@
   line-height: 1.5;
 }
 .cc-action-primary {
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  background: linear-gradient(135deg, rgba(255,107,26,0.16), rgba(192,39,26,0.12));
   border-color: var(--gold-500);
-  color: #1a1100;
+  color: var(--text);
 }
-.cc-action-primary h2, .cc-action-primary p { color: #1a1100; }
+.cc-action-primary h2, .cc-action-primary p { color: var(--text); }
 .cc-action-secondary {
   background: var(--surface);
   color: var(--text);
 }
-.cc-action-secondary h2 { color: var(--gold-400); }
+.cc-action-secondary h2 { color: var(--text); }
 .cc-action-secondary p { color: var(--text-muted); }
 @media (max-width: 640px) {
   .cc-actions { grid-template-columns: 1fr; }
@@ -233,7 +296,7 @@
   font-size: 14px;
   line-height: 1.5;
 }
-.cc-next-meeting strong { color: var(--gold-400); }
+.cc-next-meeting strong { color: var(--text); }
 .cc-meeting-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -256,7 +319,7 @@
 .cc-meeting-label {
   display: inline-flex;
   margin-bottom: var(--space-2);
-  color: var(--gold-400);
+  color: var(--text);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -453,7 +516,7 @@
   color: var(--text);
   border-color: var(--border-strong);
 }
-.cc-btn-ghost:hover { background: var(--surface); border-color: var(--gold-500); color: var(--gold-400); }
+.cc-btn-ghost:hover { background: var(--surface); border-color: var(--gold-500); color: var(--text); }
 .cc-btn-sm { padding: 6px 12px; font-size: 11px; }
 .cc-btn:disabled { opacity: .5; cursor: not-allowed; }
 
@@ -820,7 +883,46 @@
   font-size: 12px;
 }
 .cc-contact-card a {
-  color: var(--gold-400);
+  color: var(--text);
   font-size: 13px;
   overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Calm down orange text accents. Keep orange for buttons and borders, but make words readable. */
+.cc-card a:not(.cc-btn),
+.cc-card strong[style*="--flame"],
+.cc-card strong[style*="--gold"],
+.cc-card strong[style*="--primary"],
+.cc-card p[style*="--flame"],
+.cc-card p[style*="--gold"],
+.cc-card p[style*="--primary"],
+.cc-card a[style*="--flame"],
+.cc-card a[style*="--gold"],
+.cc-card a[style*="--primary"] {
+  color: var(--text) !important;
+}
+
+.cc-card a:not(.cc-btn),
+.cc-card a[style*="--flame"],
+.cc-card a[style*="--gold"],
+.cc-card a[style*="--primary"] {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cc-topnav-body [style*="color:var(--flame"],
+.cc-topnav-body [style*="color: var(--flame"],
+.cc-topnav-body [style*="color:var(--gold"],
+.cc-topnav-body [style*="color: var(--gold"] {
+  color: var(--text) !important;
+}
+
+.cc-topnav-body a[style*="color:var(--flame"],
+.cc-topnav-body a[style*="color: var(--flame"],
+.cc-topnav-body a[style*="color:var(--gold"],
+.cc-topnav-body a[style*="color: var(--gold"] {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

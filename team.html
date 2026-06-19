@@ -38,8 +38,8 @@
 <section class="section">
 <div class="cc-page-header">
     <div><h1 class="cc-page-title">Team & Lanes</h1>
-    <p class="cc-page-sub">Each person picks one lane and owns 5 sponsor or auction targets per week.</p></div>
-    <a class="cc-btn cc-btn-ghost" target="_blank" rel="noopener" id="open-sheet">Edit in Sheets</a>
+    <p class="cc-page-sub">Pick one lane. Use the scripts. Send any yes to info@roundrockfirefoundation.org.</p></div>
+    <a class="cc-btn cc-btn-ghost" href="contacts.html">Open Full Contacts</a>
   </div>
 
   <div class="cc-card">
@@ -60,23 +60,35 @@
     </section>
 
 
-<script src="sheets.js"></script>
 <script>
 (function () {
-  document.getElementById('open-sheet').href = BPSheets.publicSheetUrl('Team');
+  var roster = [
+    { Name: 'Wylie Brownell', Role: 'Committee member' },
+    { Name: 'Diedra Brownell', Role: 'Foundation lead · invoices · coordination' },
+    { Name: 'Micheal Boyd', Role: 'Committee member' },
+    { Name: 'Adrienne Boyd', Role: 'Committee member' },
+    { Name: 'Jon Talley', Role: 'Committee member' },
+    { Name: 'Sarah Talley', Role: 'Committee member' },
+    { Name: 'John Collins', Role: 'Committee member' },
+    { Name: 'Rachel Collins', Role: 'Committee member' },
+    { Name: 'Ricky Virgne', Role: 'Committee member' },
+    { Name: 'That Putnam', Role: 'Committee member' },
+    { Name: 'Cara Putnam', Role: 'Committee member' },
+    { Name: 'Steven Puckett', Role: 'Committee member' },
+    { Name: 'Lauren Monroe', Role: 'Gameplay and Tejas coordination' },
+    { Name: 'Seth Monroe', Role: 'Gameplay and Tejas coordination' },
+    { Name: 'Aaron Campbell', Role: 'Committee member' },
+    { Name: 'Emily Campbell', Role: 'Committee member' }
+  ];
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-  BPSheets.read('Team').then(function (rows) {
-    var html = rows.map(function (r) {
-      return '<div class="cc-team-card">' +
-        '<div class="cc-team-initials">' + esc(r['Initials'] || (r['Name']||'').slice(0,2).toUpperCase()) + '</div>' +
-        '<p class="name">' + esc(r['Name']) + '</p>' +
-        '<p class="role">' + esc(r['Role'] || r['Lane'] || '—') + '</p>' +
+  var html = roster.map(function (r) {
+    return '<div class="cc-team-card">' +
+        '<div class="cc-team-initials">' + esc((r.Name || '').split(/\\s+/).map(function(p){return p.charAt(0)}).join('').slice(0,2).toUpperCase()) + '</div>' +
+        '<p class="name">' + esc(r.Name) + '</p>' +
+        '<p class="role">' + esc(r.Role || 'Committee member') + '</p>' +
       '</div>';
-    }).join('');
-    document.getElementById('team-grid').innerHTML = html || '<div class="cc-empty">No team members yet.</div>';
-  }).catch(function (err) {
-    document.getElementById('team-grid').innerHTML = '<div class="cc-empty">Couldn\'t load team: ' + esc(err.message) + '</div>';
-  });
+  }).join('');
+  document.getElementById('team-grid').innerHTML = html || '<div class="cc-empty">No team members yet.</div>';
 })();
 </script>
 </main>
