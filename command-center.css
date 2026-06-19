@@ -72,6 +72,119 @@
   .cc-topnav-meta { display: none; }
 }
 
+.cc-dashboard-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.cc-dashboard-primary {
+  min-width: 0;
+}
+
+.cc-home-sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+.cc-sidebar-label,
+.cc-side-group p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.cc-side-link,
+.cc-side-group a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.025);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.cc-side-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cc-side-link strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.cc-side-link span {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.cc-side-link:hover,
+.cc-side-group a:hover {
+  border-color: var(--flame-500);
+  background: rgba(255,107,26,0.08);
+  color: var(--text);
+}
+
+.cc-side-link-playbook {
+  border-color: var(--flame-500);
+  background: linear-gradient(135deg, rgba(255,107,26,0.16), rgba(192,39,26,0.08));
+}
+
+.cc-side-primary {
+  border-color: color-mix(in oklab, var(--flame-500) 70%, var(--border));
+}
+
+.cc-side-reference a {
+  padding: 9px 11px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 980px) {
+  .cc-dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+  .cc-home-sidebar {
+    position: static;
+    order: -1;
+  }
+  .cc-side-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cc-side-group p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .cc-side-group {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Hero */
 .cc-hero {
   text-align: center;
