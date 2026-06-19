@@ -470,6 +470,18 @@
   padding-bottom: var(--space-8);
   border-top: 1px solid var(--border);
 }
+.cc-hero-compact.cc-hero-top {
+  margin-top: 0;
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-top: 0;
+}
+.cc-hero-compact.cc-hero-top .hero-title {
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+}
+.cc-hero-compact.cc-hero-top .hero-art {
+  max-width: 300px;
+}
 .cc-hero-compact .hero-title {
   font-size: clamp(2.6rem, 7vw, 5.2rem);
 }
