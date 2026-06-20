@@ -76,6 +76,65 @@
       color: var(--text-faint);
       border: 1px solid var(--border-strong);
     }
+
+    /* Build checklist: real item names instead of "Support N". A small
+       Anchor/Support tag sits left of each item label so the role stays
+       clear without numbered support text. */
+    .package-checks-head {
+      margin: var(--space-4) 0 var(--space-2);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .package-checks { align-items: start; }
+    .package-check { align-items: flex-start; }
+    .package-check input { margin-top: 2px; }
+    /* Override the global "+ span line-through" so only the item label strikes,
+       not the Anchor/Support tag above it. */
+    .package-check input:checked + .package-check-text { text-decoration: none; color: inherit; }
+    .package-check-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .package-check-tag {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-faint);
+    }
+    .package-check input:checked + .package-check-text .package-check-tag { color: #5fd98a; }
+    .package-check-item {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+    .package-check input:checked + .package-check-text .package-check-item {
+      color: var(--text);
+      text-decoration: line-through;
+      text-decoration-color: #3ec46d;
+    }
+
+    /* Substitution control at the bottom of each tracker. */
+    .package-sub {
+      margin-top: var(--space-3);
+      padding-top: var(--space-3);
+      border-top: 1px dashed var(--border);
+    }
+    .package-sub-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .package-sub-toggle input { width: 16px; height: 16px; accent-color: var(--flame-500); flex: none; }
+    .package-sub-field { margin-top: var(--space-3); }
   </style>
 </head>
 <body>
@@ -119,7 +178,7 @@
           <p><strong>1. Claim a package.</strong> Pick your team in the "Package Team" dropdown on a theme below. This saves for everyone — once a team is chosen, that package is taken.</p>
           <p><strong>2. Secure the anchor item.</strong> Lock down the headline donation first — everything else builds around it. Check off "Anchor confirmed."</p>
           <p><strong>3. Add 5 supports.</strong> Gather five supporting donations and check each one off. When all six boxes are checked, the package shows <strong>Complete</strong>.</p>
-          <p><strong>4. Send each yes.</strong> Email every confirmed yes to info@roundrockfirefoundation.org. If an item changed, note it in the "Swap / notes" box.</p>
+          <p><strong>4. Send each yes.</strong> Email every confirmed yes to info@roundrockfirefoundation.org. If you swap an item, check "Using a substitution" and note what you're swapping in.</p>
         </article>
         <article class="script-card">
           <h3>What to include in every "yes" email</h3>
@@ -137,130 +196,130 @@
       <div class="auction-idea-grid" id="package-grid">
         <article class="auction-idea-card">
           <h3>Backyard BBQ Package</h3>
-          <p class="auction-card-ask">Premier basket · Target $1,000–$1,500<br>Anchor: Big Green Egg, Traeger, Blackstone, or Weber grill</p>
+          <p class="auction-card-ask">Premier basket · Target $1,000–$1,500<br>Anchor: Premium grill or smoker — Traeger, Big Green Egg, Blackstone, or Weber (est. value $400–$900)</p>
           <ul>
-            <li>BBQ rubs and sauces</li>
-            <li>Grilling tool set</li>
-            <li>Meat package from a local butcher</li>
-            <li>Yeti cooler and cutting board</li>
-            <li>BBQ class voucher</li>
+            <li>BBQ rub &amp; sauce sampler set (est. $40–$75)</li>
+            <li>Stainless grilling tool set (est. $50–$120)</li>
+            <li>Local butcher meat bundle (est. $100–$200)</li>
+            <li>Insulated cooler &amp; hardwood cutting board (est. $120–$250)</li>
+            <li>BBQ or grilling class voucher for two (est. $80–$160)</li>
           </ul>
           <p class="auction-card-donors">Ask: Big Green Egg dealer, Academy Sports, Bass Pro, Yeti, H-E-B, Rudy's, Salt Lick, Louie Mueller BBQ, local meat markets.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Round Rock Staycation</h3>
-          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Two-night hotel stay</p>
+          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Two-night local hotel or resort stay (est. value $300–$600)</p>
           <ul>
-            <li>Spa services</li>
-            <li>Restaurant gift cards</li>
-            <li>Attraction tickets</li>
-            <li>Shopping gift cards</li>
-            <li>Brunch or coffee credit</li>
+            <li>Spa or massage service for two (est. $150–$300)</li>
+            <li>Pair of restaurant gift cards (est. $100–$200)</li>
+            <li>Local attraction tickets (est. $60–$150)</li>
+            <li>Shopping or boutique gift card (est. $75–$150)</li>
+            <li>Brunch or coffee shop credit (est. $40–$75)</li>
           </ul>
           <p class="auction-card-donors">Ask: Kalahari, Austin Marriott North, Round Rock Express, Salt Traders, Jack Allen's, Urban Air, Cinemark, Massage Heights.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Pickleball Champion Package</h3>
-          <p class="auction-card-ask">Target $750–$1,200<br>Anchor: Premium paddle package</p>
+          <p class="auction-card-ask">Target $750–$1,200<br>Anchor: Pair of premium paddles — Selkirk, JOOLA, or CRBN (est. value $250–$450)</p>
           <ul>
-            <li>Lessons</li>
-            <li>Court memberships</li>
-            <li>Pickleball bag and shoes</li>
-            <li>Apparel</li>
-            <li>Tournament entries</li>
+            <li>Private lesson package with a local pro (est. $120–$250)</li>
+            <li>Court or club membership (est. $100–$200)</li>
+            <li>Pickleball bag &amp; court shoes (est. $100–$180)</li>
+            <li>Performance apparel set (est. $75–$150)</li>
+            <li>Local tournament entry for two (est. $60–$120)</li>
           </ul>
           <p class="auction-card-donors">Ask: Austin Pickle Ranch, Pickleball Kingdom, Selkirk, CRBN, JOOLA, local instructors.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Dog Lover's Dream</h3>
-          <p class="auction-card-ask">Target $500–$1,000<br>Anchor: One year of grooming or a training package</p>
+          <p class="auction-card-ask">Target $500–$1,000<br>Anchor: Grooming package or full obedience training course (est. value $200–$400)</p>
           <ul>
-            <li>Pet store gift cards</li>
-            <li>Pet photography session</li>
-            <li>Boarding package</li>
-            <li>Vet certificate and premium dog bed</li>
-            <li>Toys and treats</li>
+            <li>Pet store gift card (est. $75–$150)</li>
+            <li>Professional pet photography session (est. $100–$200)</li>
+            <li>Overnight boarding or daycare package (est. $100–$250)</li>
+            <li>Vet wellness certificate &amp; premium dog bed (est. $120–$220)</li>
+            <li>Toy &amp; gourmet treat basket (est. $40–$80)</li>
           </ul>
           <p class="auction-card-donors">Ask: Barkin Creek, PetSmart, Petco, Firehouse Animal Health Center, Dogtopia, Camp Bow Wow, Taurus Academy, local pet photographers. This basket is valuable because of the services, not the toys.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Date Night for a Year</h3>
-          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Twelve restaurant gift cards</p>
+          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Twelve restaurant gift cards — one per month (est. value $360–$600)</p>
           <ul>
-            <li>Movie tickets</li>
-            <li>Wine tasting</li>
-            <li>Cooking class</li>
-            <li>Concert tickets</li>
-            <li>Floral certificates</li>
+            <li>Movie tickets &amp; concessions for two (est. $60–$120)</li>
+            <li>Winery or brewery tasting for two (est. $80–$160)</li>
+            <li>Couples cooking class (est. $100–$200)</li>
+            <li>Concert or live-show tickets (est. $100–$250)</li>
+            <li>Florist gift certificate (est. $60–$120)</li>
           </ul>
           <p class="auction-card-donors">Ask: Jack Allen's, Salt Traders, Cover 3, Cork &amp; Barrel, Flix Brewhouse, Bass Concert Hall, Georgetown Palace Theatre.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Texas Tailgate Package</h3>
-          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Premium cooler</p>
+          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Premium hard-sided cooler — Yeti or RTIC (est. value $250–$400)</p>
           <ul>
-            <li>Cornhole boards</li>
-            <li>Folding chairs</li>
-            <li>Team merchandise</li>
-            <li>Grill</li>
-            <li>Gift cards and Bluetooth speaker</li>
+            <li>Cornhole board set with bags (est. $75–$150)</li>
+            <li>Two padded folding tailgate chairs (est. $60–$120)</li>
+            <li>Team merch bundle — cap, tee &amp; flag (est. $80–$150)</li>
+            <li>Portable tabletop propane grill (est. $80–$150)</li>
+            <li>Buc-ee's snack basket &amp; Bluetooth speaker (est. $90–$170)</li>
           </ul>
           <p class="auction-card-donors">Ask: Academy, Dick's Sporting Goods, Buc-ee's, Yeti, H-E-B, local sports stores.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Family Fun Adventure</h3>
-          <p class="auction-card-ask">Target $750–$1,200<br>Anchor: Family attraction package</p>
+          <p class="auction-card-ask">Target $750–$1,200<br>Anchor: Family attraction day pass — waterpark or resort (est. value $250–$450)</p>
           <ul>
-            <li>Waterpark tickets</li>
-            <li>Arcade cards</li>
-            <li>Trampoline park passes</li>
-            <li>Ice cream certificates and mini golf</li>
-            <li>Movie tickets</li>
+            <li>Family-of-four waterpark tickets (est. $120–$250)</li>
+            <li>Arcade game card bundle (est. $50–$100)</li>
+            <li>Trampoline park family passes (est. $60–$120)</li>
+            <li>Ice cream &amp; mini golf certificates (est. $40–$80)</li>
+            <li>Movie tickets for the family (est. $50–$90)</li>
           </ul>
           <p class="auction-card-donors">Ask: Kalahari, Urban Air, Main Event, Top Golf, Austin Aquarium, Round Rock Express.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Home Chef Package</h3>
-          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Stand mixer or premium cookware</p>
+          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Stand mixer or premium cookware set — KitchenAid or All-Clad (est. value $300–$550)</p>
           <ul>
-            <li>Knife set</li>
-            <li>Cooking class</li>
-            <li>Specialty foods</li>
-            <li>Wine and cutting boards</li>
-            <li>Kitchen gadgets</li>
+            <li>Chef's knife set (est. $100–$250)</li>
+            <li>Hands-on cooking class for two (est. $100–$200)</li>
+            <li>Specialty &amp; gourmet food basket (est. $75–$150)</li>
+            <li>Wine pair &amp; hardwood cutting boards (est. $90–$180)</li>
+            <li>Small kitchen gadget bundle (est. $50–$120)</li>
           </ul>
           <p class="auction-card-donors">Ask: Williams Sonoma, Sur La Table, H-E-B, Central Market, local chefs, local cooking schools.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Lake Life Package</h3>
-          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Boat rental day</p>
+          <p class="auction-card-ask">Target $750–$1,500<br>Anchor: Full-day boat or pontoon rental (est. value $300–$500)</p>
           <ul>
-            <li>Cooler</li>
-            <li>Floating mats</li>
-            <li>Paddleboards</li>
-            <li>Lake restaurant gift cards</li>
-            <li>Outdoor gear</li>
+            <li>Insulated cooler (est. $100–$200)</li>
+            <li>Lake floating mat (est. $80–$150)</li>
+            <li>Inflatable paddleboard (est. $150–$300)</li>
+            <li>Lakeside restaurant gift cards (est. $75–$150)</li>
+            <li>Outdoor gear bundle — towels, koozies, dry bag (est. $50–$100)</li>
           </ul>
           <p class="auction-card-donors">Ask: Lake Travis marinas, Austin Boat Adventures, Academy, local rental companies.</p>
         </article>
 
         <article class="auction-idea-card">
           <h3>Ultimate Sports Fan Package</h3>
-          <p class="auction-card-ask">Target $1,000–$2,000+<br>Anchor: Event tickets</p>
+          <p class="auction-card-ask">Target $1,000–$2,000+<br>Anchor: Premium event tickets — pro or college game, four seats (est. value $400–$900)</p>
           <ul>
-            <li>Signed memorabilia</li>
-            <li>Jerseys</li>
-            <li>Hotel stay</li>
-            <li>Restaurant gift cards</li>
-            <li>Team gear</li>
+            <li>Signed memorabilia piece (est. $150–$400)</li>
+            <li>Authentic team jersey (est. $120–$250)</li>
+            <li>One-night hotel stay near the venue (est. $150–$300)</li>
+            <li>Restaurant or sports-bar gift cards (est. $100–$200)</li>
+            <li>Team gear bundle — cap, scarf, tee (est. $80–$150)</li>
           </ul>
           <p class="auction-card-donors">Ask: Round Rock Express, Texas Longhorn Athletics, Austin FC, Dallas Cowboys Foundation, Texas Rangers Foundation, Spurs Sports &amp; Entertainment.</p>
         </article>
@@ -297,15 +356,135 @@
     var REST_URL = SUPABASE_URL + '/rest/v1/' + TABLE;
 
     var TEAMS = ['The Boyds', 'The Brownells', 'The Campbells', 'The Collins', 'The Monroes', 'The Putnams', 'The Talleys'];
-    // Maps each checkbox to its Supabase column.
+    // Supabase columns, in checklist order: anchor first, then the five
+    // supports. Visible labels are per-package (see ITEMS) — these keys are
+    // the persistence columns only and never shown to the user.
     var CHECK_FIELDS = [
-      { key: 'anchor_confirmed', label: 'Anchor item confirmed' },
-      { key: 'support_1_confirmed', label: 'Support 1 confirmed' },
-      { key: 'support_2_confirmed', label: 'Support 2 confirmed' },
-      { key: 'support_3_confirmed', label: 'Support 3 confirmed' },
-      { key: 'support_4_confirmed', label: 'Support 4 confirmed' },
-      { key: 'support_5_confirmed', label: 'Support 5 confirmed' }
+      'anchor_confirmed',
+      'support_1_confirmed',
+      'support_2_confirmed',
+      'support_3_confirmed',
+      'support_4_confirmed',
+      'support_5_confirmed'
     ];
+
+    // Per-package checklist labels, keyed by the package_id slug derived from
+    // the card heading. Each entry is six lines (anchor + five supports) shown
+    // next to the checkboxes so the committee tracks the real items rather than
+    // generic "support" numbers. The "anchor" line maps to anchor_confirmed and
+    // each support maps to support_N_confirmed in order.
+    var ITEMS = {
+      'backyard-bbq-package': {
+        anchor: 'Premium grill or smoker ($400–$900)',
+        supports: [
+          'BBQ rub & sauce sampler set ($40–$75)',
+          'Stainless grilling tool set ($50–$120)',
+          'Local butcher meat bundle ($100–$200)',
+          'Cooler & hardwood cutting board ($120–$250)',
+          'BBQ class voucher for two ($80–$160)'
+        ]
+      },
+      'round-rock-staycation': {
+        anchor: 'Two-night hotel or resort stay ($300–$600)',
+        supports: [
+          'Spa or massage for two ($150–$300)',
+          'Pair of restaurant gift cards ($100–$200)',
+          'Local attraction tickets ($60–$150)',
+          'Shopping or boutique gift card ($75–$150)',
+          'Brunch or coffee credit ($40–$75)'
+        ]
+      },
+      'pickleball-champion-package': {
+        anchor: 'Pair of premium paddles ($250–$450)',
+        supports: [
+          'Private lesson package ($120–$250)',
+          'Court or club membership ($100–$200)',
+          'Pickleball bag & court shoes ($100–$180)',
+          'Performance apparel set ($75–$150)',
+          'Local tournament entry for two ($60–$120)'
+        ]
+      },
+      'dog-lover-s-dream': {
+        anchor: 'Grooming or training course ($200–$400)',
+        supports: [
+          'Pet store gift card ($75–$150)',
+          'Pet photography session ($100–$200)',
+          'Boarding or daycare package ($100–$250)',
+          'Vet certificate & premium dog bed ($120–$220)',
+          'Toy & gourmet treat basket ($40–$80)'
+        ]
+      },
+      'date-night-for-a-year': {
+        anchor: 'Twelve restaurant gift cards ($360–$600)',
+        supports: [
+          'Movie tickets & concessions for two ($60–$120)',
+          'Winery or brewery tasting for two ($80–$160)',
+          'Couples cooking class ($100–$200)',
+          'Concert or live-show tickets ($100–$250)',
+          'Florist gift certificate ($60–$120)'
+        ]
+      },
+      'texas-tailgate-package': {
+        anchor: 'Premium hard-sided cooler ($250–$400)',
+        supports: [
+          'Cornhole board set with bags ($75–$150)',
+          'Two padded folding chairs ($60–$120)',
+          'Team merch bundle ($80–$150)',
+          'Portable tabletop propane grill ($80–$150)',
+          'Buc-ee’s snack basket & speaker ($90–$170)'
+        ]
+      },
+      'family-fun-adventure': {
+        anchor: 'Family attraction day pass ($250–$450)',
+        supports: [
+          'Family-of-four waterpark tickets ($120–$250)',
+          'Arcade game card bundle ($50–$100)',
+          'Trampoline park family passes ($60–$120)',
+          'Ice cream & mini golf certificates ($40–$80)',
+          'Movie tickets for the family ($50–$90)'
+        ]
+      },
+      'home-chef-package': {
+        anchor: 'Stand mixer or cookware set ($300–$550)',
+        supports: [
+          'Chef’s knife set ($100–$250)',
+          'Cooking class for two ($100–$200)',
+          'Specialty & gourmet food basket ($75–$150)',
+          'Wine pair & cutting boards ($90–$180)',
+          'Kitchen gadget bundle ($50–$120)'
+        ]
+      },
+      'lake-life-package': {
+        anchor: 'Full-day boat or pontoon rental ($300–$500)',
+        supports: [
+          'Insulated cooler ($100–$200)',
+          'Lake floating mat ($80–$150)',
+          'Inflatable paddleboard ($150–$300)',
+          'Lakeside restaurant gift cards ($75–$150)',
+          'Outdoor gear bundle ($50–$100)'
+        ]
+      },
+      'ultimate-sports-fan-package': {
+        anchor: 'Premium event tickets, four seats ($400–$900)',
+        supports: [
+          'Signed memorabilia piece ($150–$400)',
+          'Authentic team jersey ($120–$250)',
+          'One-night hotel near the venue ($150–$300)',
+          'Restaurant or sports-bar gift cards ($100–$200)',
+          'Team gear bundle ($80–$150)'
+        ]
+      }
+    };
+
+    // Generic fallback labels in case a card heading ever changes and no
+    // ITEMS entry matches — still avoids bare "Support N" wording.
+    var GENERIC_LABELS = ['Anchor item', 'Supporting donation 1', 'Supporting donation 2', 'Supporting donation 3', 'Supporting donation 4', 'Supporting donation 5'];
+
+    function labelsFor(pkgId) {
+      var def = ITEMS[pkgId];
+      if (!def) { return GENERIC_LABELS.slice(); }
+      return [def.anchor].concat(def.supports);
+    }
 
     var grid = document.getElementById('package-grid');
     var statusEl = document.getElementById('package-status');
@@ -345,7 +524,7 @@
     }
 
     function computeComplete(state) {
-      return CHECK_FIELDS.every(function (f) { return !!state[f.key]; });
+      return CHECK_FIELDS.every(function (key) { return !!state[key]; });
     }
 
     function buildControls(card, pkgName, pkgId) {
@@ -355,12 +534,20 @@
       var teamOpts = '<option value="">Not claimed yet</option>' +
         TEAMS.map(function (t) { return '<option value="' + escapeHtml(t) + '">' + escapeHtml(t) + '</option>'; }).join('');
 
-      var checksHtml = CHECK_FIELDS.map(function (f, i) {
+      var labels = labelsFor(pkgId);
+      var checksHtml = CHECK_FIELDS.map(function (key, i) {
         var id = 'chk-' + pkgId + '-' + i;
+        var tag = i === 0 ? 'Anchor' : 'Support';
         return '<label class="package-check" for="' + id + '">' +
-          '<input type="checkbox" id="' + id + '" data-field="' + escapeHtml(f.key) + '"> ' +
-          '<span>' + escapeHtml(f.label) + '</span></label>';
+          '<input type="checkbox" id="' + id + '" data-field="' + escapeHtml(key) + '"> ' +
+          '<span class="package-check-text">' +
+            '<span class="package-check-tag">' + tag + '</span>' +
+            '<span class="package-check-item">' + escapeHtml(labels[i]) + '</span>' +
+          '</span></label>';
       }).join('');
+
+      var subId = 'sub-' + pkgId;
+      var subNoteId = 'subnote-' + pkgId;
 
       wrap.innerHTML =
         '<div class="package-track-row">' +
@@ -369,18 +556,27 @@
           '</label>' +
           '<span class="package-badge package-badge-open">Open</span>' +
         '</div>' +
+        '<p class="package-checks-head">Build checklist — check each item as it\'s confirmed</p>' +
         '<div class="package-checks">' + checksHtml + '</div>' +
-        '<label class="package-notes-label">Swap / notes' +
-          '<input type="text" class="package-notes" maxlength="240" ' +
-            'placeholder="e.g. swapped Traeger for a Blackstone griddle">' +
-        '</label>' +
+        '<div class="package-sub">' +
+          '<label class="package-sub-toggle" for="' + subId + '">' +
+            '<input type="checkbox" id="' + subId + '" class="package-sub-check"> ' +
+            '<span>Using a substitution</span>' +
+          '</label>' +
+          '<label class="package-notes-label package-sub-field" for="' + subNoteId + '" hidden>What are you swapping in?' +
+            '<input type="text" id="' + subNoteId + '" class="package-notes" maxlength="240" ' +
+              'placeholder="e.g. swapped the Traeger for a Blackstone griddle">' +
+          '</label>' +
+        '</div>' +
         '<p class="package-save-note" aria-live="polite"></p>';
 
       card.appendChild(wrap);
       return {
         wrap: wrap,
         team: wrap.querySelector('.package-team'),
-        checks: Array.prototype.slice.call(wrap.querySelectorAll('input[type="checkbox"]')),
+        checks: Array.prototype.slice.call(wrap.querySelectorAll('.package-check input[type="checkbox"]')),
+        sub: wrap.querySelector('.package-sub-check'),
+        subField: wrap.querySelector('.package-sub-field'),
         notes: wrap.querySelector('.package-notes'),
         badge: wrap.querySelector('.package-badge'),
         saveNote: wrap.querySelector('.package-save-note')
@@ -392,6 +588,11 @@
       c.team.value = TEAMS.indexOf(s.team) >= 0 ? s.team : '';
       c.checks.forEach(function (cb) { cb.checked = !!s[cb.getAttribute('data-field')]; });
       c.notes.value = s.notes || '';
+      var subOn = !!s.substitution_enabled;
+      c.sub.checked = subOn;
+      // Reveal the swap-in line only when substitution is enabled; keep any
+      // saved note text in the field so unchecking doesn't erase it.
+      c.subField.hidden = !subOn;
       var claimed = !!c.team.value;
       var complete = claimed && computeComplete(s);
       c.badge.classList.remove('package-badge-open', 'package-badge-building', 'package-badge-complete');
@@ -415,6 +616,7 @@
         package_id: entry.id,
         package_name: entry.name,
         team: c.team.value,
+        substitution_enabled: c.sub.checked,
         notes: c.notes.value.trim()
       };
       c.checks.forEach(function (cb) { s[cb.getAttribute('data-field')] = cb.checked; });
@@ -457,13 +659,19 @@
       var name = h3.textContent.trim();
       var id = cssId(name);
       var controls = buildControls(card, name, id);
-      var entry = { id: id, name: name, card: card, controls: controls, state: { package_id: id, package_name: name, team: '', notes: '' } };
+      var entry = { id: id, name: name, card: card, controls: controls, state: { package_id: id, package_name: name, team: '', substitution_enabled: false, notes: '' } };
       byId[id] = entry;
       renderState(entry);
 
       controls.team.addEventListener('change', function () { save(entry); });
       controls.checks.forEach(function (cb) {
         cb.addEventListener('change', function () { save(entry); });
+      });
+      controls.sub.addEventListener('change', function () {
+        // Toggle the swap-in line immediately, then focus it when revealed.
+        controls.subField.hidden = !controls.sub.checked;
+        if (controls.sub.checked) { controls.notes.focus(); }
+        save(entry);
       });
       var notesTimer;
       controls.notes.addEventListener('input', function () {
