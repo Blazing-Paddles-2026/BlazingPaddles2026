@@ -75,9 +75,17 @@
 .cc-dashboard-layout {
   display: grid;
   grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
   gap: var(--space-6);
   align-items: start;
 }
+
+/* Desktop: sidebar fills the left column; title, Kalahari win, and the
+   rest of the dashboard stack in the right column in reading order. */
+.cc-home-sidebar    { grid-column: 1; grid-row: 1 / -1; }
+.cc-dashboard-hero      { grid-column: 2; grid-row: 1; }
+.cc-dashboard-kalahari  { grid-column: 2; grid-row: 2; }
+.cc-dashboard-primary   { grid-column: 2; grid-row: 3; }
 
 .cc-dashboard-primary {
   min-width: 0;
@@ -165,11 +173,24 @@
 @media (max-width: 980px) {
   .cc-dashboard-layout {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
+  /* Single column on mobile: title/logo first, then the Kalahari win,
+     then the dashboard menu, then the rest of the dashboard. */
+  .cc-home-sidebar,
+  .cc-dashboard-hero,
+  .cc-dashboard-kalahari,
+  .cc-dashboard-primary {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .cc-dashboard-hero     { order: 1; }
+  .cc-dashboard-kalahari { order: 2; }
   .cc-home-sidebar {
     position: static;
-    order: -1;
+    order: 3;
   }
+  .cc-dashboard-primary  { order: 4; }
   .cc-side-group {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
