@@ -1105,9 +1105,10 @@ button { font: inherit; cursor: pointer; background: none; border: 0; color: inh
 
 .auction-business-card,
 .auction-idea-card {
-  border: 1px solid var(--border);
+  border: 1px solid #2c2c30;
+  border-top: 2px solid var(--flame-500);
   border-radius: var(--r-lg);
-  background: color-mix(in oklab, var(--surface) 94%, var(--primary));
+  background: linear-gradient(180deg, #1c1c1f, #161618);
   padding: var(--space-5);
   box-shadow: var(--shadow-md);
 }
