@@ -47,10 +47,11 @@
 
       <div class="script-stack">
         <article class="script-card">
-          <h3>How to use this page — 3 steps</h3>
-          <p><strong>1. Choose a package.</strong> Claim one theme below that your team can realistically build.</p>
-          <p><strong>2. Secure the anchor item.</strong> Lock down the headline donation first — everything else builds around it.</p>
-          <p><strong>3. Add 5 supports, then send each yes.</strong> Fill in five supporting donations and email every confirmed yes to info@roundrockfirefoundation.org.</p>
+          <h3>How to use this page — 4 steps</h3>
+          <p><strong>1. Claim a package.</strong> Pick your team in the "Package Team" dropdown on a theme below. This saves for everyone — once a team is chosen, that package is taken.</p>
+          <p><strong>2. Secure the anchor item.</strong> Lock down the headline donation first — everything else builds around it. Check off "Anchor confirmed."</p>
+          <p><strong>3. Add 5 supports.</strong> Gather five supporting donations and check each one off. When all six boxes are checked, the package shows <strong>Complete</strong>.</p>
+          <p><strong>4. Send each yes.</strong> Email every confirmed yes to info@roundrockfirefoundation.org. If an item changed, note it in the "Swap / notes" box.</p>
         </article>
         <article class="script-card">
           <h3>What to include in every "yes" email</h3>
@@ -60,10 +61,12 @@
 
       <header class="section-head">
         <h2 class="section-title">Package themes — claim one</h2>
-        <p class="section-lede">Each card lists the target value, the anchor item, supporting donations to gather, and businesses worth asking.</p>
+        <p class="section-lede">Each card lists the target value, the anchor item, supporting donations to gather, and businesses worth asking. Pick your team to claim a package, check off items as they're confirmed, and note any swaps. Everything saves live for the whole committee.</p>
       </header>
 
-      <div class="auction-idea-grid">
+      <div id="package-status" class="package-status" role="status" hidden></div>
+
+      <div class="auction-idea-grid" id="package-grid">
         <article class="auction-idea-card">
           <h3>Backyard BBQ Package</h3>
           <p class="auction-card-ask">Premier basket · Target $1,000–$1,500<br>Anchor: Big Green Egg, Traeger, Blackstone, or Weber grill</p>
@@ -210,5 +213,222 @@
     </section>
   </main>
   <script src="script.js" defer></script>
+  <script src="sheets.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    // Shared live tracker for auction package claiming + build status.
+    // Persists to the "Package Builds" tab of the committee Google Sheet
+    // through the same Apps Script webhook the rest of the dashboard uses
+    // (see sheets.js / SETUP-APPSSCRIPT.md). One row per package, keyed by
+    // the package name. If the webhook isn't configured the cards still
+    // render and explain how to turn on live saving.
+
+    var SHEET_NAME = 'Package Builds';
+    var TEAMS = ['Talleys', 'Boyds', 'Collins', 'Brownells', 'Campbells', 'Heards'];
+    var CHECK_FIELDS = [
+      { key: 'Anchor', label: 'Anchor item confirmed' },
+      { key: 'Support 1', label: 'Support 1 confirmed' },
+      { key: 'Support 2', label: 'Support 2 confirmed' },
+      { key: 'Support 3', label: 'Support 3 confirmed' },
+      { key: 'Support 4', label: 'Support 4 confirmed' },
+      { key: 'Support 5', label: 'Support 5 confirmed' }
+    ];
+
+    var grid = document.getElementById('package-grid');
+    var statusEl = document.getElementById('package-status');
+    if (!grid) return;
+
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.auction-idea-card'));
+    var byPackage = {};   // package name -> { card, controls, state }
+    var saveQueue = Promise.resolve();
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function showStatus(msg, kind) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.textContent = msg;
+      statusEl.className = 'package-status' + (kind ? ' package-status-' + kind : '');
+    }
+    function hideStatus() { if (statusEl) { statusEl.hidden = true; } }
+
+    function isChecked(v) {
+      v = String(v == null ? '' : v).trim().toLowerCase();
+      return v === 'yes' || v === 'true' || v === '1' || v === 'x' || v === 'done';
+    }
+
+    function computeComplete(state) {
+      return CHECK_FIELDS.every(function (f) { return isChecked(state[f.key]); });
+    }
+
+    function buildControls(card, pkgName) {
+      var wrap = document.createElement('div');
+      wrap.className = 'package-track';
+
+      var teamOpts = '<option value="">Not claimed yet</option>' +
+        TEAMS.map(function (t) { return '<option value="' + escapeHtml(t) + '">' + escapeHtml(t) + '</option>'; }).join('');
+
+      var checksHtml = CHECK_FIELDS.map(function (f, i) {
+        var id = 'chk-' + cssId(pkgName) + '-' + i;
+        return '<label class="package-check" for="' + id + '">' +
+          '<input type="checkbox" id="' + id + '" data-field="' + escapeHtml(f.key) + '"> ' +
+          '<span>' + escapeHtml(f.label) + '</span></label>';
+      }).join('');
+
+      wrap.innerHTML =
+        '<div class="package-track-row">' +
+          '<label class="package-team-label">Package Team' +
+            '<select class="package-team">' + teamOpts + '</select>' +
+          '</label>' +
+          '<span class="package-badge package-badge-open">Open</span>' +
+        '</div>' +
+        '<div class="package-checks">' + checksHtml + '</div>' +
+        '<label class="package-notes-label">Swap / notes' +
+          '<input type="text" class="package-notes" maxlength="240" ' +
+            'placeholder="e.g. swapped Traeger for a Blackstone griddle">' +
+        '</label>' +
+        '<p class="package-save-note" aria-live="polite"></p>';
+
+      card.appendChild(wrap);
+      return {
+        wrap: wrap,
+        team: wrap.querySelector('.package-team'),
+        checks: Array.prototype.slice.call(wrap.querySelectorAll('input[type="checkbox"]')),
+        notes: wrap.querySelector('.package-notes'),
+        badge: wrap.querySelector('.package-badge'),
+        saveNote: wrap.querySelector('.package-save-note')
+      };
+    }
+
+    function cssId(name) {
+      return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    function renderState(entry) {
+      var c = entry.controls, s = entry.state;
+      c.team.value = TEAMS.indexOf(s['Team']) >= 0 ? s['Team'] : '';
+      c.checks.forEach(function (cb) { cb.checked = isChecked(s[cb.getAttribute('data-field')]); });
+      c.notes.value = s['Notes'] || '';
+      var claimed = !!c.team.value;
+      var complete = claimed && computeComplete(s);
+      c.badge.classList.remove('package-badge-open', 'package-badge-building', 'package-badge-complete');
+      if (complete) {
+        c.badge.textContent = 'Complete';
+        c.badge.classList.add('package-badge-complete');
+      } else if (claimed) {
+        c.badge.textContent = c.team.value + ' · Building';
+        c.badge.classList.add('package-badge-building');
+      } else {
+        c.badge.textContent = 'Open';
+        c.badge.classList.add('package-badge-open');
+      }
+      entry.wrap = c.wrap;
+      c.wrap.classList.toggle('is-claimed', claimed);
+      c.wrap.classList.toggle('is-complete', complete);
+    }
+
+    function collectState(entry) {
+      var c = entry.controls;
+      var s = { 'Package': entry.name, 'Team': c.team.value, 'Notes': c.notes.value.trim() };
+      c.checks.forEach(function (cb) { s[cb.getAttribute('data-field')] = cb.checked ? 'Yes' : ''; });
+      s['Complete'] = (c.team.value && computeComplete(s)) ? 'Yes' : '';
+      return s;
+    }
+
+    function save(entry) {
+      var state = collectState(entry);
+      entry.state = state;
+      renderState(entry);
+      if (!window.BPSheets || !BPSheets.getWebhookUrl()) {
+        entry.controls.saveNote.textContent = 'Live saving is off — open Settings to enable it.';
+        entry.controls.saveNote.className = 'package-save-note is-warn';
+        return;
+      }
+      entry.controls.saveNote.textContent = 'Saving…';
+      entry.controls.saveNote.className = 'package-save-note';
+      // Serialize writes so rapid clicks don't race the upsert.
+      saveQueue = saveQueue.then(function () {
+        return BPSheets.update(SHEET_NAME, 'Package', entry.name, state)
+          .then(function (res) {
+            if (res && res.updated === 0) {
+              // No existing row matched — create it.
+              return BPSheets.append(SHEET_NAME, state);
+            }
+            return res;
+          });
+      }).then(function () {
+        entry.controls.saveNote.textContent = 'Saved';
+        entry.controls.saveNote.className = 'package-save-note is-ok';
+      }).catch(function (err) {
+        entry.controls.saveNote.textContent = 'Save failed: ' + (err && err.message || err);
+        entry.controls.saveNote.className = 'package-save-note is-warn';
+      });
+      return saveQueue;
+    }
+
+    // Build controls on every card.
+    cards.forEach(function (card) {
+      var h3 = card.querySelector('h3');
+      if (!h3) return;
+      var name = h3.textContent.trim();
+      var controls = buildControls(card, name);
+      var entry = { name: name, card: card, controls: controls, state: { 'Package': name } };
+      byPackage[name] = entry;
+      renderState(entry);
+
+      controls.team.addEventListener('change', function () { save(entry); });
+      controls.checks.forEach(function (cb) {
+        cb.addEventListener('change', function () { save(entry); });
+      });
+      var notesTimer;
+      controls.notes.addEventListener('input', function () {
+        clearTimeout(notesTimer);
+        notesTimer = setTimeout(function () { save(entry); }, 700);
+      });
+    });
+
+    function applyRows(rows) {
+      rows.forEach(function (r) {
+        var name = (r['Package'] || '').trim();
+        var entry = byPackage[name];
+        if (!entry) return;
+        entry.state = r;
+        renderState(entry);
+      });
+    }
+
+    function load() {
+      if (!window.BPSheets) {
+        showStatus('Live tracker unavailable — sheets helper failed to load.', 'warn');
+        return;
+      }
+      if (!BPSheets.getWebhookUrl()) {
+        showStatus('Claims and checklists save locally to your screen only until the backend is connected. ' +
+          'A committee admin can turn on live saving in Settings (one-time, ~5 minutes).', 'warn');
+        return;
+      }
+      showStatus('Loading live package status…');
+      BPSheets.read(SHEET_NAME).then(function (rows) {
+        applyRows(rows || []);
+        hideStatus();
+      }).catch(function (err) {
+        var msg = err && err.message || String(err);
+        if (/private|webhook|NO_WEBHOOK|Unknown sheet/i.test(msg)) {
+          showStatus('Live saving needs a "Package Builds" tab in the Google Sheet, or the webhook set in Settings. ' +
+            'Your changes still show on screen until then.', 'warn');
+        } else {
+          showStatus('Couldn\'t load live status: ' + msg, 'warn');
+        }
+      });
+    }
+
+    load();
+  })();
+  </script>
 </body>
 </html>

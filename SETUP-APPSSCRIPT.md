@@ -77,6 +77,25 @@ After editing `apps-script.gs` (e.g. adding a feature), **re-deploy**:
 
 ---
 
+## Auction package tracker tab (one-time)
+
+The auction page (`raffle.html`) lets each team claim a package, check off
+the six build items, and note swaps — and it saves live for everyone through
+the same webhook. It reads and writes a Sheet tab named **`Package Builds`**.
+
+Create that tab once (no script changes needed):
+
+1. In the Google Sheet, add a tab named exactly `Package Builds`.
+2. Put these headers in row 1, one per column:
+
+   `Package` · `Team` · `Anchor` · `Support 1` · `Support 2` · `Support 3` · `Support 4` · `Support 5` · `Notes` · `Complete`
+
+That's it. The page creates a row per package the first time someone claims it
+and updates it after that. If the tab is missing, the cards still work on
+screen and show a note explaining how to turn on live saving.
+
+---
+
 ## Configuration knobs
 
 Inside `apps-script.gs` near the top:
