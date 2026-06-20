@@ -213,26 +213,30 @@
     </section>
   </main>
   <script src="script.js" defer></script>
-  <script src="sheets.js"></script>
   <script>
   (function () {
     'use strict';
     // Shared live tracker for auction package claiming + build status.
-    // Persists to the "Package Builds" tab of the committee Google Sheet
-    // through the same Apps Script webhook the rest of the dashboard uses
-    // (see sheets.js / SETUP-APPSSCRIPT.md). One row per package, keyed by
-    // the package name. If the webhook isn't configured the cards still
-    // render and explain how to turn on live saving.
+    // Persists to Supabase (table public.auction_package_builds) so every
+    // viewer of this page sees the same claims and checklists. One row per
+    // package, keyed by a stable package_id slug. Reads on load, upserts on
+    // every change, and subscribes to realtime changes so other viewers
+    // update live. No login — anyone with the dashboard link can edit.
 
-    var SHEET_NAME = 'Package Builds';
+    var SUPABASE_URL = 'https://zdbxsfswdjjieqkgyyid.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYnhzZnN3ZGpqaWVxa2d5eWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NjAwNjgsImV4cCI6MjA5NzEzNjA2OH0.QNRdX8x2Vb-uGgomC44SidcziynT0xrKu7wu9hzN1Tc';
+    var TABLE = 'auction_package_builds';
+    var REST_URL = SUPABASE_URL + '/rest/v1/' + TABLE;
+
     var TEAMS = ['Talleys', 'Boyds', 'Collins', 'Brownells', 'Campbells', 'Heards'];
+    // Maps each checkbox to its Supabase column.
     var CHECK_FIELDS = [
-      { key: 'Anchor', label: 'Anchor item confirmed' },
-      { key: 'Support 1', label: 'Support 1 confirmed' },
-      { key: 'Support 2', label: 'Support 2 confirmed' },
-      { key: 'Support 3', label: 'Support 3 confirmed' },
-      { key: 'Support 4', label: 'Support 4 confirmed' },
-      { key: 'Support 5', label: 'Support 5 confirmed' }
+      { key: 'anchor_confirmed', label: 'Anchor item confirmed' },
+      { key: 'support_1_confirmed', label: 'Support 1 confirmed' },
+      { key: 'support_2_confirmed', label: 'Support 2 confirmed' },
+      { key: 'support_3_confirmed', label: 'Support 3 confirmed' },
+      { key: 'support_4_confirmed', label: 'Support 4 confirmed' },
+      { key: 'support_5_confirmed', label: 'Support 5 confirmed' }
     ];
 
     var grid = document.getElementById('package-grid');
@@ -240,13 +244,18 @@
     if (!grid) return;
 
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.auction-idea-card'));
-    var byPackage = {};   // package name -> { card, controls, state }
+    var byId = {};        // package_id -> entry
     var saveQueue = Promise.resolve();
+    var liveSavingDown = false;
 
     function escapeHtml(s) {
       return String(s == null ? '' : s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+
+    function cssId(name) {
+      return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
 
     function showStatus(msg, kind) {
@@ -257,16 +266,21 @@
     }
     function hideStatus() { if (statusEl) { statusEl.hidden = true; } }
 
-    function isChecked(v) {
-      v = String(v == null ? '' : v).trim().toLowerCase();
-      return v === 'yes' || v === 'true' || v === '1' || v === 'x' || v === 'done';
+    function headers(extra) {
+      var h = {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json'
+      };
+      if (extra) { Object.keys(extra).forEach(function (k) { h[k] = extra[k]; }); }
+      return h;
     }
 
     function computeComplete(state) {
-      return CHECK_FIELDS.every(function (f) { return isChecked(state[f.key]); });
+      return CHECK_FIELDS.every(function (f) { return !!state[f.key]; });
     }
 
-    function buildControls(card, pkgName) {
+    function buildControls(card, pkgName, pkgId) {
       var wrap = document.createElement('div');
       wrap.className = 'package-track';
 
@@ -274,7 +288,7 @@
         TEAMS.map(function (t) { return '<option value="' + escapeHtml(t) + '">' + escapeHtml(t) + '</option>'; }).join('');
 
       var checksHtml = CHECK_FIELDS.map(function (f, i) {
-        var id = 'chk-' + cssId(pkgName) + '-' + i;
+        var id = 'chk-' + pkgId + '-' + i;
         return '<label class="package-check" for="' + id + '">' +
           '<input type="checkbox" id="' + id + '" data-field="' + escapeHtml(f.key) + '"> ' +
           '<span>' + escapeHtml(f.label) + '</span></label>';
@@ -305,15 +319,11 @@
       };
     }
 
-    function cssId(name) {
-      return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-    }
-
     function renderState(entry) {
       var c = entry.controls, s = entry.state;
-      c.team.value = TEAMS.indexOf(s['Team']) >= 0 ? s['Team'] : '';
-      c.checks.forEach(function (cb) { cb.checked = isChecked(s[cb.getAttribute('data-field')]); });
-      c.notes.value = s['Notes'] || '';
+      c.team.value = TEAMS.indexOf(s.team) >= 0 ? s.team : '';
+      c.checks.forEach(function (cb) { cb.checked = !!s[cb.getAttribute('data-field')]; });
+      c.notes.value = s.notes || '';
       var claimed = !!c.team.value;
       var complete = claimed && computeComplete(s);
       c.badge.classList.remove('package-badge-open', 'package-badge-building', 'package-badge-complete');
@@ -327,16 +337,19 @@
         c.badge.textContent = 'Open';
         c.badge.classList.add('package-badge-open');
       }
-      entry.wrap = c.wrap;
       c.wrap.classList.toggle('is-claimed', claimed);
       c.wrap.classList.toggle('is-complete', complete);
     }
 
     function collectState(entry) {
       var c = entry.controls;
-      var s = { 'Package': entry.name, 'Team': c.team.value, 'Notes': c.notes.value.trim() };
-      c.checks.forEach(function (cb) { s[cb.getAttribute('data-field')] = cb.checked ? 'Yes' : ''; });
-      s['Complete'] = (c.team.value && computeComplete(s)) ? 'Yes' : '';
+      var s = {
+        package_id: entry.id,
+        package_name: entry.name,
+        team: c.team.value,
+        notes: c.notes.value.trim()
+      };
+      c.checks.forEach(function (cb) { s[cb.getAttribute('data-field')] = cb.checked; });
       return s;
     }
 
@@ -344,29 +357,27 @@
       var state = collectState(entry);
       entry.state = state;
       renderState(entry);
-      if (!window.BPSheets || !BPSheets.getWebhookUrl()) {
-        entry.controls.saveNote.textContent = 'Live saving is off — open Settings to enable it.';
-        entry.controls.saveNote.className = 'package-save-note is-warn';
-        return;
-      }
       entry.controls.saveNote.textContent = 'Saving…';
       entry.controls.saveNote.className = 'package-save-note';
-      // Serialize writes so rapid clicks don't race the upsert.
+      // Serialize writes so rapid clicks don't race the upsert. "complete"
+      // is a generated column in Supabase, so we never send it.
       saveQueue = saveQueue.then(function () {
-        return BPSheets.update(SHEET_NAME, 'Package', entry.name, state)
-          .then(function (res) {
-            if (res && res.updated === 0) {
-              // No existing row matched — create it.
-              return BPSheets.append(SHEET_NAME, state);
-            }
-            return res;
-          });
+        return fetch(REST_URL, {
+          method: 'POST',
+          headers: headers({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+          body: JSON.stringify(state)
+        }).then(function (res) {
+          if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+        });
       }).then(function () {
         entry.controls.saveNote.textContent = 'Saved';
         entry.controls.saveNote.className = 'package-save-note is-ok';
-      }).catch(function (err) {
-        entry.controls.saveNote.textContent = 'Save failed: ' + (err && err.message || err);
+        if (liveSavingDown) { liveSavingDown = false; hideStatus(); }
+      }).catch(function () {
+        entry.controls.saveNote.textContent = 'Saved on this screen — live saving is temporarily unavailable.';
         entry.controls.saveNote.className = 'package-save-note is-warn';
+        liveSavingDown = true;
+        showStatus('Live saving is temporarily unavailable. Your changes show on this screen and we\'ll keep retrying — refresh in a bit to sync with the committee.', 'warn');
       });
       return saveQueue;
     }
@@ -376,9 +387,10 @@
       var h3 = card.querySelector('h3');
       if (!h3) return;
       var name = h3.textContent.trim();
-      var controls = buildControls(card, name);
-      var entry = { name: name, card: card, controls: controls, state: { 'Package': name } };
-      byPackage[name] = entry;
+      var id = cssId(name);
+      var controls = buildControls(card, name, id);
+      var entry = { id: id, name: name, card: card, controls: controls, state: { package_id: id, package_name: name, team: '', notes: '' } };
+      byId[id] = entry;
       renderState(entry);
 
       controls.team.addEventListener('change', function () { save(entry); });
@@ -392,39 +404,71 @@
       });
     });
 
-    function applyRows(rows) {
-      rows.forEach(function (r) {
-        var name = (r['Package'] || '').trim();
-        var entry = byPackage[name];
-        if (!entry) return;
-        entry.state = r;
-        renderState(entry);
-      });
+    function applyRow(row) {
+      if (!row) return;
+      var entry = byId[row.package_id];
+      if (!entry) return;
+      // Don't clobber a field the user is actively typing into.
+      if (document.activeElement === entry.controls.notes) return;
+      entry.state = row;
+      renderState(entry);
     }
 
     function load() {
-      if (!window.BPSheets) {
-        showStatus('Live tracker unavailable — sheets helper failed to load.', 'warn');
-        return;
-      }
-      if (!BPSheets.getWebhookUrl()) {
-        showStatus('Claims and checklists save locally to your screen only until the backend is connected. ' +
-          'A committee admin can turn on live saving in Settings (one-time, ~5 minutes).', 'warn');
-        return;
-      }
       showStatus('Loading live package status…');
-      BPSheets.read(SHEET_NAME).then(function (rows) {
-        applyRows(rows || []);
-        hideStatus();
-      }).catch(function (err) {
-        var msg = err && err.message || String(err);
-        if (/private|webhook|NO_WEBHOOK|Unknown sheet/i.test(msg)) {
-          showStatus('Live saving needs a "Package Builds" tab in the Google Sheet, or the webhook set in Settings. ' +
-            'Your changes still show on screen until then.', 'warn');
-        } else {
-          showStatus('Couldn\'t load live status: ' + msg, 'warn');
+      fetch(REST_URL + '?select=*', { headers: headers() })
+        .then(function (res) {
+          if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+          return res.json();
+        })
+        .then(function (rows) {
+          (rows || []).forEach(applyRow);
+          hideStatus();
+          subscribeRealtime();
+        })
+        .catch(function () {
+          liveSavingDown = true;
+          showStatus('Live saving is temporarily unavailable right now. You can still claim packages and check items on this screen — refresh in a bit to sync with the committee.', 'warn');
+        });
+    }
+
+    // Realtime over Supabase's Phoenix websocket. Pure browser APIs, no SDK.
+    function subscribeRealtime() {
+      if (!('WebSocket' in window)) return;
+      var wsUrl = SUPABASE_URL.replace(/^http/, 'ws') +
+        '/realtime/v1/websocket?apikey=' + encodeURIComponent(SUPABASE_ANON_KEY) + '&vsn=1.0.0';
+      var ws, ref = 0, heartbeat;
+      try { ws = new WebSocket(wsUrl); } catch (e) { return; }
+
+      ws.onopen = function () {
+        ws.send(JSON.stringify({
+          topic: 'realtime:public:' + TABLE,
+          event: 'phx_join',
+          payload: {
+            config: {
+              postgres_changes: [{ event: '*', schema: 'public', table: TABLE }]
+            }
+          },
+          ref: String(++ref)
+        }));
+        heartbeat = setInterval(function () {
+          if (ws.readyState === 1) {
+            ws.send(JSON.stringify({ topic: 'phoenix', event: 'heartbeat', payload: {}, ref: String(++ref) }));
+          }
+        }, 25000);
+      };
+
+      ws.onmessage = function (evt) {
+        var msg;
+        try { msg = JSON.parse(evt.data); } catch (e) { return; }
+        if (msg.event === 'postgres_changes' && msg.payload && msg.payload.data) {
+          var rec = msg.payload.data.record;
+          if (rec) { applyRow(rec); }
         }
-      });
+      };
+
+      ws.onclose = function () { if (heartbeat) clearInterval(heartbeat); };
+      ws.onerror = function () { try { ws.close(); } catch (e) {} };
     }
 
     load();
