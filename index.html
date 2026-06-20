@@ -157,6 +157,87 @@
     </div>
     <ol class="cc-week-list" data-week-list></ol>
     <button type="button" class="cc-week-reset" data-week-reset>Clear checkmarks</button>
+
+    <!--
+      ============================================================
+      TEAM WEEKLY CHECK-IN
+      Shared, live record of each team's asks, follow-ups, package
+      work, and commitments for the week shown above. Saves to a
+      shared Supabase table so the whole committee sees the same
+      thing. Pick your team, fill in the fields that apply, and
+      press Save. Structure is wired to the JS in this page — only
+      the wording in the labels needs editing if anything.
+      ============================================================
+    -->
+    <div class="cc-checkin" data-checkin>
+      <div class="cc-checkin-head">
+        <p class="cc-week-label">Team weekly check-in · <span data-checkin-range>this week</span></p>
+        <h3 class="cc-checkin-title">Record where your team landed this week.</h3>
+        <p class="cc-checkin-sub">Shared with the whole committee. Pick your team, fill in what applies, and save — it loads back next time anyone opens this from your team.</p>
+      </div>
+
+      <form class="cc-checkin-form" data-checkin-form>
+        <label class="field">
+          <span>Your team</span>
+          <select name="team" data-checkin-team data-testid="select-checkin-team" required>
+            <option value="">Select your team…</option>
+            <option value="The Boyds">The Boyds</option>
+            <option value="The Brownells">The Brownells</option>
+            <option value="The Campbells">The Campbells</option>
+            <option value="The Collins">The Collins</option>
+            <option value="The Monroes">The Monroes</option>
+            <option value="The Putnams">The Putnams</option>
+            <option value="The Talleys">The Talleys</option>
+          </select>
+        </label>
+
+        <div class="cc-checkin-fields" data-checkin-fields hidden>
+          <label class="field">
+            <span>Your 5 asks — who did you ask?</span>
+            <textarea name="asks" maxlength="1500" placeholder="List the businesses or people your team asked this week." data-testid="textarea-checkin-asks"></textarea>
+          </label>
+
+          <label class="field">
+            <span>Your 3 follow-ups</span>
+            <textarea name="follow_ups" maxlength="1500" placeholder="Who are you circling back to, and what's the next touch?" data-testid="textarea-checkin-followups"></textarea>
+          </label>
+
+          <div class="cc-checkin-grid">
+            <label class="field">
+              <span>Package theme</span>
+              <input name="package_theme" type="text" maxlength="200" placeholder="e.g. Backyard BBQ, Round Rock Staycation" data-testid="input-checkin-package" />
+            </label>
+
+            <label class="field">
+              <span>Featured / anchor item</span>
+              <input name="anchor_item" type="text" maxlength="200" placeholder="The headline item your package is built around" data-testid="input-checkin-anchor" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Commitments sent to info@</span>
+            <textarea name="commitments" maxlength="1500" placeholder="Confirmed yeses you've emailed to info@roundrockfirefoundation.org." data-testid="textarea-checkin-commitments"></textarea>
+          </label>
+
+          <label class="field">
+            <span>Help needed <em>(optional)</em></span>
+            <textarea name="help_needed" maxlength="1000" placeholder="Anything the committee can help your team with this week?" data-testid="textarea-checkin-help"></textarea>
+          </label>
+
+          <div class="cc-checkin-actions">
+            <button type="submit" class="btn btn-primary" data-checkin-save data-testid="button-checkin-save">Save check-in</button>
+            <p class="cc-checkin-status" data-checkin-status aria-live="polite"></p>
+          </div>
+        </div>
+      </form>
+
+      <div class="cc-checkin-summary" data-checkin-summary>
+        <p class="cc-checkin-summary-head">This week's check-ins</p>
+        <ul class="cc-checkin-summary-list" data-checkin-summary-list>
+          <li class="cc-checkin-summary-loading">Loading…</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section class="cc-card cc-start-flow" id="cc-kpis">
@@ -666,6 +747,217 @@
       });
       save();
     });
+  })();
+
+  // Team weekly check-in — shared, live record per team for the
+  // current week. Saves to Supabase (public.weekly_team_checkins),
+  // upserting by (week_start, team). Uses the same Monday-based week
+  // as the goals list above so the displayed week matches.
+  (function () {
+    var root = document.querySelector('[data-checkin]');
+    if (!root) return;
+
+    var SUPABASE_URL = 'https://zdbxsfswdjjieqkgyyid.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkYnhzZnN3ZGpqaWVxa2d5eWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1NjAwNjgsImV4cCI6MjA5NzEzNjA2OH0.QNRdX8x2Vb-uGgomC44SidcziynT0xrKu7wu9hzN1Tc';
+    var TABLE = 'weekly_team_checkins';
+    var REST_URL = SUPABASE_URL + '/rest/v1/' + TABLE;
+
+    var TEAMS = ['The Boyds', 'The Brownells', 'The Campbells', 'The Collins', 'The Monroes', 'The Putnams', 'The Talleys'];
+    var TEXT_FIELDS = ['asks', 'follow_ups', 'package_theme', 'anchor_item', 'commitments', 'help_needed'];
+
+    var form = root.querySelector('[data-checkin-form]');
+    var teamSel = root.querySelector('[data-checkin-team]');
+    var fieldsWrap = root.querySelector('[data-checkin-fields]');
+    var statusEl = root.querySelector('[data-checkin-status]');
+    var rangeEl = root.querySelector('[data-checkin-range]');
+    var summaryList = root.querySelector('[data-checkin-summary-list]');
+    var saveBtn = root.querySelector('[data-checkin-save]');
+    var inputs = {};
+    TEXT_FIELDS.forEach(function (key) { inputs[key] = form.querySelector('[name="' + key + '"]'); });
+
+    // Same Monday-of-this-week logic as the goals block, formatted as
+    // an ISO date (YYYY-MM-DD) to match the week_start date column.
+    function thisMonday() {
+      var d = new Date();
+      d.setHours(0, 0, 0, 0);
+      var day = (d.getDay() + 6) % 7;
+      d.setDate(d.getDate() - day);
+      return d;
+    }
+    function isoDate(d) {
+      function p(n) { return (n < 10 ? '0' : '') + n; }
+      return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+    }
+    var WEEK_START = isoDate(thisMonday());
+
+    if (rangeEl) {
+      var rangeLbl = document.querySelector('[data-week-range]');
+      if (rangeLbl && rangeLbl.textContent && rangeLbl.textContent !== '—') {
+        rangeEl.textContent = rangeLbl.textContent;
+      } else {
+        rangeEl.textContent = 'week of ' + WEEK_START;
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function headers(extra) {
+      var h = {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json'
+      };
+      if (extra) { Object.keys(extra).forEach(function (k) { h[k] = extra[k]; }); }
+      return h;
+    }
+
+    function setStatus(msg, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = msg || '';
+      statusEl.className = 'cc-checkin-status' + (kind ? ' is-' + kind : '');
+    }
+
+    // Cache of the latest row per team, used for the summary and to
+    // populate the form when a team is selected.
+    var rowsByTeam = {};
+
+    function fillForm(team) {
+      var row = rowsByTeam[team] || {};
+      TEXT_FIELDS.forEach(function (key) {
+        if (inputs[key]) inputs[key].value = row[key] || '';
+      });
+    }
+
+    function clearForm() {
+      TEXT_FIELDS.forEach(function (key) { if (inputs[key]) inputs[key].value = ''; });
+    }
+
+    function renderSummary() {
+      if (!summaryList) return;
+      summaryList.innerHTML = TEAMS.map(function (t) {
+        var done = !!rowsByTeam[t];
+        return '<li class="' + (done ? 'is-updated' : '') + '">' +
+          '<span class="cc-checkin-team-name">' + escapeHtml(t) + '</span>' +
+          '<span class="cc-checkin-state">' + (done ? 'Updated' : 'Not started') + '</span>' +
+        '</li>';
+      }).join('');
+    }
+
+    function applyRow(row) {
+      if (!row || row.week_start !== WEEK_START) return;
+      if (TEAMS.indexOf(row.team) < 0) return;
+      rowsByTeam[row.team] = row;
+      renderSummary();
+      // Refresh the open form only if it's this team and the user
+      // isn't actively typing in it.
+      if (teamSel.value === row.team &&
+          !(document.activeElement && form.contains(document.activeElement))) {
+        fillForm(row.team);
+      }
+    }
+
+    teamSel.addEventListener('change', function () {
+      var team = teamSel.value;
+      if (!team) {
+        fieldsWrap.hidden = true;
+        setStatus('');
+        return;
+      }
+      fieldsWrap.hidden = false;
+      if (rowsByTeam[team]) {
+        fillForm(team);
+        setStatus('Loaded ' + team + "'s saved check-in.", 'ok');
+      } else {
+        clearForm();
+        setStatus('No check-in yet for ' + team + ' this week — fill in what applies and save.');
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var team = teamSel.value;
+      if (!team) { setStatus('Pick your team first.', 'error'); return; }
+
+      // Text columns are NOT NULL (default '') in Supabase, so send
+      // empty strings rather than null for fields left blank.
+      var payload = { week_start: WEEK_START, team: team, updated_at: new Date().toISOString() };
+      TEXT_FIELDS.forEach(function (key) {
+        payload[key] = inputs[key] ? inputs[key].value.trim() : '';
+      });
+
+      saveBtn.disabled = true;
+      setStatus('Saving…');
+      fetch(REST_URL + '?on_conflict=week_start,team', {
+        method: 'POST',
+        headers: headers({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+        rowsByTeam[team] = payload;
+        renderSummary();
+        setStatus('Saved — the committee can see ' + team + "'s check-in.", 'ok');
+      }).catch(function () {
+        setStatus("Saved on this screen, but live saving is temporarily unavailable. Try again in a bit.", 'warn');
+      }).then(function () {
+        saveBtn.disabled = false;
+      });
+    });
+
+    function load() {
+      renderSummary();
+      fetch(REST_URL + '?select=*&week_start=eq.' + encodeURIComponent(WEEK_START), { headers: headers() })
+        .then(function (res) {
+          if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+          return res.json();
+        })
+        .then(function (rows) {
+          (rows || []).forEach(applyRow);
+          subscribeRealtime();
+        })
+        .catch(function () {
+          if (summaryList) {
+            summaryList.innerHTML = '<li class="cc-checkin-summary-loading">Live check-ins are temporarily unavailable — refresh in a bit.</li>';
+          }
+        });
+    }
+
+    function subscribeRealtime() {
+      if (!('WebSocket' in window)) return;
+      var wsUrl = SUPABASE_URL.replace(/^http/, 'ws') +
+        '/realtime/v1/websocket?apikey=' + encodeURIComponent(SUPABASE_ANON_KEY) + '&vsn=1.0.0';
+      var ws, ref = 0, heartbeat;
+      try { ws = new WebSocket(wsUrl); } catch (e) { return; }
+
+      ws.onopen = function () {
+        ws.send(JSON.stringify({
+          topic: 'realtime:public:' + TABLE,
+          event: 'phx_join',
+          payload: { config: { postgres_changes: [{ event: '*', schema: 'public', table: TABLE }] } },
+          ref: String(++ref)
+        }));
+        heartbeat = setInterval(function () {
+          if (ws.readyState === 1) {
+            ws.send(JSON.stringify({ topic: 'phoenix', event: 'heartbeat', payload: {}, ref: String(++ref) }));
+          }
+        }, 25000);
+      };
+      ws.onmessage = function (evt) {
+        var msg;
+        try { msg = JSON.parse(evt.data); } catch (e) { return; }
+        if (msg.event === 'postgres_changes' && msg.payload && msg.payload.data) {
+          var rec = msg.payload.data.record;
+          if (rec) { applyRow(rec); }
+        }
+      };
+      ws.onclose = function () { if (heartbeat) clearInterval(heartbeat); };
+      ws.onerror = function () { try { ws.close(); } catch (e) {} };
+    }
+
+    load();
   })();
 
   // KPIs from live sheet

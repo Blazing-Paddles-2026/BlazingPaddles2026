@@ -485,6 +485,114 @@
   .cc-week-check { gap: var(--space-3); padding: var(--space-4); }
 }
 
+/* Team weekly check-in — attached below the weekly goals list */
+.cc-checkin {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.cc-checkin-head {
+  margin-bottom: var(--space-4);
+}
+.cc-checkin-title {
+  margin: var(--space-2) 0 var(--space-2);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+.cc-checkin-sub {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.cc-checkin-form .field {
+  margin-bottom: var(--space-4);
+}
+.cc-checkin-form .field em {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+.cc-checkin-form .field textarea {
+  min-height: 76px;
+}
+.cc-checkin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.cc-checkin-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+.cc-checkin-status {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.cc-checkin-status.is-ok { color: var(--flame-200); }
+.cc-checkin-status.is-warn { color: #ffd27a; }
+.cc-checkin-status.is-error { color: #ff9a8a; }
+.cc-checkin-summary {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+.cc-checkin-summary-head {
+  margin: 0 0 var(--space-3);
+  color: var(--flame-200);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cc-checkin-summary-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-2);
+}
+.cc-checkin-summary-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg-elev);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.cc-checkin-summary-list li .cc-checkin-team-name {
+  color: var(--cream);
+  font-weight: 600;
+}
+.cc-checkin-summary-list li.is-updated {
+  border-color: var(--flame-500);
+}
+.cc-checkin-summary-list li.is-updated .cc-checkin-state {
+  color: var(--flame-200);
+  font-weight: 700;
+}
+.cc-checkin-summary-loading {
+  border-style: dashed !important;
+}
+@media (max-width: 640px) {
+  .cc-checkin-grid { grid-template-columns: 1fr; }
+}
+
 .cc-hero-compact {
   margin-top: var(--space-6);
   padding-top: var(--space-8);
