@@ -9,6 +9,74 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ----------------------------------------------------------------
+       Auction package page palette override (scoped to this page only).
+       Replaces the warm/brown theme tokens with black + cool-gray
+       neutrals, keeps flame orange strictly as an accent, and pushes
+       primary text to bright white for clarity. Does not affect any
+       other page since it lives in this document's <head>.
+       ---------------------------------------------------------------- */
+    :root {
+      /* Cool, neutral dark surfaces — no warm/brown tint */
+      --bg:            #07080a;
+      --bg-elev:       #101216;
+      --surface:       #14161b;
+      --surface-2:     #1c1f25;
+      --border:        #2a2e36;
+      --border-strong: #3a3f49;
+      /* Bright white primary text, cool light-gray secondary text */
+      --text:          #ffffff;
+      --text-muted:    #c4ccd6;
+      --text-faint:    #8a93a0;
+      /* Keep brand orange for accents; cool the warm cream alias */
+      --cream:         #ffffff;
+      --cream-2:       #e8ecf2;
+      --on-primary:    #07080a;
+      --shadow-lg: 0 30px 80px -20px rgba(0,0,0,.65), 0 8px 20px -8px rgba(255,107,26,.2);
+    }
+
+    /* Page background glow stays orange (accent) over a cool-black base */
+    .standalone-page {
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,107,26,.14), transparent 28%),
+        radial-gradient(circle at 92% 0%, rgba(255,138,31,.10), transparent 30%),
+        var(--bg);
+    }
+
+    /* Cards: neutral charcoal surfaces with an orange top accent line.
+       Remove the warm color-mix tints that read as brown. */
+    .detail-card,
+    .script-card {
+      background: var(--surface);
+    }
+    .auction-business-card,
+    .auction-idea-card {
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--flame-500);
+      background: linear-gradient(180deg, #16181d, #111317);
+    }
+
+    /* Make all primary copy on cards bright white for clarity */
+    .auction-card-ask { color: var(--text); }
+
+    /* Live tracker controls: cool-neutral fields, orange focus accent */
+    .package-status { background: var(--surface); }
+    .package-team,
+    .package-notes {
+      border: 1px solid var(--border-strong);
+      background: #0d0f13;
+      color: var(--text);
+    }
+    .package-track { border-top: 1px dashed var(--border-strong); }
+    .package-team-label,
+    .package-notes-label { color: var(--text-muted); }
+    .package-badge-open {
+      background: var(--surface-2);
+      color: var(--text-faint);
+      border: 1px solid var(--border-strong);
+    }
+  </style>
 </head>
 <body>
   <main class="standalone-page">
