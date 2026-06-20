@@ -205,7 +205,21 @@
           <div class="cc-checkin-grid">
             <label class="field">
               <span>Package theme</span>
-              <input name="package_theme" type="text" maxlength="200" placeholder="e.g. Backyard BBQ, Round Rock Staycation" data-testid="input-checkin-package" />
+              <select data-checkin-package-select data-testid="select-checkin-package">
+                <option value="">Select a package…</option>
+                <option value="Backyard BBQ Package">Backyard BBQ Package</option>
+                <option value="Round Rock Staycation">Round Rock Staycation</option>
+                <option value="Pickleball Champion Package">Pickleball Champion Package</option>
+                <option value="Dog Lover's Dream">Dog Lover's Dream</option>
+                <option value="Date Night for a Year">Date Night for a Year</option>
+                <option value="Texas Tailgate Package">Texas Tailgate Package</option>
+                <option value="Family Fun Adventure">Family Fun Adventure</option>
+                <option value="Home Chef Package">Home Chef Package</option>
+                <option value="Lake Life Package">Lake Life Package</option>
+                <option value="Ultimate Sports Fan Package">Ultimate Sports Fan Package</option>
+                <option value="__custom">Other / custom theme…</option>
+              </select>
+              <input name="package_theme" type="text" maxlength="200" placeholder="e.g. Backyard BBQ, Round Rock Staycation" data-testid="input-checkin-package" data-checkin-package-text />
             </label>
 
             <label class="field">
@@ -213,6 +227,7 @@
               <input name="anchor_item" type="text" maxlength="200" placeholder="The headline item your package is built around" data-testid="input-checkin-anchor" />
             </label>
           </div>
+          <p class="cc-checkin-help" data-checkin-help>Picking a package theme + anchor item also updates the <a href="raffle.html">auction package tracker</a> when the package name matches. Asks and follow-ups stay in this weekly check-in — confirmed yeses still need to be emailed to info@roundrockfirefoundation.org.</p>
 
           <label class="field">
             <span>Commitments sent to info@</span>
@@ -762,6 +777,54 @@
     var TABLE = 'weekly_team_checkins';
     var REST_URL = SUPABASE_URL + '/rest/v1/' + TABLE;
 
+    // Companion auction tracker table (see raffle.html). When a check-in's
+    // package theme matches one of the 10 auction packages, we claim that
+    // package for the team and surface the anchor item there. Same Supabase
+    // project + anon key, so we reuse the config above.
+    var PKG_TABLE = 'auction_package_builds';
+    var PKG_REST_URL = SUPABASE_URL + '/rest/v1/' + PKG_TABLE;
+
+    // The 10 auction package names exactly as they appear in raffle.html.
+    // package_id is the same slug raffle.html derives via cssId().
+    var AUCTION_PACKAGES = [
+      'Backyard BBQ Package',
+      'Round Rock Staycation',
+      'Pickleball Champion Package',
+      "Dog Lover's Dream",
+      'Date Night for a Year',
+      'Texas Tailgate Package',
+      'Family Fun Adventure',
+      'Home Chef Package',
+      'Lake Life Package',
+      'Ultimate Sports Fan Package'
+    ];
+    // Same slug logic as raffle.html cssId() so package_id matches its rows.
+    function pkgSlug(name) {
+      return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+    // Normalize for flexible matching: lowercase, strip a trailing "package"
+    // word and all non-alphanumerics so "Backyard BBQ" matches
+    // "Backyard BBQ Package".
+    function pkgNorm(s) {
+      return String(s == null ? '' : s)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .replace(/\bpackage\b/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+    // Returns the canonical package name if the free-text theme clearly
+    // maps to one of the 10 packages, else null (ambiguous -> leave alone).
+    function matchPackage(theme) {
+      var n = pkgNorm(theme);
+      if (!n) return null;
+      var hit = null;
+      AUCTION_PACKAGES.forEach(function (name) {
+        if (pkgNorm(name) === n) hit = name;
+      });
+      return hit;
+    }
+
     var TEAMS = ['The Boyds', 'The Brownells', 'The Campbells', 'The Collins', 'The Monroes', 'The Putnams', 'The Talleys'];
     var TEXT_FIELDS = ['asks', 'follow_ups', 'package_theme', 'anchor_item', 'commitments', 'help_needed'];
 
@@ -774,6 +837,48 @@
     var saveBtn = root.querySelector('[data-checkin-save]');
     var inputs = {};
     TEXT_FIELDS.forEach(function (key) { inputs[key] = form.querySelector('[name="' + key + '"]'); });
+
+    // Package theme: a dropdown of the 10 auction packages plus a custom
+    // option. The dropdown drives the underlying text input (package_theme),
+    // which remains the source of truth that's saved. "Other / custom theme…"
+    // reveals the free-text input for anything not in the list.
+    var pkgSelect = form.querySelector('[data-checkin-package-select]');
+    var pkgText = form.querySelector('[data-checkin-package-text]');
+
+    // Reflect a package_theme value into the select/custom-text pair.
+    function syncPackageControls() {
+      if (!pkgSelect || !pkgText) return;
+      var val = (pkgText.value || '').trim();
+      var canon = matchPackage(val);
+      if (canon) {
+        pkgSelect.value = canon;
+        pkgText.hidden = true;
+      } else if (val) {
+        pkgSelect.value = '__custom';
+        pkgText.hidden = false;
+      } else {
+        pkgSelect.value = '';
+        pkgText.hidden = true;
+      }
+    }
+    if (pkgSelect && pkgText) {
+      pkgText.hidden = true;
+      pkgSelect.addEventListener('change', function () {
+        if (pkgSelect.value === '__custom') {
+          pkgText.hidden = false;
+          pkgText.value = '';
+          pkgText.focus();
+        } else {
+          pkgText.hidden = true;
+          pkgText.value = pkgSelect.value; // '' clears it
+        }
+      });
+      pkgText.addEventListener('input', function () {
+        // Snap to the canonical package if the typed text matches one.
+        var canon = matchPackage(pkgText.value);
+        if (canon) { pkgSelect.value = canon; }
+      });
+    }
 
     // Same Monday-of-this-week logic as the goals block, formatted as
     // an ISO date (YYYY-MM-DD) to match the week_start date column.
@@ -830,10 +935,12 @@
       TEXT_FIELDS.forEach(function (key) {
         if (inputs[key]) inputs[key].value = row[key] || '';
       });
+      syncPackageControls();
     }
 
     function clearForm() {
       TEXT_FIELDS.forEach(function (key) { if (inputs[key]) inputs[key].value = ''; });
+      syncPackageControls();
     }
 
     function renderSummary() {
@@ -877,6 +984,88 @@
       }
     });
 
+    // Marker line we own inside an auction package's free-text notes, so we
+    // can add/update it without clobbering whatever the package team typed.
+    var ANCHOR_NOTE_PREFIX = 'Anchor item from weekly check-in: ';
+
+    // Replace or append our anchor-note line while preserving any other
+    // existing notes verbatim.
+    function mergeAnchorNote(existingNotes, anchorItem) {
+      var line = ANCHOR_NOTE_PREFIX + anchorItem;
+      var notes = String(existingNotes == null ? '' : existingNotes);
+      var lines = notes.length ? notes.split('\n') : [];
+      var found = false;
+      for (var i = 0; i < lines.length; i++) {
+        if (lines[i].indexOf(ANCHOR_NOTE_PREFIX) === 0) {
+          lines[i] = line;
+          found = true;
+          break;
+        }
+      }
+      if (!found) { lines.push(line); }
+      return lines.join('\n').trim();
+    }
+
+    // After a check-in saves, mirror a clearly-matched package theme into the
+    // auction package tracker: claim the package for this team (only if it's
+    // unclaimed or already this team's) and surface the anchor item in notes.
+    // Conflict-safe: never overwrites another team's claim. Returns a short
+    // status string for the user, or '' when there's nothing to mirror.
+    function syncAuctionPackage(team, theme, anchorItem) {
+      var pkgName = matchPackage(theme);
+      if (!pkgName) { return Promise.resolve(''); } // ambiguous/blank -> leave alone
+
+      var pkgId = pkgSlug(pkgName);
+      var rowUrl = PKG_REST_URL + '?package_id=eq.' + encodeURIComponent(pkgId) + '&select=*';
+
+      return fetch(rowUrl, { headers: headers() })
+        .then(function (res) {
+          if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+          return res.json();
+        })
+        .then(function (rows) {
+          var existing = (rows && rows[0]) || null;
+          var claimedBy = existing && existing.team ? String(existing.team).trim() : '';
+
+          // Conflict: package already claimed by a different team. Do NOT
+          // touch the auction claim or notes — just report it.
+          if (claimedBy && claimedBy !== team) {
+            return 'Heads up: "' + pkgName + '" is already claimed by ' + claimedBy +
+              ' on the auction page, so we left that claim alone.';
+          }
+
+          // Build a safe partial upsert. Always set package_id/name/team
+          // (claiming for this team when unclaimed). Only touch notes when an
+          // anchor item is provided, preserving any existing notes. We never
+          // send the generated "complete" column or the checkbox/sub fields.
+          var payload = {
+            package_id: pkgId,
+            package_name: pkgName,
+            team: team
+          };
+          var didAnchor = false;
+          if (anchorItem) {
+            payload.notes = mergeAnchorNote(existing ? existing.notes : '', anchorItem);
+            didAnchor = true;
+          }
+
+          return fetch(PKG_REST_URL + '?on_conflict=package_id', {
+            method: 'POST',
+            headers: headers({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+            body: JSON.stringify(payload)
+          }).then(function (res) {
+            if (!res.ok) { return res.text().then(function (t) { throw new Error(t || ('HTTP ' + res.status)); }); }
+            var claimMsg = claimedBy === team
+              ? 'Updated "' + pkgName + '" on the auction page'
+              : 'Claimed "' + pkgName + '" for ' + team + ' on the auction page';
+            return claimMsg + (didAnchor ? ' and added the anchor item there.' : '.');
+          });
+        })
+        .catch(function () {
+          return 'Saved your check-in, but updating the auction package tracker is temporarily unavailable.';
+        });
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var team = teamSel.value;
@@ -900,6 +1089,15 @@
         rowsByTeam[team] = payload;
         renderSummary();
         setStatus('Saved — the committee can see ' + team + "'s check-in.", 'ok');
+        // Best-effort mirror into the auction package tracker. This never
+        // blocks or fails the check-in save; it only appends a status note.
+        return syncAuctionPackage(team, payload.package_theme, payload.anchor_item)
+          .then(function (extra) {
+            if (extra) {
+              var kind = extra.indexOf('already claimed') >= 0 ? 'warn' : 'ok';
+              setStatus("Saved " + team + "'s check-in. " + extra, kind);
+            }
+          });
       }).catch(function () {
         setStatus("Saved on this screen, but live saving is temporarily unavailable. Try again in a bit.", 'warn');
       }).then(function () {
