@@ -178,7 +178,7 @@
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Flyer preview">
   <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-  <img id="lightbox-img" alt="" />
+  <img id="lightbox-img" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 </div>
 
 <script>
@@ -206,7 +206,8 @@
       box.classList.add('open');
     });
   });
-  function close() { box.classList.remove('open'); boxImg.src = ''; }
+  var placeholderSrc = boxImg.src;
+  function close() { box.classList.remove('open'); boxImg.src = placeholderSrc; }
   box.addEventListener('click', function (e) { if (e.target === box || e.target.id === 'lightbox-close') close(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 })();

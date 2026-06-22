@@ -481,7 +481,6 @@
     </section>
 
 
-<script src="sheets.js"></script>
 <script src="script.js" defer></script>
 <script>
 (function () {
@@ -1157,33 +1156,6 @@
 
     load();
   })();
-
-  // KPIs from live sheet
-  var baselineSponsors = 1;
-  var baselineCommitted = 10000;
-  Promise.all([
-    BPSheets.read('Sponsor Pipeline').catch(() => []),
-    BPSheets.read('Auction Inventory').catch(() => []),
-  ]).then(function (results) {
-    var sponsors = results[0];
-    var raffle = results[1];
-    var confirmedCount = sponsors.filter(function (s) {
-      var st = (s['Status'] || '').toLowerCase();
-      return st === 'confirmed' || st === 'paid';
-    }).length;
-    var committed = sponsors.reduce(function (sum, s) {
-      var n = parseFloat(String(s['Amount Committed'] || '').replace(/[^0-9.\-]/g, ''));
-      return sum + (isFinite(n) ? n : 0);
-    }, 0);
-    var raffleCount = raffle.filter(function (r) {
-      return (r['Status'] || '').toLowerCase() !== 'wish list';
-    }).length;
-    confirmedCount = Math.max(confirmedCount, baselineSponsors);
-    committed = Math.max(committed, baselineCommitted);
-    document.querySelector('[data-kpi="sponsors"]').textContent = confirmedCount;
-    document.querySelector('[data-kpi="revenue"]').textContent = '$' + Math.round(committed).toLocaleString();
-    document.querySelector('[data-kpi="raffle"]').textContent = raffleCount;
-  });
 })();
 </script>
 </main>
