@@ -1,181 +1,353 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sponsor Pipeline - Round Rock Fire Foundation</title>
-    <style>
-        :root {
-            --primary: #E63946;
-            --dark: #1D3557;
-            --light: #F8F9FA;
-            --border: #E5E7EB;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            margin: 0;
-            padding: 20px;
-        }
-        .header {
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-        }
-        .header h1 { margin: 0; font-size: 24px; color: var(--dark); }
-        .header p { margin: 5px 0 0 0; color: #6B7280; }
-        
-        .pipeline-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            align-items: start;
-        }
-        .column {
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 15px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .column h2 {
-            margin-top: 0;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #F3F4F6;
-        }
-        .status-contacted h2 { color: #3B82F6; border-bottom-color: #3B82F6; }
-        .status-inprogress h2 { color: #F59E0B; border-bottom-color: #F59E0B; }
-        .status-secured h2 { color: #10B981; border-bottom-color: #10B981; }
 
-        .cards-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-            min-height: 100px;
-        }
-        .card {
-            background: var(--light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 12px;
-        }
-        .card-name { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
-        .card-tier {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: #E5E7EB;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-        .tier-premier { background: #FEF3C7; color: #92400E; }
-        .tier-lieutenant { background: #E0E7FF; color: #3730A3; }
-        .tier-firefighter { background: #FEE2E2; color: #991B1B; }
-        
-        .card-amount { font-size: 14px; font-weight: 500; color: #4B5563; }
-        .loading { text-align: center; color: #6B7280; padding: 40px; font-style: italic; }
-    </style>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sponsor Tracker · Blazing Paddles 2026</title>
+<meta name="theme-color" content="#06091a" />
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=khand@500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="command-center.css" />
+
+
 </head>
-<body>
+<body class="cc-topnav-body">
+<header class="cc-topnav" id="top">
+  <a class="cc-topnav-brand" href="index.html" aria-label="Blazing Paddles 2026 Dashboard">
+    <img src="assets/images/blazing-paddles-icon-official-2026.jpg" alt="" width="40" height="40">
+    <span><strong>Blazing Paddles</strong><small>2026 · Command Center</small></span>
+  </a>
+  <nav class="cc-topnav-links" aria-label="Primary">
+    <a href="index.html"           data-nav="actions">ACTIONS</a>
+    <a href="goals.html"           data-nav="scoreboard">SCOREBOARD</a>
+    <a href="log.html"             data-nav="log">LOG</a>
+    <a href="sponsor-tracker.html" data-nav="sponsors">SPONSORS</a>
+    <a href="raffle.html"  data-nav="raffle">AUCTION</a>
+    <a href="team.html"            data-nav="team">TEAM</a>
+    <a href="contacts.html"        data-nav="contacts">CONTACTS</a>
+  </nav>
+  <div class="cc-topnav-meta">
+    <span class="cc-topnav-tminus" id="cc-tminus-status">—</span>
+  </div>
+</header>
 
-    <div class="header">
-        <h1>Sponsor Pipeline</h1>
-        <p>Live tracking connected directly to your Google Sheet</p>
+<main class="cc-topnav-main">
+<section class="section">
+<div class="cc-page-header">
+    <div>
+      <h1 class="cc-page-title">Sponsor Pipeline</h1>
+      <p class="cc-page-sub">Live data from the committee's Google Sheet · adds save instantly</p>
     </div>
+    <a href="process.html" class="cc-btn cc-btn-ghost">Open Playbook</a>
+  </div>
 
-    <div id="loading-text" class="loading">Fetching latest sponsor data...</div>
+  <!-- KPIs -->
+  <section class="cc-kpis">
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-confirmed">—</span><span class="cc-kpi-label">Confirmed $</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-pipeline">—</span><span class="cc-kpi-label">In Pipeline $</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-sponsors">—</span><span class="cc-kpi-label">Sponsors</span></div>
+    <div class="cc-kpi"><span class="cc-kpi-num" id="kpi-progress">—</span><span class="cc-kpi-label">% to Goal</span></div>
+  </section>
 
-    <div class="pipeline-container" id="pipeline" style="display: none;">
-        <!-- Contacted Column -->
-        <div class="column status-contacted">
-            <h2>Contacted</h2>
-            <div class="cards-list" id="col-contacted"></div>
-        </div>
-        
-        <!-- In Progress Column -->
-        <div class="column status-inprogress">
-            <h2>In Progress</h2>
-            <div class="cards-list" id="col-inprogress"></div>
-        </div>
-        
-        <!-- Secured Column -->
-        <div class="column status-secured">
-            <h2>Secured</h2>
-            <div class="cards-list" id="col-secured"></div>
-        </div>
+  <!-- Tier reference — three askable tiers (Presenting billing is held by Kalahari for 2026) -->
+  <section class="cc-tiers">
+    <div class="cc-tier cc-tier-chief">
+      <div class="cc-tier-name">CHIEF</div>
+      <div class="cc-tier-amount">$5,000</div>
+      <ul>
+        <li>Premier logo placement on all signage</li>
+        <li>Multiple emcee spotlights, named court</li>
+        <li>Front of t-shirts · branded giveaways</li>
+      </ul>
     </div>
+    <div class="cc-tier cc-tier-lieutenant">
+      <div class="cc-tier-name">LIEUTENANT</div>
+      <div class="cc-tier-amount">$2,500</div>
+      <ul>
+        <li>Logo on signage and shirts (back)</li>
+        <li>Court-side banner placement</li>
+        <li>Two social mentions · emcee recognition</li>
+      </ul>
+    </div>
+    <div class="cc-tier cc-tier-firefighter">
+      <div class="cc-tier-name">FIREFIGHTER</div>
+      <div class="cc-tier-amount">$1,000</div>
+      <ul>
+        <li>Logo on event website and shared signage</li>
+        <li>Social media thank-you post</li>
+        <li>Recognition by the emcee</li>
+      </ul>
+    </div>
+  </section>
 
-    <script>
-        const SHEET_ID = '1a0YcJw0lXeSkGC-T1uQ8QUZpeiJQZXt2h3EVwFdrewQ';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+  <!-- Add Sponsor form -->
+  <div class="cc-card">
+    <h3 class="cc-card-title">Add a Sponsor</h3>
+    <form class="cc-form" id="add-sponsor-form" autocomplete="off">
+      <div class="cc-form-row">
+        <label for="s-business">Business name</label>
+        <input class="cc-input" id="s-business" required placeholder="Acme Corporation">
+      </div>
+      <div class="cc-form-row">
+        <label for="s-tier">Tier</label>
+        <select class="cc-select" id="s-tier">
+          <option>Firefighter</option>
+          <option>Lieutenant</option>
+          <option>Chief</option>
+          <option>Presenting (Kalahari — secured)</option>
+          <option>Custom / TBD</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="s-owner">Owner</label>
+        <select class="cc-select" id="s-owner"><option value="">Loading…</option></select>
+      </div>
+      <div class="cc-form-row">
+        <label for="s-contact">Contact name</label>
+        <input class="cc-input" id="s-contact" placeholder="Jane Smith">
+      </div>
+      <div class="cc-form-row">
+        <label for="s-email">Email</label>
+        <input class="cc-input" id="s-email" type="email" placeholder="jane@acme.com">
+      </div>
+      <div class="cc-form-row">
+        <label for="s-phone">Phone</label>
+        <input class="cc-input" id="s-phone" placeholder="(512) 555-0100">
+      </div>
+      <div class="cc-form-row">
+        <label for="s-status">Status</label>
+        <select class="cc-select" id="s-status">
+          <option>Not Contacted</option>
+          <option>In Talks</option>
+          <option>No Answer</option>
+          <option>Confirmed</option>
+          <option>Paid</option>
+          <option>Declined</option>
+        </select>
+      </div>
+      <div class="cc-form-row">
+        <label for="s-amount">Amount $</label>
+        <input class="cc-input" id="s-amount" type="number" min="0" placeholder="0">
+      </div>
+      <div class="cc-form-row">
+        <label for="s-next">Next step</label>
+        <input class="cc-input" id="s-next" placeholder="Send packet · Call Friday">
+      </div>
+      <div class="cc-form-row">
+        <button type="submit" class="cc-btn cc-btn-primary">Add Sponsor</button>
+      </div>
+    </form>
+  </div>
 
-        async function initPipeline() {
-            try {
-                const response = await fetch(SHEET_URL);
-                const text = await response.text();
-                const jsonData = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = jsonData.table.rows;
-                
-                // Clear out columns
-                document.getElementById('col-contacted').innerHTML = '';
-                document.getElementById('col-inprogress').innerHTML = '';
-                document.getElementById('col-secured').innerHTML = '';
+  <!-- Filter + table -->
+  <div class="cc-filter-bar">
+    <input class="cc-input" id="filter-search" placeholder="Search business or owner…">
+    <select class="cc-select" id="filter-status">
+      <option value="">All Statuses</option>
+      <option>Confirmed</option>
+      <option>Paid</option>
+      <option>In Talks</option>
+      <option>No Answer</option>
+      <option>Declined</option>
+      <option>Not Contacted</option>
+    </select>
+    <a class="cc-btn cc-btn-ghost cc-btn-sm" id="open-sheet" target="_blank" rel="noopener">Open in Google Sheets</a>
+    <button class="cc-btn cc-btn-ghost cc-btn-sm" id="refresh-btn">Refresh</button>
+  </div>
 
-                rows.forEach(row => {
-                    const name = row.c[0] ? row.c[0].v : '';
-                    if (!name) return; // Skip blank rows
-                    
-                    const tier = row.c[1] ? row.c[1].v : 'General';
-                    const amount = row.c[2] ? row.c[2].v : 0;
-                    const status = row.c[3] ? row.c[3].v : 'Contacted';
+  <div class="cc-table-wrap">
+    <table class="cc-table">
+      <thead>
+        <tr>
+          <th>Business</th>
+          <th>Tier</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th>Amount</th>
+          <th>Next Step</th>
+        </tr>
+      </thead>
+      <tbody id="sponsor-rows">
+        <tr><td colspan="6" class="cc-loading">Loading sponsors…</td></tr>
+      </tbody>
+    </table>
+  </div>
+    </section>
 
-                    // Format Amount to Currency
-                    const formattedAmount = new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                        maximumFractionDigits: 0
-                    }).format(amount);
+<div class="cc-toast" id="toast"></div>
+<script src="sheets.js"></script>
+<script>
+(function () {
+  var SHEET_NAME = 'Sponsor Pipeline';
+  var rows = [];
+  var team = [];
 
-                    // Create Card HTML
-                    const tierClass = tier.toLowerCase().replace(/\s+/g, '');
-                    const cardHtml = `
-                        <div class="card">
-                            <div class="card-name">${name}</div>
-                            <div class="card-tier tier-${tierClass}">${tier}</div>
-                            <div class="card-amount">${formattedAmount}</div>
-                        </div>
-                    `;
+  // ── DOM ──
+  var tbody = document.getElementById('sponsor-rows');
+  var search = document.getElementById('filter-search');
+  var statusFilter = document.getElementById('filter-status');
+  var refreshBtn = document.getElementById('refresh-btn');
+  var openSheetBtn = document.getElementById('open-sheet');
+  openSheetBtn.href = BPSheets.publicSheetUrl(SHEET_NAME);
 
-                    // Sort card into the correct column based on status
-                    const cleanStatus = status.toLowerCase().replace(/\s+/g, '');
-                    if (cleanStatus === 'secured') {
-                        document.getElementById('col-secured').innerHTML += cardHtml;
-                    } else if (cleanStatus === 'inprogress' || cleanStatus === 'in progress') {
-                        document.getElementById('col-inprogress').innerHTML += cardHtml;
-                    } else {
-                        document.getElementById('col-contacted').innerHTML += cardHtml;
-                    }
-                });
+  // ── Toast ──
+  var toast = document.getElementById('toast');
+  function showToast(msg, isError) {
+    toast.textContent = msg;
+    toast.className = 'cc-toast show' + (isError ? ' error' : '');
+    setTimeout(function () { toast.classList.remove('show'); }, 3500);
+  }
 
-                // Hide loading, show pipeline
-                document.getElementById('loading-text').style.display = 'none';
-                document.getElementById('pipeline').style.display = 'grid';
+  // ── Render ──
+  function statusClass(s) {
+    return 'cc-status cc-status-' + (s || 'not-contacted').toLowerCase().replace(/\s+/g, '-');
+  }
+  function render() {
+    var q = (search.value || '').toLowerCase();
+    var sf = statusFilter.value;
+    var filtered = rows.filter(function (r) {
+      if (sf && (r['Status'] || '') !== sf) return false;
+      if (!q) return true;
+      var hay = ((r['Business'] || '') + ' ' + (r['Owner'] || '') + ' ' + (r['Contact Name'] || '')).toLowerCase();
+      return hay.indexOf(q) >= 0;
+    });
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">No sponsors match. Add one above to start the pipeline.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = filtered.map(function (r) {
+      var amt = parseFloat(String(r['Amount Committed'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      return '<tr>' +
+        '<td><strong>' + escapeHtml(r['Business']) + '</strong>' +
+          (r['Contact Name'] ? '<br><small style="color:var(--text-faint)">' + escapeHtml(r['Contact Name']) + '</small>' : '') +
+        '</td>' +
+        '<td>' + escapeHtml(r['Target Tier']) + '</td>' +
+        '<td><span class="' + statusClass(r['Status']) + '">' + escapeHtml(r['Status'] || 'Not Contacted') + '</span></td>' +
+        '<td>' + escapeHtml(r['Owner'] || '—') + '</td>' +
+        '<td>' + (amt ? '$' + amt.toLocaleString() : '—') + '</td>' +
+        '<td>' + escapeHtml(r['Next Step'] || '—') + '</td>' +
+      '</tr>';
+    }).join('');
+    updateKPIs();
+  }
 
-            } catch (error) {
-                console.error("Failed to load pipeline updates:", error);
-                document.getElementById('loading-text').innerText = "Error loading sponsor data. Please check your network.";
-            }
-        }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 
-        // Run immediately on page load
-        window.onload = initPipeline;
-    </script>
+  function updateKPIs() {
+    var confirmed = 0, pipeline = 0;
+    rows.forEach(function (r) {
+      var amt = parseFloat(String(r['Amount Committed'] || '').replace(/[^0-9.\-]/g, '')) || 0;
+      var st = (r['Status'] || '').toLowerCase();
+      if (st === 'confirmed' || st === 'paid') confirmed += amt;
+      else if (st === 'in talks' || st === 'no answer') pipeline += amt;
+    });
+    document.getElementById('kpi-confirmed').textContent = '$' + Math.round(confirmed).toLocaleString();
+    document.getElementById('kpi-pipeline').textContent  = '$' + Math.round(pipeline).toLocaleString();
+    document.getElementById('kpi-sponsors').textContent  = rows.length;
+    document.getElementById('kpi-progress').textContent  = Math.round((confirmed / 50000) * 100) + '%';
+  }
+
+  // ── Load ──
+  function load() {
+    tbody.innerHTML = '<tr><td colspan="6" class="cc-loading">Loading sponsors…</td></tr>';
+    return Promise.all([
+      BPSheets.read(SHEET_NAME),
+      BPSheets.read('Team').catch(() => [])
+    ]).then(function (r) {
+      rows = r[0];
+      team = r[1];
+      populateOwners();
+      render();
+    }).catch(function (err) {
+      var msg = err && err.message || String(err);
+      if (/private|webhook|NO_WEBHOOK/i.test(msg) || !BPSheets.getWebhookUrl()) {
+        tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">' +
+          'Backend webhook not configured yet. ' +
+          '<a href="settings.html" style="color:var(--gold-400)">Open Settings</a> to paste the Apps Script URL (one-time, ~5 minutes).' +
+          '</td></tr>';
+      } else {
+        tbody.innerHTML = '<tr><td colspan="6" class="cc-empty">Couldn\'t load sponsors: ' + escapeHtml(msg) + '</td></tr>';
+      }
+    });
+  }
+
+  function populateOwners() {
+    var sel = document.getElementById('s-owner');
+    sel.innerHTML = '<option value="">— pick name —</option>' +
+      team.map(function (t) { return '<option>' + escapeHtml(t['Name']) + '</option>'; }).join('');
+  }
+
+  // ── Add ──
+  document.getElementById('add-sponsor-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var row = {
+      'Business':         document.getElementById('s-business').value.trim(),
+      'Target Tier':      document.getElementById('s-tier').value,
+      'Owner':            document.getElementById('s-owner').value,
+      'Contact Name':     document.getElementById('s-contact').value.trim(),
+      'Email':            document.getElementById('s-email').value.trim(),
+      'Phone':            document.getElementById('s-phone').value.trim(),
+      'Status':           document.getElementById('s-status').value,
+      'Last Touch':       new Date().toISOString().slice(0, 10),
+      'Next Step':        document.getElementById('s-next').value.trim(),
+      'Amount Committed': document.getElementById('s-amount').value || '',
+      'Logo Received?':   '',
+      'Notes':            '',
+    };
+    if (!row['Business']) return showToast('Business name required.', true);
+
+    var submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving…';
+
+    BPSheets.append(SHEET_NAME, row).then(function () {
+      showToast('Sponsor added: ' + row['Business']);
+      e.target.reset();
+      return load();
+    }).catch(function (err) {
+      showToast(err.message || String(err), true);
+    }).then(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Add Sponsor';
+    });
+  });
+
+  search.addEventListener('input', render);
+  statusFilter.addEventListener('change', render);
+  refreshBtn.addEventListener('click', load);
+
+  load();
+})();
+</script>
+</main>
+</div>
+
+
+<script>
+(function () {
+  var key = 'sponsors';
+  document.querySelectorAll('[data-nav="' + key + '"]').forEach(function (a) {
+    a.classList.add('is-active');
+  });
+  function startOfDay(d) { var x = new Date(d); x.setHours(0,0,0,0); return x; }
+  var event = startOfDay(new Date(2026, 9, 10));
+  var today = startOfDay(new Date());
+  var days = Math.round((event - today) / 86400000);
+  var label = days > 14 ? 'T-' + Math.floor(days/7) + ' weeks · ' + days + ' days out' :
+              days > 1 ? 'T-' + days + ' days' :
+              days === 1 ? 'T-1 day · Tomorrow' :
+              days === 0 ? 'Event Day · Live' :
+              'Tournament day ' + (-days) + ' days ago';
+  var el = document.getElementById('cc-tminus-status');
+  if (el) el.textContent = label;
+})();
+</script>
 </body>
 </html>
